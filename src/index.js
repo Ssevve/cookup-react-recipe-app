@@ -8,6 +8,7 @@ require('dotenv').config({ path: './src/config/.env' });
 
 const notFound = require('./middleware/notFound');
 const errorHandler = require('./middleware/errorHandler');
+const recipesRouter = require('./api/recipes');
 
 const app = express();
 
@@ -18,12 +19,15 @@ app.use(helmet());
 app.use(cors({
   origin: process.env.CORS_ORIGIN,
 }));
+app.use(express.json());
 
 app.get('/', (req, res) => {
   res.json({
-    message: 'Hello from the backend',
+    message: 'Hello from the api',
   });
 });
+
+app.use('/api/recipes', recipesRouter);
 
 app.use(notFound);
 app.use(errorHandler);
