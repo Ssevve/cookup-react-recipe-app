@@ -11,41 +11,47 @@ const recipeSchema = new Schema(
   {
     title: requiredString,
     description: requiredString,
-    ingredients: [
-      {
-        name: requiredString,
-        measureUnit: requiredString,
-        measure: {
-          type: Number,
-          required: true,
+    ingredients: {
+      type: [
+        {
+          _id: false,
+          name: requiredString,
+          unit: requiredString,
+          unitShort: requiredString,
+          amount: {
+            type: Number,
+            required: true,
+          },
         },
+      ],
+      validate: [(value) => value.length > 0, 'You must provide at least one ingredient.'],
+    },
+    steps: {
+      type: [
+        {
+          _id: false,
+          stepNumber: {
+            type: Number,
+            required: true,
+          },
+          text: requiredString,
+          completed: {
+            type: Boolean,
+            default: false,
+          },
+        },
+      ],
+      validate: [
+        (value) => value.length > 0,
+        'You must provide at least one step.',
+      ],
+    },
+    images: [
+      {
+        type: String,
+        default: null,
       },
     ],
-    steps: [
-      {
-        stepNumber: {
-          type: Number,
-          required: true,
-        },
-        text: requiredString,
-        completed: {
-          type: Boolean,
-          default: false,
-        },
-      },
-    ],
-    servings: {
-      type: Number,
-      min: 1,
-      default: 1,
-    },
-    prepTime: {
-      type: Number,
-    },
-    image: {
-      type: String,
-      default: null,
-    },
   },
   { timestamps: true },
 );
