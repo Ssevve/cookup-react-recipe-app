@@ -7,22 +7,22 @@ export default function Header() {
     <header className="header">
       <div className="container flex justify-content-sb align-items-center">
         <NavLink className="header__logo" to="/">
-          <span>Cukup</span>
+          <span>Cookup</span>
         </NavLink>
         <nav className="header__nav">
           <ul className="header__link-list flex">
             <li>
-              <NavLink activeClassName='active' className="header__link" to="/" end>
+              <NavLink activeClassName='active' className="btn header__link" to="/" end>
                 Home
               </NavLink>
             </li>
             <li>
-              <NavLink activeClassName='active' className="header__link" to="/recipes">
+              <NavLink activeClassName='active' className="btn header__link" to="/recipes">
                 Recipes
               </NavLink>
             </li>
             <li>
-              <NavLink activeClassName='active' className="header__link" to="/add">
+              <NavLink activeClassName='active' className="btn header__link" to="/add">
                 Add Recipe
               </NavLink>
             </li>
