@@ -19,12 +19,22 @@ body {
   color: var(--clr-font-body);
 }
 
-#root {
- height: 100vh;
+img {
+  display: block;
+  max-width: 100%;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
 }
 
 a {
   color: inherit;
+}
+
+#root {
+ height: 100vh;
 }
 
 /* UTILITY CLASSES */
@@ -58,7 +68,7 @@ a {
   color: var(--clr-accent);
 }
 
-.block-text {
+.d-block {
   display: block;
 }
 

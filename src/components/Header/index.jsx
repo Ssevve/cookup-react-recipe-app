@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom';
 
-import './Header.css';
+import './style.css';
 
 export default function Header() {
   return (
@@ -12,17 +12,17 @@ export default function Header() {
         <nav className="header__nav">
           <ul className="header__link-list flex">
             <li>
-              <NavLink activeClassName='active' className="btn header__link" to="/" end>
+              <NavLink activeclassname='active' className="btn header__link" to="/" end>
                 Home
               </NavLink>
             </li>
             <li>
-              <NavLink activeClassName='active' className="btn header__link" to="/recipes">
+              <NavLink activeclassname='active' className="btn header__link" to="/recipes">
                 Recipes
               </NavLink>
             </li>
             <li>
-              <NavLink activeClassName='active' className="btn header__link" to="/add">
+              <NavLink activeclassname='active' className="btn header__link" to="/add">
                 Add Recipe
               </NavLink>
             </li>

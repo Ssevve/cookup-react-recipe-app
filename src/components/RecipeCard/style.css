@@ -1,0 +1,16 @@
+.card {
+  max-width: 500px;
+  padding: 1rem;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+}
+
+.card__photo {
+  width: 100%;
+  height: 15vw;
+  object-fit: cover;
+}
+
+.card__title,
+.card__description {
+  margin-top: 1rem;
+}
