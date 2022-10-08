@@ -6,6 +6,7 @@ import Header from './components/Header';
 import Landing from './components/Landing';
 import AddRecipe from './components/AddRecipe';
 import Recipes from './components/Recipes';
+import Recipe from './components/Recipe';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/recipes" element={<Recipes />} />
+          <Route path="/recipe" element={<Recipe />} render={(props) => <Recipe {...props} />} />
           <Route path="/add" element={<AddRecipe />} />
         </Routes>
       </div>
