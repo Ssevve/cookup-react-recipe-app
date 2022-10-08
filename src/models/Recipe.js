@@ -32,6 +32,7 @@ const recipeSchema = new Schema(
       type: [
         {
           instructionIndex: Number,
+          title: requiredString,
           text: requiredString,
           completed: {
             type: Boolean,
