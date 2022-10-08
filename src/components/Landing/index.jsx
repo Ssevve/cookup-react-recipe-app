@@ -3,7 +3,7 @@ import './style.css';
 
 export default function Landing() {
   return (
-    <main className="hero page">
+    <main className="hero">
       <div className="container flex justify-content-sb h-full align-items-center">
         <section className="hero__body">
           <h1 className="hero__title">

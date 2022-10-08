@@ -1,5 +1,6 @@
 .hero {
   background: var(--clr-secondary);
+  flex: 1;
 }
 
 .hero__body {
