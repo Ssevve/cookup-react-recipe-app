@@ -21,7 +21,7 @@ export default function Recipes() {
   }
 
   return (
-    <section className="recipes">
+    <section className="recipes page">
       <div className="container">
         <ul className="recipes">
           {recipes.length ? (
