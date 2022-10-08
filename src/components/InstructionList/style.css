@@ -1,0 +1,17 @@
+.instruction + .instruction {
+  margin-top: 2rem;
+}
+
+.instruction__label,
+.instruction__checkbox {
+  cursor: pointer;
+}
+
+.instruction__label {
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.instruction__checkbox {
+  margin-right: 0.5rem;
+}

@@ -15,9 +15,11 @@ export default function Recipe() {
         <section className="recipe__image">
           <img src={recipe.image} alt={recipe.title} />
         </section>
-        <section className="recipe__details">
-          <h1 className="recipe__title">{recipe.title}</h1>
-          <p className="recipe__description">{recipe.description}</p>
+        <section className="recipe__details flex flex-column">
+          <div>
+            <h1 className="recipe__title">{recipe.title}</h1>
+            <p className="recipe__description">{recipe.description}</p>
+          </div>
           <section className="recipe__ingredients">
             <h2 className="section-heading">Ingredients</h2>
             <IngredientList ingredients={recipe.ingredients} />

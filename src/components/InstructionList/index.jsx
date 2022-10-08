@@ -1,12 +1,18 @@
 import PropTypes from 'prop-types';
 
-export default function InstructionList({ instructions }) {
+import './style.css';
+
+export default function InstructionList({ instructions }) {  
   return (
     <ol className="instructions">
       {instructions.map((instruction) => {
         return (
-          <li key={instruction._id}>
-            <p>{instruction.text}</p>
+          <li className="instruction" key={instruction._id}>    
+              <label className="instruction__label" htmlFor={instruction._id}>
+                <input className="instruction__checkbox" id={instruction._id} type="checkbox" />
+                {instruction.title}
+              </label>
+            <p className="instruction__text">{instruction.text}</p>
           </li>
         );
       })}

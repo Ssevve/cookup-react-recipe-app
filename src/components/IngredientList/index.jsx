@@ -6,11 +6,7 @@ export default function IngredientList({ ingredients }) {
       {ingredients.map((ingredient) => {
         return (
           <li key={ingredient._id}>
-            <span>{ingredient.name}</span>
-            <span>-</span>
-            <span>
-              {ingredient.amount} {ingredient.unitShort}
-            </span>
+            <span>{ingredient.name} - {ingredient.amount} {ingredient.unitShort}</span>
           </li>
         );
       })}

@@ -24,7 +24,8 @@ img {
   max-width: 100%;
 }
 
-ul {
+ul,
+ol {
   list-style: none;
   padding: 0;
 }
@@ -43,6 +44,11 @@ a {
   width: 90%;
   max-width: 2000px;
   margin-inline: auto;
+}
+
+.section-heading {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
 }
 
 .page {
