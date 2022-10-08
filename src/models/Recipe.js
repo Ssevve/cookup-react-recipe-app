@@ -14,7 +14,6 @@ const recipeSchema = new Schema(
     ingredients: {
       type: [
         {
-          _id: false,
           name: requiredString,
           unit: requiredString,
           unitShort: requiredString,
@@ -24,16 +23,15 @@ const recipeSchema = new Schema(
           },
         },
       ],
-      validate: [(value) => value.length > 0, 'You must provide at least one ingredient.'],
+      validate: [
+        (value) => value.length > 0,
+        'You must provide at least one ingredient.',
+      ],
     },
-    steps: {
+    instructions: {
       type: [
         {
-          _id: false,
-          stepNumber: {
-            type: Number,
-            required: true,
-          },
+          instructionIndex: Number,
           text: requiredString,
           completed: {
             type: Boolean,
@@ -43,15 +41,13 @@ const recipeSchema = new Schema(
       ],
       validate: [
         (value) => value.length > 0,
-        'You must provide at least one step.',
+        'You must provide at least one instruction.',
       ],
     },
-    images: [
-      {
-        type: String,
-        default: null,
-      },
-    ],
+    image: {
+      type: String,
+      default: null,
+    },
   },
   { timestamps: true },
 );
