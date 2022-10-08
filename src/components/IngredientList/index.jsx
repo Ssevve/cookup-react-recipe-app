@@ -5,7 +5,7 @@ export default function IngredientList({ ingredients }) {
     <ul className="ingredient-list">
       {ingredients.map((ingredient) => {
         return (
-          <li>
+          <li key={ingredient._id}>
             <span>{ingredient.name}</span>
             <span>-</span>
             <span>
@@ -20,4 +20,4 @@ export default function IngredientList({ ingredients }) {
 
 IngredientList.propTypes = {
   ingredients: PropTypes.array.isRequired,
-}
+};

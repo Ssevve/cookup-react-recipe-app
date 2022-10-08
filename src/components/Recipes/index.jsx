@@ -21,14 +21,18 @@ export default function Recipes() {
   }
 
   return (
-  <section className="recipes">
-    <div className="container">
-      <ul className="recipes">
-        {recipes.length
-        ? (recipes.map((recipe) => <RecipeCard key={recipe._id} recipe={recipe} />))
-        : (<p>No recipes to show! :(</p>)}
-      </ul>
-    </div>
-  </section>
+    <section className="recipes">
+      <div className="container">
+        <ul className="recipes">
+          {recipes.length ? (
+            recipes.map((recipe) => (
+              <RecipeCard key={recipe._id} recipe={recipe} />
+            ))
+          ) : (
+            <p>No recipes to show! :(</p>
+          )}
+        </ul>
+      </div>
+    </section>
   );
 }

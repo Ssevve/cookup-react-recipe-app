@@ -5,12 +5,12 @@ import PropTypes from 'prop-types';
 export default function RecipeCard({ recipe }) {
   return (
     <li>
-      <Link to="/recipe" state={{recipe: recipe}}>
+      <Link to="/recipe" state={{ recipe: recipe }}>
         <section className="card flex flex-column">
           <section className="card__section">
             <img
               className="card__image"
-              src={recipe.images[0]}
+              src={recipe.image}
               alt={recipe.title}
             />
           </section>
@@ -26,4 +26,4 @@ export default function RecipeCard({ recipe }) {
 
 RecipeCard.propTypes = {
   recipe: PropTypes.object.isRequired,
-}
+};

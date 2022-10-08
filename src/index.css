@@ -35,7 +35,7 @@ a {
 }
 
 #root {
- height: 100vh;
+  height: 100vh;
 }
 
 /* UTILITY CLASSES */
@@ -43,6 +43,10 @@ a {
   width: 90%;
   max-width: 2000px;
   margin-inline: auto;
+}
+
+.page {
+  flex: 1;
 }
 
 .flex {
@@ -58,7 +62,7 @@ a {
 }
 
 .align-items-center {
-  align-items:center;
+  align-items: center;
 }
 
 .h-full {
