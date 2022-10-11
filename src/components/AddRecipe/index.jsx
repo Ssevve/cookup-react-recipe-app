@@ -1,3 +1,7 @@
+import RecipeForm from '../RecipeForm';
+
 export default function AddRecipe() {
-  return <div>AddRecipe</div>;
+  return (
+    <RecipeForm />
+  );
 }
