@@ -8,7 +8,7 @@ export default function InstructionList({ instructions }) {
       {instructions.map((instruction) => {
         return (
           <li className="instruction" key={instruction._id}>    
-              <label className="instruction__label" htmlFor={instruction._id}>
+              <label className="instruction__label flex align-items-center" htmlFor={instruction._id}>
                 <input className="instruction__checkbox" id={instruction._id} type="checkbox" />
                 {instruction.title}
               </label>
