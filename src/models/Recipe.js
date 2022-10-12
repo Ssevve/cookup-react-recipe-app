@@ -14,6 +14,7 @@ const recipeSchema = new Schema(
     ingredients: {
       type: [
         {
+          _id: false,
           name: requiredString,
           unit: requiredString,
           unitShort: requiredString,
