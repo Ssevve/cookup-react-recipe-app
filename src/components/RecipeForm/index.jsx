@@ -1,29 +1,24 @@
 import { useState } from 'react';
 
 export default function RecipeForm() {
-  const emptyInstruction = {
-    instructionIndex: 0,
-    title: '',
-    text: '',
-  }
-
-  const emptyIngredient = {
-    name: 'test',
-    unit: 'kilogram',
-    unitShort: 'kg',
-    amount: 0,
-  };
-  
-  // const [name, setName] = useState('');
-  // const [description, setDescription] = useState('');
-  // const [ingredients, setIngredients] = useState([emptyIngredient]);
-  // const [instructions, setInstruction] = useState([emptyInstruction]);
-
   const [recipe, setRecipe] = useState({
-    name: '',
+    title: '',
     description: '',
-    ingredients: [emptyIngredient],
-    instructions: [emptyInstruction],
+    ingredients: [
+      {
+        name: '',
+        unit: 'kilogram',
+        unitShort: 'kg',
+        amount: 0,
+      },
+    ],
+    instructions: [
+      {
+        instructionIndex: 0,
+        title: '',
+        text: '',
+      },
+    ],
   });
 
   function addIngredient() {
@@ -31,31 +26,38 @@ export default function RecipeForm() {
       ...recipe,
       ingredients: [
         ...recipe.ingredients,
-        emptyIngredient,
+        {
+          name: '',
+          unit: 'kilogram',
+          unitShort: 'kg',
+          amount: 0,
+        },
       ],
     });
   }
 
-  // TODO: fix editing when there are multiple ingredients
-  function handleIngredientChange(e) {
-    const { ingredients } = { ...recipe };
-    // const currentIngredients = ingredients;
+  function handleChange(e) {
     const { name, value } = e.target;
-    const [propName, index] = name.split('-');
 
-    const ingredient = ingredients[index];
-    ingredient[propName] = value;
+    if (name === 'title') setRecipe({ ...recipe, title: value });
+    else if (name === 'description')
+      setRecipe({ ...recipe, description: value });
+    else {
+      const [recipePropName, propName, index] = name.split('-');
 
-    if (propName === 'unit') {
-      const optionIndex = e.nativeEvent.target.selectedIndex;
-      ingredient.unitShort = e.nativeEvent.target[optionIndex].text;
-      console.log(e.nativeEvent.target[optionIndex].text);
+      if (recipePropName === 'ingredients') {
+        const ingredientList = [...recipe.ingredients];
+        ingredientList[index][propName] = value;
+
+        if (propName === 'unit') {
+          const optionIndex = e.nativeEvent.target.selectedIndex;
+          ingredientList[index]['unitShort'] =
+            e.nativeEvent.target[optionIndex].text;
+        }
+
+        setRecipe({ ...recipe, ingredients: ingredientList });
+      }
     }
-
-
-    ingredients[index] = ingredient;
-
-    setRecipe({...recipe, ingredients});
 
     console.log(recipe);
   }
@@ -66,11 +68,20 @@ export default function RecipeForm() {
       <form action="">
         <div className="form-group">
           <label htmlFor="title">Title</label>
-          <input id="title" type="text" />
+          <input
+            onChange={(e) => handleChange(e)}
+            id="title"
+            type="text"
+            name="title"
+          />
         </div>
         <div className="form-group">
           <label htmlFor="description">Description</label>
-          <textarea id="description" />
+          <textarea
+            onChange={(e) => handleChange(e)}
+            id="description"
+            name="description"
+          />
         </div>
         <section className="form__ingredients">
           <h2>Ingredients</h2>
@@ -78,9 +89,23 @@ export default function RecipeForm() {
             {recipe.ingredients.map((ingredient, index) => {
               return (
                 <li key={index} className="form-group">
-                  <input onChange={handleIngredientChange} name={`name-${index}`} type="text" value={ingredient.name} />
-                  <input onChange={handleIngredientChange} name={`amount-${index}`} type="number" value={ingredient.amount} />
-                  <select onChange={handleIngredientChange} name={`unit-${index}`} value={ingredient.unit}>
+                  <input
+                    onChange={(e) => handleChange(e)}
+                    name={`ingredients-name-${index}`}
+                    type="text"
+                    value={ingredient.name}
+                  />
+                  <input
+                    onChange={(e) => handleChange(e)}
+                    name={`ingredients-amount-${index}`}
+                    type="number"
+                    value={ingredient.amount}
+                  />
+                  <select
+                    onChange={(e) => handleChange(e)}
+                    name={`ingredients-unit-${index}`}
+                    value={ingredient.unit}
+                  >
                     <option value="kilogram">kg</option>
                     <option value="gram">g</option>
                     <option value="liter">l</option>
@@ -94,10 +119,6 @@ export default function RecipeForm() {
             Add ingredient
           </button>
         </section>
-
-        {/* - ingredients
-      - instructions
-      - image */}
       </form>
     </>
   );
