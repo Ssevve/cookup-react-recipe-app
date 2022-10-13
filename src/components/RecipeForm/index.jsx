@@ -14,7 +14,6 @@ export default function RecipeForm() {
     ],
     instructions: [
       {
-        instructionIndex: 0,
         title: '',
         text: '',
       },
@@ -41,6 +40,24 @@ export default function RecipeForm() {
     setRecipe({ ...recipe, ingredients: newIngredients });
   }
 
+  function addInstruction() {
+    setRecipe({
+      ...recipe,
+      instructions: [
+        ...recipe.instructions,
+        {
+          title: '',
+          text: '',
+        },
+      ],
+    });
+  }
+
+  function deleteInstruction(index) {
+    const newInstructions = recipe.instructions.filter((_, i) => i !== index);
+    setRecipe({ ...recipe, instructions: newInstructions });
+  }
+
   function handleChange(e) {
     const { name, value } = e.target;
 
@@ -61,10 +78,13 @@ export default function RecipeForm() {
         }
 
         setRecipe({ ...recipe, ingredients: ingredientList });
+      } else if (recipePropName === 'instructions') {
+        const instructionList = [...recipe.instructions];
+        instructionList[index][propName] = value;
+
+        setRecipe({ ...recipe, instructions: instructionList });
       }
     }
-
-    console.log(recipe);
   }
 
   return (
@@ -125,6 +145,38 @@ export default function RecipeForm() {
           </ul>
           <button onClick={addIngredient} type="button">
             Add ingredient
+          </button>
+        </section>
+        <section className="form__instructions">
+          <h2>Instructions</h2>
+          <ul>
+            {recipe.instructions.map((instruction, index) => {
+              return (
+                <li key={index} className="form-group">
+                  <input
+                    onChange={(e) => handleChange(e)}
+                    name={`instructions-title-${index}`}
+                    type="text"
+                    value={instruction.title}
+                  />
+                  <textarea
+                    onChange={(e) => handleChange(e)}
+                    name={`instructions-text-${index}`}
+                    type="text"
+                    value={instruction.text}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => deleteInstruction(index)}
+                  >
+                    Delete
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+          <button onClick={addInstruction} type="button">
+            Add instruction
           </button>
         </section>
       </form>
