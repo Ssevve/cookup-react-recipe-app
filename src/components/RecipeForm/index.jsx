@@ -36,6 +36,11 @@ export default function RecipeForm() {
     });
   }
 
+  function deleteIngredient(index) {
+    const newIngredients = recipe.ingredients.filter((_, i) => i !== index);
+    setRecipe({ ...recipe, ingredients: newIngredients });
+  }
+
   function handleChange(e) {
     const { name, value } = e.target;
 
@@ -111,6 +116,9 @@ export default function RecipeForm() {
                     <option value="liter">l</option>
                     <option value="milliliter">ml</option>
                   </select>
+                  <button type="button" onClick={() => deleteIngredient(index)}>
+                    Delete
+                  </button>
                 </li>
               );
             })}
