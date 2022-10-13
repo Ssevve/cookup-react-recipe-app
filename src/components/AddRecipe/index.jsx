@@ -2,6 +2,9 @@ import RecipeForm from '../RecipeForm';
 
 export default function AddRecipe() {
   return (
-    <RecipeForm />
+    <>
+      <h1>Add new recipe</h1>
+      <RecipeForm />
+    </>
   );
 }

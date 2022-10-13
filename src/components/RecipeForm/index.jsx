@@ -93,7 +93,6 @@ export default function RecipeForm() {
 
   return (
     <>
-      <h1>Add new recipe</h1>
       <form action="">
         <div className="form-group">
           <label htmlFor="title">Title</label>
