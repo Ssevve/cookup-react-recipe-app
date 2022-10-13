@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import ImageUpload from '../ImageUpload';
+
 export default function RecipeForm() {
   const [recipe, setRecipe] = useState({
     title: '',
@@ -18,6 +20,8 @@ export default function RecipeForm() {
         text: '',
       },
     ],
+    image:
+      'https://imgs.search.brave.com/lzU2qftfabnreLPjEn36tNM7Mj6koROCIu92-R_kY9E/rs:fit:720:225:1/g:ce/aHR0cHM6Ly90c2Uz/Lm1tLmJpbmcubmV0/L3RoP2lkPU9JUC5o/dEZLMlB6YzFYcGcy/M1B3aV9mZXpRSGFF/NCZwaWQ9QXBp',
   });
 
   function addIngredient() {
@@ -178,6 +182,9 @@ export default function RecipeForm() {
           <button onClick={addInstruction} type="button">
             Add instruction
           </button>
+        </section>
+        <section className="form__image-upload">
+          <ImageUpload image={recipe.image} setRecipe={setRecipe} />
         </section>
       </form>
     </>
