@@ -90,9 +90,32 @@ export default function RecipeForm() {
     }
   }
 
+  async function handleSubmit(e) {
+    e.preventDefault();
+  
+    const formData = new FormData();
+    formData.append('recipe', JSON.stringify(recipe));
+    formData.append('image', image.data);
+    
+    const url = 'http://localhost:8000/api/recipes'
+    const requestOptions = {
+        method: 'POST',
+        body: formData,
+    };
+  
+    try {
+      const res = await fetch(url, requestOptions);
+      const data = await res.json();
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+    
+  }
+
   return (
     <>
-      <form>
+      <form onSubmit={(e) => handleSubmit(e)}>
         <div className="form-group">
           <label htmlFor="title">Title</label>
           <input
