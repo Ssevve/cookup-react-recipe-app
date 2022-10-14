@@ -1,6 +1,10 @@
 const router = require('express').Router();
+const multer = require('multer');
+
+const upload = multer({ storage: multer.diskStorage({}) });
 
 const Recipe = require('../models/Recipe');
+const cloudinary = require('../lib/cloudinary');
 
 router.get('/', async (req, res, next) => {
   try {
@@ -11,16 +15,21 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-router.post('/', async (req, res, next) => {
+router.post('/', upload.single('image'), async (req, res, next) => {
   try {
-    const recipe = new Recipe(req.body);
-    const createdRecipe = await recipe.save();
+    const result = await cloudinary.uploader.upload(req.file.path);
+    const recipe = JSON.parse(req.body.recipe);
+
+    const createdRecipe = await Recipe.create({
+      ...recipe,
+      image: result.secure_url,
+      cloudinaryId: result.public_id,
+    });
+
     res.json(createdRecipe);
   } catch (error) {
-    if (error.name === 'ValidationError') res.status(422);
     next(error);
   }
-  console.log(req.body);
 });
 
 module.exports = router;
