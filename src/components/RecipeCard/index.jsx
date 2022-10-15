@@ -6,7 +6,7 @@ export default function RecipeCard({ recipe }) {
   return (
     <li>
       <Link to="/recipe" state={{ recipe: recipe }}>
-        <section className="card flex flex-column">
+        <section className="card flex-column">
           <section className="card__section">
             <img
               className="card__image"

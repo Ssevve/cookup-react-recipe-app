@@ -6,6 +6,10 @@
   --clr-secondary: #fff1ea;
   --clr-accent: #b8582f;
   --clr-accent-hover: #b9633e;
+  --clr-success: #04c38a;
+  --clr-error: #c35868;
+
+  --border-radius: 3px;
 }
 
 * {
@@ -51,9 +55,19 @@ a {
   margin-bottom: 2rem;
 }
 
+.section-heading--small {
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
 .page {
   flex: 1;
   padding-top: 4rem;
+}
+
+.page__title {
+  font-size: 2rem;
 }
 
 .flex {
@@ -61,6 +75,7 @@ a {
 }
 
 .flex-column {
+  display: flex;
   flex-direction: column;
 }
 
@@ -70,6 +85,14 @@ a {
 
 .align-items-center {
   align-items: center;
+}
+
+.align-items-end {
+  align-items: end;
+}
+
+.align-self-end {
+  align-self: end;
 }
 
 .h-full {
@@ -87,6 +110,7 @@ a {
 .btn {
   background: var(--clr-primary);
   border: 2px solid var(--clr-secondary);
+  border-radius: var(--border-radius);
   padding: 0.75rem 1rem;
   text-decoration: none;
   font-size: 0.9rem;
@@ -94,6 +118,26 @@ a {
   cursor: pointer;
   display: inline-block;
   transition: all 0.1s ease-in-out;
+}
+
+.btn--add,
+.btn--delete {
+  background: var(--clr-success);
+  border-color: var(--clr-success);
+  font-weight: 700;
+  color: #fff;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.btn--add {
+  margin-top: 1rem;
+}
+
+.btn--delete {
+  background: var(--clr-error);
+  border-color: var(--clr-error);
 }
 
 .btn:hover {
@@ -112,4 +156,16 @@ a {
 .btn--cta:hover {
   background: var(--clr-accent-hover);
   border-color: var(--clr-accent-hover);
+}
+
+.col-1-2 {
+  flex: 0.5;
+}
+
+.col-1-3 {
+  flex: 0.33;
+}
+
+.col-2-3 {
+  flex: 0.66;
 }

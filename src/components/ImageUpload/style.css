@@ -1,0 +1,42 @@
+.file {
+  width: 100%;
+  flex: 1;
+}
+
+.file__input {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.file__label {
+  padding: 1rem;
+  display: flex;
+  gap: 1rem;
+  width: max-content;
+  border-radius: var(--border-radius);;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: 700;
+  color: white;
+  background-color: var(--clr-accent);
+  cursor: pointer;
+}
+
+.file__input:focus + .file__label,
+.file__input + .file__label:hover {
+    background-color: var(--clr-accent-hover);
+}
+
+.file__input:focus + .form__label {
+  outline: max(2px, 0.15em) solid black;
+  outline-offset: max(2px, 0.15em);
+}
+
+.file__preview {
+  margin-top: 2rem;
+  max-width: 50%;
+}

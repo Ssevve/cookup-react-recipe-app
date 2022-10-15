@@ -1,10 +1,12 @@
 import RecipeForm from '../RecipeForm';
 
+// import './style.css';
+
 export default function AddRecipe() {
   return (
-    <>
-      <h1>Add new recipe</h1>
+    <section className="container page">
+      <h1 className="page__title">Add new recipe</h1>
       <RecipeForm />
-    </>
+    </section>
   );
 }

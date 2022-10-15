@@ -11,7 +11,7 @@ import Recipe from './components/Recipe';
 function App() {
   return (
     <Router>
-      <div className="flex flex-column h-full">
+      <div className="flex-column h-full">
         <Header />
         <Routes>
           <Route path="/" element={<Landing />} />
