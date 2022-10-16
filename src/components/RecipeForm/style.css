@@ -1,12 +1,6 @@
-.form {
+.recipe-form {
   width: 100%;
   padding-bottom: 4rem;
-}
-
-.form-group {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
 }
 
 .form__label, 
@@ -28,7 +22,7 @@
   margin-top: 1rem;
 }
 
-.form__input,
+/* .form__input,
 .form__textarea,
 .select {
   font-family: inherit;
@@ -37,7 +31,7 @@
   border-radius: var(--border-radius);;
   border: 1px solid var(--clr-font-body);
   width: 100%;
-}
+} */
 
 .form__textarea {
   margin-bottom: 0.5rem;
@@ -48,12 +42,4 @@
   flex-direction: column;
 }
 
-.form__label {
-  margin-top: 1.5rem;
-  margin-bottom: -0.75rem;
-  margin-left: 0.5rem;
-  padding-inline: 0.15rem ;
-  background: #fff;
-  width: max-content;
-  z-index: 1;
-}
+

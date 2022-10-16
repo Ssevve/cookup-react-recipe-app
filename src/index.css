@@ -23,6 +23,7 @@
 body {
   font-family: var(--ff-body);
   color: var(--clr-font-body);
+  background: var(--clr-secondary);
 }
 
 img {
@@ -66,10 +67,6 @@ a {
 .page {
   flex: 1;
   padding-top: 4rem;
-}
-
-.page__title {
-  font-size: 2rem;
 }
 
 .flex {
@@ -201,6 +198,10 @@ a {
   border-color: var(--clr-error-hover);
 }
 
+.pt-2 {
+  margin-top: 2rem;
+}
+
 .col-1-2 {
   flex: 0.5;
 }
@@ -211,4 +212,36 @@ a {
 
 .col-2-3 {
   flex: 0.66;
+}
+
+.form-group {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.form__input,
+.form__textarea,
+.select {
+  font-family: inherit;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border-radius: var(--border-radius);;
+  border: 1px solid var(--clr-font-body);
+  width: 100%;
+  background: inherit;
+}
+
+.form__label {
+  margin-top: 1.5rem;
+  /* margin-bottom: -0.75rem; */
+  /* margin-left: 0.5rem; */
+  /* padding-inline: 0.15rem; */
+  /* background: #fff; */
+  /* width: max-content; */
+  /* z-index: 1; */
+}
+
+.subpage-title {
+  font-size: 2rem;
 }

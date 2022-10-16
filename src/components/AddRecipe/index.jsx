@@ -5,7 +5,7 @@ import RecipeForm from '../RecipeForm';
 export default function AddRecipe() {
   return (
     <section className="container page">
-      <h1 className="page__title">Add new recipe</h1>
+      <h1 className="subpage-title">Add new recipe</h1>
       <RecipeForm />
     </section>
   );

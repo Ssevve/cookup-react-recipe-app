@@ -117,7 +117,7 @@ export default function RecipeForm() {
 
   return (
     <form
-      className="form flex justify-content-sb"
+      className="recipe-form flex justify-content-sb"
       onSubmit={(e) => handleSubmit(e)}
     >
       <div className="col-1-2">

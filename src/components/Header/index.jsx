@@ -26,6 +26,16 @@ export default function Header() {
                 Add Recipe
               </NavLink>
             </li>
+            <li>
+              <NavLink activeclassname='active' className="btn header__link" to="/login">
+                Login
+              </NavLink>
+            </li>
+            <li>
+              <NavLink activeclassname='active' className="btn header__link" to="/signup">
+                Signup
+              </NavLink>
+            </li>
           </ul>
         </nav>
       </div>
