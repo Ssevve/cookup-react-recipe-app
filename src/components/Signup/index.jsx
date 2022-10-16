@@ -15,9 +15,27 @@ export default function Signup() {
     setUserInput({ ...userInput, [e.target.name]: e.target.value });
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    console.log(userInput);
+    
+      // TODO: Add validation
+
+    const url = 'http://localhost:8000/api/auth/signup';
+    const requestOptions = {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify(userInput),
+    };
+
+    try {
+      const res = await fetch(url, requestOptions);
+      const data = await res.json();
+      console.log(data);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   return (
