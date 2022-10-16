@@ -19,7 +19,7 @@ router.post('/signup', (req, res, next) => {
 
     user.save((err) => {
       if (err) return next(err);
-      return res.json(user);
+      return res.json({ user });
     });
   });
 });
@@ -33,7 +33,7 @@ router.post('/login', (req, res, next) => {
       if (err) {
         return next(err);
       }
-      return res.json({ message: 'Logged in' });
+      return res.json({ user });
     });
   })(req, res, next);
 });
