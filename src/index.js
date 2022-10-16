@@ -2,10 +2,16 @@ const express = require('express');
 const morgan = require('morgan');
 const helmet = require('helmet');
 const cors = require('cors');
+const mongoose = require('mongoose');
 const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
+const passport = require('passport');
 const connectDB = require('./config/database');
 
 require('dotenv').config({ path: './src/config/.env' });
+
+// Passport config
+require('./config/passport')(passport);
 
 const notFound = require('./middleware/notFound');
 const errorHandler = require('./middleware/errorHandler');
@@ -18,17 +24,25 @@ connectDB();
 
 app.use(morgan('common'));
 app.use(helmet());
-app.use(cors({
-  origin: process.env.CORS_ORIGIN,
-}));
-app.use(session({
-  secret: process.env.SESSION_SECRET,
-  resave: false,
-  saveUninitialized: false,
-  // store: new MongoStore({ mongooseConnection: mongoose.connection }),
-}));
-
+app.use(
+  cors({
+    origin: process.env.CORS_ORIGIN,
+  }),
+);
 app.use(express.json());
+
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    store: new MongoStore({ mongooseConnection: mongoose.connection }),
+  }),
+);
+
+// Passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.get('/', (req, res) => {
   res.json({
