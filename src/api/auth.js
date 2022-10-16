@@ -5,10 +5,10 @@ const passport = require('passport');
 const User = require('../models/User');
 
 router.post('/signup', (req, res, next) => {
-    // TODO: Add validation
+  // TODO: Add validation
   User.findOne({ email: req.body.email }, (err, existingUser) => {
     if (err) return next(err);
-    if (existingUser) return res.json({ message: 'Email taken' });
+    if (existingUser) return res.status(400).json({ error: 'Email taken' });
 
     const user = new User({
       firstName: req.body.firstName,
@@ -28,11 +28,10 @@ router.post('/login', (req, res, next) => {
   // TODO: Add validation
   passport.authenticate('local', (err, user) => {
     if (err) return next(err);
-    if (!user) return res.json({ error: 'User not found' });
+    if (!user) return res.status(400).json({ error: 'Incorrect username or password' });
+
     req.logIn(user, (err) => {
-      if (err) {
-        return next(err);
-      }
+      if (err) return next(err);
       return res.json({ user });
     });
   })(req, res, next);
