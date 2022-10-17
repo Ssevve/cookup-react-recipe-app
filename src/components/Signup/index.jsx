@@ -18,8 +18,6 @@ export default function Signup() {
   async function handleSubmit(e) {
     e.preventDefault();
     
-      // TODO: Add validation
-
     const url = 'http://localhost:8000/api/auth/signup';
     const requestOptions = {
       method: 'POST',

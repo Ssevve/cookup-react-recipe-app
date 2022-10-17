@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import './style.css';
 
-export default function Login() {
+export default function Login({ setUser }) {
   const [userInput, setUserInput] = useState({
     email: '',
     password: '',
@@ -14,11 +14,11 @@ export default function Login() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    // TODO: Add validation
 
     const url = 'http://localhost:8000/api/auth/login';
     const requestOptions = {
       method: 'POST',
+      credentials: 'include',
       headers: {
         'content-type': 'application/json',
       },
@@ -28,6 +28,11 @@ export default function Login() {
     try {
       const res = await fetch(url, requestOptions);
       const data = await res.json();
+
+      if (data.user) {
+        setUser(data.user);
+      }
+
       console.log(data);
     } catch (err) {
       console.log(err);
