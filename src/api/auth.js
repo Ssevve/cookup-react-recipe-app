@@ -5,7 +5,6 @@ const passport = require('passport');
 const User = require('../models/User');
 
 router.get('/', (req, res) => {
-  console.log(req);
   if (req.user) {
     const user = {
       firstName: req.user.firstName,
