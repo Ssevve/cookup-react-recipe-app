@@ -23,19 +23,24 @@ export default function Signup() {
     setUserInput({ ...userInput, [e.target.name]: e.target.value });
 
     validateInput(e);
-
   }
-  
+
   function validateInput(e) {
     const { name, value } = e.target;
 
     let error = '';
 
-    if (name === 'firstName') error = value.length < 1 ? 'Provide a first name' : '';
-    else if (name === 'lastName') error = value.length < 1 ? 'Provide a last name' : '';
-    else if (name === 'email') error = !validator.isEmail(value) ? 'Provide a valid email' : ''; 
-    else if (name === 'password') error = value.length < 8 ? 'Password must be at least 8 characters long' : '';
-    else if (name === 'confirmPassword') error = value !== userInput.password ? 'Passwords do not match' : '';
+    if (name === 'firstName')
+      error = value.length < 1 ? 'Provide a first name' : '';
+    else if (name === 'lastName')
+      error = value.length < 1 ? 'Provide a last name' : '';
+    else if (name === 'email')
+      error = !validator.isEmail(value) ? 'Provide a valid email' : '';
+    else if (name === 'password')
+      error =
+        value.length < 8 ? 'Password must be at least 8 characters long' : '';
+    else if (name === 'confirmPassword')
+      error = value !== userInput.password ? 'Passwords do not match' : '';
 
     setErrors({ ...errors, [e.target.name]: error });
     console.log(errors);
@@ -43,8 +48,10 @@ export default function Signup() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    
-    let isInputValid = Object.values(errors).every(error => error.length === 0);
+
+    let isInputValid = Object.values(errors).every(
+      (error) => error.length === 0,
+    );
 
     if (!isInputValid) {
       console.log('Errors prevented from submitting the form');
