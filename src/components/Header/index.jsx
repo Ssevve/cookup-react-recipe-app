@@ -80,8 +80,7 @@ export default function Header({ user, setUser }) {
             <li>
               <NavLink
                 onClick={logout}
-                activeclassname="active"
-                className="btn header__link"
+                className="btn"
                 to="#"
               >
                 Logout
