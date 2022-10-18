@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import validator from 'validator';
+import isEmail from 'validator/lib/isEmail';
 
 import './style.css';
 
@@ -35,7 +35,7 @@ export default function Signup() {
     else if (name === 'lastName')
       error = value.length < 1 ? 'Last name cannot be empty' : '';
     else if (name === 'email')
-      error = !validator.isEmail(value) ? 'Please provide a valid email' : '';
+      error = !isEmail(value) ? 'Please provide a valid email' : '';
     else if (name === 'password')
       error =
         value.length < 8 ? 'Password must be at least 8 characters long' : '';
