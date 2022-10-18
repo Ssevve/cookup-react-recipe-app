@@ -42,6 +42,7 @@ export default function Signup() {
     else if (name === 'confirmPassword')
       error = value !== userInput.password ? 'Passwords do not match' : '';
 
+
     setErrors({ ...errors, [e.target.name]: error });
     console.log(errors);
   }
@@ -87,60 +88,65 @@ export default function Signup() {
                 First name
               </label>
               <input
-                className="form__input"
+                className={`form__input ${errors.firstName ? 'border-error' : ''}`}
                 onChange={handleChange}
                 id="signup-first-name"
                 type="text"
                 name="firstName"
               />
+              <small className="form-error-message">{errors.firstName}</small>
             </div>
             <div className="form-group">
               <label className="form__label" htmlFor="signup-last-name">
                 Last name
               </label>
               <input
-                className="form__input"
+                className={`form__input ${errors.lastName ? 'border-error' : ''}`}
                 onChange={handleChange}
                 id="signup-last-name"
                 type="text"
                 name="lastName"
               />
+              <small className="form-error-message">{errors.lastName}</small>
             </div>
             <div className="form-group">
               <label className="form__label" htmlFor="signup-email">
                 Email
               </label>
               <input
-                className="form__input"
+                className={`form__input ${errors.email ? 'border-error' : ''}`}
                 onChange={handleChange}
                 id="signup-email"
                 type="email"
                 name="email"
               />
+              <small className="form-error-message">{errors.email}</small>
             </div>
             <div className="form-group">
               <label className="form__label" htmlFor="signup-password">
                 Password
               </label>
               <input
-                className="form__input"
+                className={`form__input ${errors.password ? 'border-error' : ''}`}
                 onChange={handleChange}
                 id="signup-password"
                 type="password"
                 name="password"
               />
+              <small className="form-error-message">{errors.password}</small>
             </div>
             <div className="form-group">
               <label className="form__label" htmlFor="signup-confirm-password">
                 Confirm Password
               </label>
               <input
-                className="form__input"
+                className={`form__input ${errors.confirmPassword ? 'border-error' : ''}`}
                 onChange={handleChange}
                 id="signup-confirm-password"
                 type="password"
                 name="confirmPassword"
               />
+              <small className="form-error-message">{errors.confirmPassword}</small>
             </div>
             <button className="btn btn--cta pt-2" type="submit">
               Signup
