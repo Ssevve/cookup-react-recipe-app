@@ -148,7 +148,7 @@ export default function Signup() {
               />
               <small className="form-error-message">{errors.confirmPassword}</small>
             </div>
-            <button className="btn btn--cta pt-2" type="submit">
+            <button className="btn btn--cta pt-2 align-self-end" type="submit">
               Signup
             </button>
           </form>

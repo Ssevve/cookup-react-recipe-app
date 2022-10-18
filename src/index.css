@@ -214,6 +214,11 @@ a {
   flex: 0.66;
 }
 
+.auth-form {
+  display: flex;
+  flex-direction: column;
+}
+
 .form-group {
   width: 100%;
   display: flex;
@@ -244,4 +249,13 @@ a {
 
 .subpage-title {
   font-size: 2rem;
+}
+
+.border-error {
+  border-color: var(--clr-error);
+}
+
+.form-error-message {
+  color: var(--clr-error);
+  margin-top: 0.25rem;
 }

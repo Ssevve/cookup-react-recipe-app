@@ -69,7 +69,7 @@ export default function Login({ setUser }) {
                 name="password"
               />
             </div>
-            <button className="btn btn--cta pt-2" type="submit">
+            <button className="btn btn--cta pt-2 align-self-end" type="submit">
               Login
             </button>
           </form>
