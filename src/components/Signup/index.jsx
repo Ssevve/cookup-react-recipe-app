@@ -31,11 +31,11 @@ export default function Signup() {
     let error = '';
 
     if (name === 'firstName')
-      error = value.length < 1 ? 'Provide a first name' : '';
+      error = value.length < 1 ? 'First name cannot be empty' : '';
     else if (name === 'lastName')
-      error = value.length < 1 ? 'Provide a last name' : '';
+      error = value.length < 1 ? 'Last name cannot be empty' : '';
     else if (name === 'email')
-      error = !validator.isEmail(value) ? 'Provide a valid email' : '';
+      error = !validator.isEmail(value) ? 'Please provide a valid email' : '';
     else if (name === 'password')
       error =
         value.length < 8 ? 'Password must be at least 8 characters long' : '';
