@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import validator from 'validator';
 
 import './style.css';
 
@@ -8,16 +9,48 @@ export default function Signup() {
     lastName: '',
     email: '',
     password: '',
-    repeatPassword: '',
+    confirmPassword: '',
+  });
+  const [errors, setErrors] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
   });
 
   function handleChange(e) {
     setUserInput({ ...userInput, [e.target.name]: e.target.value });
+
+    validateInput(e);
+
+  }
+  
+  function validateInput(e) {
+    const { name, value } = e.target;
+
+    let error = '';
+
+    if (name === 'firstName') error = value.length < 1 ? 'Provide a first name' : '';
+    else if (name === 'lastName') error = value.length < 1 ? 'Provide a last name' : '';
+    else if (name === 'email') error = !validator.isEmail(value) ? 'Provide a valid email' : ''; 
+    else if (name === 'password') error = value.length < 8 ? 'Password must be at least 8 characters long' : '';
+    else if (name === 'confirmPassword') error = value !== userInput.password ? 'Passwords do not match' : '';
+
+    setErrors({ ...errors, [e.target.name]: error });
+    console.log(errors);
   }
 
   async function handleSubmit(e) {
     e.preventDefault();
     
+    let isInputValid = Object.values(errors).every(error => error.length === 0);
+
+    if (!isInputValid) {
+      console.log('Errors prevented from submitting the form');
+      return;
+    }
+
     const url = 'http://localhost:8000/api/auth/signup';
     const requestOptions = {
       method: 'POST',
@@ -41,7 +74,7 @@ export default function Signup() {
       <div className="container flex justify-content-sb h-full align-items-center">
         <section className="form-section">
           <h1 className="subpage-title">Signup</h1>
-          <form className="auth-form" onSubmit={handleSubmit}>
+          <form className="auth-form" onSubmit={handleSubmit} noValidate>
             <div className="form-group">
               <label className="form__label" htmlFor="signup-first-name">
                 First name
@@ -99,7 +132,7 @@ export default function Signup() {
                 onChange={handleChange}
                 id="signup-confirm-password"
                 type="password"
-                name="repeatPassword"
+                name="confirmPassword"
               />
             </div>
             <button className="btn btn--cta pt-2" type="submit">
