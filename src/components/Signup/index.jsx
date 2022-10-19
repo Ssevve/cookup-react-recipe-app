@@ -11,57 +11,33 @@ export default function Signup() {
     password: '',
     confirmPassword: '',
   });
-  const [errors, setErrors] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-  });
-
+  const [formErrors, setFormErrors] = useState({});
+ 
   function handleChange(e) {
     setUserInput({ ...userInput, [e.target.name]: e.target.value });
-
-    validateInput(e);
   }
 
-  function validateInput(e) {
-    const { name, value } = e.target;
+  function validateInput() {
+    const errors = {};
+    
+    if (userInput.firstName.length === 0) errors.firstName = 'First name cannot be empty';
+    if (userInput.lastName.length === 0) errors.lastName = 'Last name cannot be empty';
 
-    let error = '';
+    if (userInput.email.length === 0) errors.email = 'Email cannot be empty';
+    else if (!isEmail(userInput.email)) errors.email = 'Email is not valid';
+    
+    if (userInput.password.length < 8) errors.password = 'Password must be at least 8 characters long';
+    if (userInput.confirmPassword !== userInput.password) errors.confirmPassword = 'Passwords do not match';
 
-    if (name === 'firstName')
-      error = value.length < 1 ? 'First name cannot be empty' : '';
-    else if (name === 'lastName')
-      error = value.length < 1 ? 'Last name cannot be empty' : '';
-    else if (name === 'email')
-      error = !isEmail(value) ? 'Please provide a valid email' : '';
-    else if (name === 'password')
-      error =
-        value.length < 8 ? 'Password must be at least 8 characters long' : '';
-    else if (name === 'confirmPassword')
-      error = value !== userInput.password ? 'Passwords do not match' : '';
-
-
-    setErrors({ ...errors, [e.target.name]: error });
-    console.log(errors);
+    setFormErrors(errors);
+    return Object.values(errors).length === 0;
   }
 
   async function handleSubmit(e) {
     e.preventDefault();
-
-    const hasEmptyFields = Object.values(userInput).some((input) => input.length === 0);
-    if (hasEmptyFields) {
-      return;
-    }
-
-    const isInputValid = Object.values(errors).every(
-      (error) => error.length === 0,
-    );
-
-    if (!isInputValid) {
-      return;
-    }
+    
+    const isValidInput = validateInput();
+    if (!isValidInput) return;
 
     const url = 'http://localhost:8000/api/auth/signup';
     const requestOptions = {
@@ -92,65 +68,75 @@ export default function Signup() {
                 First name
               </label>
               <input
-                className={`form__input ${errors.firstName ? 'border-error' : ''}`}
+                className={`form__input ${
+                  formErrors.firstName ? 'border-error' : ''
+                }`}
                 onChange={handleChange}
                 id="signup-first-name"
                 type="text"
                 name="firstName"
               />
-              <small className="form-error-message">{errors.firstName}</small>
+              <small className="form-error-message">{formErrors.firstName}</small>
             </div>
             <div className="form-group">
               <label className="form__label" htmlFor="signup-last-name">
                 Last name
               </label>
               <input
-                className={`form__input ${errors.lastName ? 'border-error' : ''}`}
+                className={`form__input ${
+                  formErrors.lastName ? 'border-error' : ''
+                }`}
                 onChange={handleChange}
                 id="signup-last-name"
                 type="text"
                 name="lastName"
               />
-              <small className="form-error-message">{errors.lastName}</small>
+              <small className="form-error-message">{formErrors.lastName}</small>
             </div>
             <div className="form-group">
               <label className="form__label" htmlFor="signup-email">
                 Email
               </label>
               <input
-                className={`form__input ${errors.email ? 'border-error' : ''}`}
+                className={`form__input ${formErrors.email ? 'border-error' : ''}`}
                 onChange={handleChange}
                 id="signup-email"
                 type="email"
                 name="email"
               />
-              <small className="form-error-message">{errors.email}</small>
+              <small className="form-error-message">{formErrors.email}</small>
             </div>
             <div className="form-group">
               <label className="form__label" htmlFor="signup-password">
                 Password
               </label>
               <input
-                className={`form__input ${errors.password ? 'border-error' : ''}`}
+                className={`form__input ${
+                  formErrors.password ? 'border-error' : ''
+                }`}
                 onChange={handleChange}
                 id="signup-password"
                 type="password"
                 name="password"
               />
-              <small className="form-error-message">{errors.password}</small>
+              <small className="form-error-message">{formErrors.password}</small>
             </div>
             <div className="form-group">
               <label className="form__label" htmlFor="signup-confirm-password">
                 Confirm Password
               </label>
               <input
-                className={`form__input ${errors.confirmPassword ? 'border-error' : ''}`}
+                className={`form__input ${
+                  formErrors.confirmPassword ? 'border-error' : ''
+                }`}
                 onChange={handleChange}
                 id="signup-confirm-password"
                 type="password"
                 name="confirmPassword"
               />
-              <small className="form-error-message">{errors.confirmPassword}</small>
+              <small className="form-error-message">
+                {formErrors.confirmPassword}
+              </small>
             </div>
             <button className="btn btn--cta pt-2 align-self-end" type="submit">
               Signup
