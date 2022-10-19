@@ -50,12 +50,16 @@ export default function Signup() {
   async function handleSubmit(e) {
     e.preventDefault();
 
-    let isInputValid = Object.values(errors).every(
+    const hasEmptyFields = Object.values(userInput).some((input) => input.length === 0);
+    if (hasEmptyFields) {
+      return;
+    }
+
+    const isInputValid = Object.values(errors).every(
       (error) => error.length === 0,
     );
 
     if (!isInputValid) {
-      console.log('Errors prevented from submitting the form');
       return;
     }
 
