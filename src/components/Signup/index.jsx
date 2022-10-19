@@ -12,22 +12,26 @@ export default function Signup() {
     confirmPassword: '',
   });
   const [formErrors, setFormErrors] = useState({});
- 
+
   function handleChange(e) {
     setUserInput({ ...userInput, [e.target.name]: e.target.value });
   }
 
   function validateInput() {
     const errors = {};
-    
-    if (userInput.firstName.length === 0) errors.firstName = 'First name cannot be empty';
-    if (userInput.lastName.length === 0) errors.lastName = 'Last name cannot be empty';
+
+    if (userInput.firstName.length === 0)
+      errors.firstName = 'First name cannot be empty';
+    if (userInput.lastName.length === 0)
+      errors.lastName = 'Last name cannot be empty';
 
     if (userInput.email.length === 0) errors.email = 'Email cannot be empty';
     else if (!isEmail(userInput.email)) errors.email = 'Email is not valid';
-    
-    if (userInput.password.length < 8) errors.password = 'Password must be at least 8 characters long';
-    if (userInput.confirmPassword !== userInput.password) errors.confirmPassword = 'Passwords do not match';
+
+    if (userInput.password.length < 8)
+      errors.password = 'Password must be at least 8 characters long';
+    if (userInput.confirmPassword !== userInput.password)
+      errors.confirmPassword = 'Passwords do not match';
 
     setFormErrors(errors);
     return Object.values(errors).length === 0;
@@ -35,7 +39,7 @@ export default function Signup() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    
+
     const isValidInput = validateInput();
     if (!isValidInput) return;
 
@@ -76,7 +80,9 @@ export default function Signup() {
                 type="text"
                 name="firstName"
               />
-              <small className="form-error-message">{formErrors.firstName}</small>
+              <small className="form-error-message">
+                {formErrors.firstName}
+              </small>
             </div>
             <div className="form-group">
               <label className="form__label" htmlFor="signup-last-name">
@@ -91,14 +97,18 @@ export default function Signup() {
                 type="text"
                 name="lastName"
               />
-              <small className="form-error-message">{formErrors.lastName}</small>
+              <small className="form-error-message">
+                {formErrors.lastName}
+              </small>
             </div>
             <div className="form-group">
               <label className="form__label" htmlFor="signup-email">
                 Email
               </label>
               <input
-                className={`form__input ${formErrors.email ? 'border-error' : ''}`}
+                className={`form__input ${
+                  formErrors.email ? 'border-error' : ''
+                }`}
                 onChange={handleChange}
                 id="signup-email"
                 type="email"
@@ -119,7 +129,9 @@ export default function Signup() {
                 type="password"
                 name="password"
               />
-              <small className="form-error-message">{formErrors.password}</small>
+              <small className="form-error-message">
+                {formErrors.password}
+              </small>
             </div>
             <div className="form-group">
               <label className="form__label" htmlFor="signup-confirm-password">
