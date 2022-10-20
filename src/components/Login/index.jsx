@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import isEmail from 'validator/lib/isEmail';
 
 import './style.css';
 
@@ -7,13 +8,28 @@ export default function Login({ setUser }) {
     email: '',
     password: '',
   });
+  const [error, setError] = useState('');
 
   function handleChange(e) {
     setUserInput({ ...userInput, [e.target.name]: e.target.value });
   }
 
+  function validateInput() {
+    if (userInput.email.length === 0
+      || !isEmail(userInput.email)
+      || userInput.password.length < 8) {
+        setError('Incorrect email address or password.');
+        return false;
+      }
+    setError('');
+    return true;
+  }
+
   async function handleSubmit(e) {
     e.preventDefault();
+
+    const isValidInput = validateInput();
+    if (!isValidInput) return;
 
     const url = 'http://localhost:8000/api/auth/login';
     const requestOptions = {
@@ -44,7 +60,10 @@ export default function Login({ setUser }) {
       <div className="container flex justify-content-sb h-full align-items-center">
         <section className="form-section">
           <h1 className="subpage-title">Login</h1>
-          <form className="auth-form" onSubmit={handleSubmit}>
+          {error &&<div className="alert-box">
+            <p>{error}</p>
+          </div>}
+          <form className="auth-form" onSubmit={handleSubmit} noValidate>
             <div className="form-group">
               <label className="form__label" htmlFor="login-email">
                 Email
