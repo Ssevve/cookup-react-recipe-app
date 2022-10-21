@@ -26,10 +26,7 @@ export default function ImageUpload({ image, setImage }) {
       </label>
       <img
         className="file__preview"
-        src={
-          image.preview
-          || 'https://imgs.search.brave.com/lzU2qftfabnreLPjEn36tNM7Mj6koROCIu92-R_kY9E/rs:fit:720:225:1/g:ce/aHR0cHM6Ly90c2Uz/Lm1tLmJpbmcubmV0/L3RoP2lkPU9JUC5o/dEZLMlB6YzFYcGcy/M1B3aV9mZXpRSGFF/NCZwaWQ9QXBp'
-        }
+        src={image.preview || 'https://imgs.search.brave.com/lzU2qftfabnreLPjEn36tNM7Mj6koROCIu92-R_kY9E/rs:fit:720:225:1/g:ce/aHR0cHM6Ly90c2Uz/Lm1tLmJpbmcubmV0/L3RoP2lkPU9JUC5o/dEZLMlB6YzFYcGcy/M1B3aV9mZXpRSGFF/NCZwaWQ9QXBp'}
         alt=""
       />
     </div>
@@ -37,6 +34,6 @@ export default function ImageUpload({ image, setImage }) {
 }
 
 ImageUpload.propTypes = {
-  image: PropTypes.string.isRequired,
+  image: PropTypes.shape({ preview: PropTypes.string, data: PropTypes.shape({}) }).isRequired,
   setImage: PropTypes.func.isRequired,
 };

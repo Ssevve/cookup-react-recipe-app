@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import React, { useState, useEffect } from 'react';
 
 import './style.css';
@@ -26,10 +27,7 @@ export default function Recipes() {
       <div className="container">
         <ul className="recipes">
           {recipes.length ? (
-            recipes.map((recipe) => (
-              // eslint-disable-next-line no-underscore-dangle
-              <RecipeCard key={recipe._id} recipe={recipe} />
-            ))
+            recipes.map((recipe) => <RecipeCard key={recipe._id} recipe={recipe} />)
           ) : (
             <p>No recipes to show! :(</p>
           )}

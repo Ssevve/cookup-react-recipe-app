@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
 import './index.css';
 
 import Header from './components/Header';
@@ -11,6 +12,7 @@ import Login from './components/Login';
 import Signup from './components/Signup';
 
 function App() {
+  // eslint-disable-next-line no-unused-vars
   const [user, setUser] = useState(null);
 
   async function getUser() {
@@ -42,10 +44,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/recipes" element={<Recipes />} />
-          <Route
-            path="/recipe"
-            element={<Recipe />}
-          />
+          <Route path="/recipe/:recipeId" element={<Recipe />} />
           <Route path="/add" element={<AddRecipe />} />
           <Route path="/login" element={<Login setUser={setUser} />} />
           <Route path="/signup" element={<Signup />} />

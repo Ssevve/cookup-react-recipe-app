@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable no-underscore-dangle */
 import React, { useState } from 'react';
 import { FaTrash, FaPlus } from 'react-icons/fa';
@@ -147,7 +148,7 @@ export default function RecipeForm() {
           <h2 className="section-heading--small">Ingredients</h2>
           <ul>
             {recipe.ingredients.map((ingredient, index) => (
-              <li key={ingredient._id}>
+              <li key={index}>
                 <fieldset className="form__fieldset flex align-items-center">
                   <legend className="form__legend">
                     {`Ingredient ${index + 1}`}
@@ -230,7 +231,7 @@ export default function RecipeForm() {
           <h2 className="section-heading--small">Instructions</h2>
           <ul>
             {recipe.instructions.map((instruction, index) => (
-              <li key={instruction._id}>
+              <li key={index}>
                 <fieldset className="form__fieldset instruction-group">
                   <legend className="form__legend">
                     {`Instruction ${index + 1}`}

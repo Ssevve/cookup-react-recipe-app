@@ -20,11 +20,11 @@ export default function IngredientList({ ingredients }) {
 }
 
 IngredientList.propTypes = {
-  ingredients: PropTypes.arrayOf({
+  ingredients: PropTypes.arrayOf(PropTypes.shape({
     _id: PropTypes.string,
     name: PropTypes.string,
     amount: PropTypes.number,
     unitShort: PropTypes.string,
     unit: PropTypes.string,
-  }).isRequired,
+  })).isRequired,
 };

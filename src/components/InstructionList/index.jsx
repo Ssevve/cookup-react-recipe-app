@@ -28,9 +28,9 @@ export default function InstructionList({ instructions }) {
 }
 
 InstructionList.propTypes = {
-  instructions: PropTypes.arrayOf({
+  instructions: PropTypes.arrayOf(PropTypes.shape({
     instructionIndex: PropTypes.number,
     title: PropTypes.string,
     text: PropTypes.string,
-  }).isRequired,
+  })).isRequired,
 };
