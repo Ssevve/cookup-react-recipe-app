@@ -1,4 +1,3 @@
-/* eslint-disable linebreak-style */
 /* eslint-disable consistent-return */
 /* eslint-disable no-shadow */
 const router = require('express').Router();

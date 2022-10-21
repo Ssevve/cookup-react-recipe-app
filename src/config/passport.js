@@ -3,7 +3,7 @@
 const LocalStrategy = require('passport-local').Strategy;
 const User = require('../models/User');
 
-module.exports = function (passport) {
+module.exports = (passport) => {
   passport.use(
     new LocalStrategy({ usernameField: 'email', passwordField: 'password' }, (email, password, done) => {
       User.findOne({ email: email.toLowerCase() }, (err, user) => {
