@@ -1,7 +1,9 @@
+/* eslint-disable linebreak-style */
 /* eslint-disable consistent-return */
 /* eslint-disable no-shadow */
 const router = require('express').Router();
 const passport = require('passport');
+const isEmail = require('validator/lib/isEmail');
 const User = require('../models/User');
 
 router.get('/', (req, res) => {
@@ -19,15 +21,31 @@ router.get('/', (req, res) => {
 });
 
 router.post('/signup', (req, res, next) => {
-  User.findOne({ email: req.body.email }, (err, existingUser) => {
+  const validationErrors = [];
+
+  const {
+    firstName, lastName, email, password,
+  } = req.body;
+
+  if (!firstName) validationErrors.push('First name cannot be empty');
+  if (!lastName) validationErrors.push('Last name cannot be empty');
+
+  if (!email) validationErrors.push('Email cannot be empty');
+  else if (!isEmail(email)) validationErrors.push('Email is not valid');
+
+  if (password.length < 8) validationErrors.push('Password must be at least 8 characters long');
+
+  if (validationErrors.length) return res.status(400).json({ message: validationErrors });
+
+  User.findOne({ email }, (err, existingUser) => {
     if (err) return next(err);
-    if (existingUser) return res.status(400).json({ error: 'Email taken' });
+    if (existingUser) return res.status(400).json({ message: 'Email is already in use' });
 
     const user = new User({
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
-      email: req.body.email,
-      password: req.body.password,
+      firstName,
+      lastName,
+      email,
+      password,
     });
 
     user.save((err) => {
@@ -44,10 +62,19 @@ router.post('/signup', (req, res, next) => {
 });
 
 router.post('/login', (req, res, next) => {
+  const error = 'Incorrect username or password';
+
+  const { email, password } = req.body;
+
+  if (!email) return res.status(400).json({ message: error });
+  if (!isEmail(email)) return res.status(400).json({ message: error });
+  if (!password) return res.status(400).json({ message: error });
+  if (password.length < 8) return res.status(400).json({ message: error });
+
   passport.authenticate('local', (err, user) => {
     if (err) return next(err);
     if (!user) {
-      return res.status(400).json({ error: 'Incorrect username or password' });
+      return res.status(400).json({ message: error });
     }
 
     req.logIn(user, (err) => {
