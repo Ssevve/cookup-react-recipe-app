@@ -2,7 +2,7 @@ import { useState } from 'react';
 import isEmail from 'validator/lib/isEmail';
 
 import './style.css';
- 
+
 import ErrorBox from '../ErrorBox';
 
 export default function Login({ setUser }) {
@@ -17,12 +17,12 @@ export default function Login({ setUser }) {
   }
 
   function validateInput() {
-    if (userInput.email.length === 0
-      || !isEmail(userInput.email)
-      || userInput.password.length < 8) {
-        setError('Incorrect email address or password.');
-        return false;
-      }
+    const { email, password } = userInput;
+
+    if (!email || !isEmail(email) || password.length < 8) {
+      setError('Incorrect email address or password.');
+      return false;
+    }
     setError('');
     return true;
   }
@@ -47,11 +47,13 @@ export default function Login({ setUser }) {
       const res = await fetch(url, requestOptions);
       const data = await res.json();
 
+      if (!res.ok) {
+        return setError(data.message);
+      }
+
       if (data.user) {
         setUser(data.user);
       }
-
-      console.log(data);
     } catch (err) {
       console.log(err);
     }

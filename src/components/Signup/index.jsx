@@ -22,20 +22,19 @@ export default function Signup() {
   function validateInput() {
     const errors = [];
 
-    if (userInput.firstName.length === 0)
-      errors.push('First name cannot be empty');
-    if (userInput.lastName.length === 0)
-      errors.push('Last name cannot be empty');
+    const { firstName, lastName, email, password, confirmPassword } = userInput;
 
-    if (userInput.email.length === 0) errors.push('Email cannot be empty');
-    else if (!isEmail(userInput.email)) errors.push('Email is not valid');
+    if (firstName.length === 0) errors.push('First name cannot be empty');
+    if (lastName.length === 0) errors.push('Last name cannot be empty');
 
-    if (userInput.password.length < 8)
+    if (email.length === 0) errors.push('Email cannot be empty');
+    else if (!isEmail(email)) errors.push('Email is not valid');
+
+    if (password.length < 8)
       errors.push('Password must be at least 8 characters long');
-    if (userInput.confirmPassword !== userInput.password)
-      errors.push('Passwords do not match');
+    if (confirmPassword !== password) errors.push('Passwords do not match');
 
-    setFormErrors(errors);
+    setFormErrors(errors ? errors : null);
     return Object.values(errors).length === 0;
   }
 
@@ -57,7 +56,10 @@ export default function Signup() {
     try {
       const res = await fetch(url, requestOptions);
       const data = await res.json();
-      console.log(data);
+
+      if (!res.ok) {
+        return setFormErrors([data.message]);
+      }
     } catch (err) {
       console.log(err);
     }
