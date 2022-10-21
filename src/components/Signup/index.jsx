@@ -3,6 +3,8 @@ import isEmail from 'validator/lib/isEmail';
 
 import './style.css';
 
+import ErrorBox from '../ErrorBox';
+
 export default function Signup() {
   const [userInput, setUserInput] = useState({
     firstName: '',
@@ -11,27 +13,27 @@ export default function Signup() {
     password: '',
     confirmPassword: '',
   });
-  const [formErrors, setFormErrors] = useState({});
+  const [formErrors, setFormErrors] = useState(null);
 
   function handleChange(e) {
     setUserInput({ ...userInput, [e.target.name]: e.target.value });
   }
 
   function validateInput() {
-    const errors = {};
+    const errors = [];
 
     if (userInput.firstName.length === 0)
-      errors.firstName = 'First name cannot be empty';
+      errors.push('First name cannot be empty');
     if (userInput.lastName.length === 0)
-      errors.lastName = 'Last name cannot be empty';
+      errors.push('Last name cannot be empty');
 
-    if (userInput.email.length === 0) errors.email = 'Email cannot be empty';
-    else if (!isEmail(userInput.email)) errors.email = 'Email is not valid';
+    if (userInput.email.length === 0) errors.push('Email cannot be empty');
+    else if (!isEmail(userInput.email)) errors.push('Email is not valid');
 
     if (userInput.password.length < 8)
-      errors.password = 'Password must be at least 8 characters long';
+      errors.push('Password must be at least 8 characters long');
     if (userInput.confirmPassword !== userInput.password)
-      errors.confirmPassword = 'Passwords do not match';
+      errors.push('Passwords do not match');
 
     setFormErrors(errors);
     return Object.values(errors).length === 0;
@@ -66,89 +68,67 @@ export default function Signup() {
       <div className="container flex justify-content-sb h-full align-items-center">
         <section className="form-section">
           <h1 className="subpage-title">Signup</h1>
+          {formErrors && <ErrorBox errors={formErrors} />}
           <form className="auth-form" onSubmit={handleSubmit} noValidate>
             <div className="form-group">
               <label className="form__label" htmlFor="signup-first-name">
                 First name
               </label>
               <input
-                className={`form__input ${
-                  formErrors.firstName ? 'border-error' : ''
-                }`}
+                className="form__input"
                 onChange={handleChange}
                 id="signup-first-name"
                 type="text"
                 name="firstName"
               />
-              <small className="form-error-message">
-                {formErrors.firstName}
-              </small>
             </div>
             <div className="form-group">
               <label className="form__label" htmlFor="signup-last-name">
                 Last name
               </label>
               <input
-                className={`form__input ${
-                  formErrors.lastName ? 'border-error' : ''
-                }`}
+                className="form__input"
                 onChange={handleChange}
                 id="signup-last-name"
                 type="text"
                 name="lastName"
               />
-              <small className="form-error-message">
-                {formErrors.lastName}
-              </small>
             </div>
             <div className="form-group">
               <label className="form__label" htmlFor="signup-email">
                 Email
               </label>
               <input
-                className={`form__input ${
-                  formErrors.email ? 'border-error' : ''
-                }`}
+                className="form__input"
                 onChange={handleChange}
                 id="signup-email"
                 type="email"
                 name="email"
               />
-              <small className="form-error-message">{formErrors.email}</small>
             </div>
             <div className="form-group">
               <label className="form__label" htmlFor="signup-password">
                 Password
               </label>
               <input
-                className={`form__input ${
-                  formErrors.password ? 'border-error' : ''
-                }`}
+                className="form__input"
                 onChange={handleChange}
                 id="signup-password"
                 type="password"
                 name="password"
               />
-              <small className="form-error-message">
-                {formErrors.password}
-              </small>
             </div>
             <div className="form-group">
               <label className="form__label" htmlFor="signup-confirm-password">
                 Confirm Password
               </label>
               <input
-                className={`form__input ${
-                  formErrors.confirmPassword ? 'border-error' : ''
-                }`}
+                className="form__input"
                 onChange={handleChange}
                 id="signup-confirm-password"
                 type="password"
                 name="confirmPassword"
               />
-              <small className="form-error-message">
-                {formErrors.confirmPassword}
-              </small>
             </div>
             <button className="btn btn--cta pt-2 align-self-end" type="submit">
               Signup
