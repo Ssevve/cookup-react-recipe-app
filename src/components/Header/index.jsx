@@ -31,61 +31,66 @@ export default function Header({ user, setUser }) {
         </NavLink>
         <nav className="header__nav">
           <ul className="header__link-list flex">
-            <li>
-              <NavLink
-                activeclassname="active"
-                className="btn header__link"
-                to="/"
-                end
-              >
-                Home
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                activeclassname="active"
-                className="btn header__link"
-                to="/recipes"
-              >
-                Recipes
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                activeclassname="active"
-                className="btn header__link"
-                to="/add"
-              >
-                Add Recipe
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                activeclassname="active"
-                className="btn header__link"
-                to="/login"
-              >
-                Login
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                activeclassname="active"
-                className="btn header__link"
-                to="/signup"
-              >
-                Signup
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                onClick={logout}
-                className="btn"
-                to="#"
-              >
-                Logout
-              </NavLink>
-            </li>
+            {!user && (
+              <>
+                <li>
+                  <NavLink
+                    activeclassname="active"
+                    className="btn header__link"
+                    to="/"
+                    end
+                  >
+                    Home
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    activeclassname="active"
+                    className="btn header__link"
+                    to="/recipes"
+                  >
+                    Recipes
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    activeclassname="active"
+                    className="btn header__link"
+                    to="/login"
+                  >
+                    Login
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    activeclassname="active"
+                    className="btn header__link"
+                    to="/signup"
+                  >
+                    Signup
+                  </NavLink>
+                </li>
+              </>
+            )}
+            {user && (
+              <>
+                <li>
+                  <NavLink
+                    activeclassname="active"
+                    className="btn header__link"
+                    to="/add"
+                  >
+                    Add Recipe
+                  </NavLink>
+                </li>
+
+                <li>
+                  <NavLink onClick={logout} className="btn" to="#">
+                    Logout
+                  </NavLink>
+                </li>
+              </>
+            )}
           </ul>
         </nav>
       </div>
