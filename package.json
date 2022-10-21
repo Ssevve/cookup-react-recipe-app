@@ -19,7 +19,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "eject": "react-scripts eject",
-    "lint": "eslint src/ --ext .jsx"
+    "lint": "eslint src/ --ext .jsx",
+    "fixlint": "eslint src/ --ext .jsx --fix"
   },
   "eslintConfig": {
     "extends": [
