@@ -62,7 +62,7 @@ export default function Login({ setUser }) {
       <div className="container flex justify-content-sb h-full align-items-center">
         <section className="form-section">
           <h1 className="subpage-title">Login</h1>
-          {error && <ErrorBox errors={error} />}
+          {error && <ErrorBox error={error} />}
           <form className="auth-form" onSubmit={handleSubmit} noValidate>
             <div className="form-group">
               <label className="form__label" htmlFor="login-email">

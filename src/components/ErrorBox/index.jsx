@@ -2,18 +2,19 @@ import PropTypes from 'prop-types';
 
 import './style.css';
 
-export default function ErrorBox({ errors }) {
+export default function ErrorBox({ errors, error }) {
   return (
     <div className="error-box">
-      {Array.isArray(errors) ? (
-        errors.map((error) => <p>{error}</p>)
+      {errors ? (
+        errors.map((err) => <p>{err}</p>)
       ) : (
-        <p>{errors}</p>
+        <p>{error}</p>
       )}
     </div>
   );
 }
 
 ErrorBox.propTypes = {
-  errors: PropTypes.array.isRequired,
+  errors: PropTypes.array,
+  error: PropTypes.string,
 };
