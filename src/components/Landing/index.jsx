@@ -1,4 +1,6 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
+
 import './style.css';
 
 export default function Landing() {
@@ -20,7 +22,7 @@ export default function Landing() {
             Browse Recipes
           </Link>
         </section>
-        <section className="hero__image"></section>
+        <section className="hero__image" />
       </div>
     </main>
   );

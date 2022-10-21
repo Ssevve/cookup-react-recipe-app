@@ -1,6 +1,5 @@
+import React from 'react';
 import RecipeForm from '../RecipeForm';
-
-// import './style.css';
 
 export default function AddRecipe() {
   return (

@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import isEmail from 'validator/lib/isEmail';
 
 import './style.css';
@@ -48,7 +49,7 @@ export default function Login({ setUser }) {
       const data = await res.json();
 
       if (!res.ok) {
-        return setError(data.message);
+        setError(data.message);
       }
 
       if (data.user) {
@@ -67,36 +68,41 @@ export default function Login({ setUser }) {
           {error && <ErrorBox error={error} />}
           <form className="auth-form" onSubmit={handleSubmit} noValidate>
             <div className="form-group">
+
               <label className="form__label" htmlFor="login-email">
                 Email
+                <input
+                  className="form__input"
+                  onChange={handleChange}
+                  id="login-email"
+                  type="email"
+                  name="email"
+                />
               </label>
-              <input
-                className="form__input"
-                onChange={handleChange}
-                id="login-email"
-                type="email"
-                name="email"
-              />
             </div>
             <div className="form-group">
               <label className="form__label" htmlFor="login-password">
                 Password
+                <input
+                  className="form__input"
+                  onChange={handleChange}
+                  id="login-password"
+                  type="password"
+                  name="password"
+                />
               </label>
-              <input
-                className="form__input"
-                onChange={handleChange}
-                id="login-password"
-                type="password"
-                name="password"
-              />
             </div>
             <button className="btn btn--cta pt-2 align-self-end" type="submit">
               Login
             </button>
           </form>
         </section>
-        <section className="login__image"></section>
+        <section className="login__image" />
       </div>
     </main>
   );
 }
+
+Login.propTypes = {
+  setUser: PropTypes.func.isRequired,
+};

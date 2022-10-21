@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './index.css';
 
@@ -13,10 +13,6 @@ import Signup from './components/Signup';
 function App() {
   const [user, setUser] = useState(null);
 
-  useEffect(() => {
-    getUser();
-  }, []);
-
   async function getUser() {
     try {
       const res = await fetch('http://localhost:8000/api/auth', {
@@ -24,20 +20,20 @@ function App() {
       });
       const data = await res.json();
 
-      console.log('Get user response: ');
-      console.log(data);
-
       if (data.user) {
-        console.log('Get User: There is a user saved in the server session: ');
         setUser(data.user);
       } else {
-        console.log('Get user: no user');
         setUser(null);
       }
     } catch (err) {
+      // eslint-disable-next-line no-console
       console.log(err);
     }
   }
+
+  useEffect(() => {
+    getUser();
+  }, []);
 
   return (
     <Router>
@@ -49,7 +45,6 @@ function App() {
           <Route
             path="/recipe"
             element={<Recipe />}
-            render={(props) => <Recipe {...props} />}
           />
           <Route path="/add" element={<AddRecipe />} />
           <Route path="/login" element={<Login setUser={setUser} />} />

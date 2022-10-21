@@ -1,4 +1,5 @@
-import { useState } from 'react';
+/* eslint-disable no-underscore-dangle */
+import React, { useState } from 'react';
 import { FaTrash, FaPlus } from 'react-icons/fa';
 
 import './style.css';
@@ -68,8 +69,7 @@ export default function RecipeForm() {
     const { name, value } = e.target;
 
     if (name === 'title') setRecipe({ ...recipe, title: value });
-    else if (name === 'description')
-      setRecipe({ ...recipe, description: value });
+    else if (name === 'description') setRecipe({ ...recipe, description: value });
     else {
       const [recipePropName, propName, index] = name.split('-');
 
@@ -79,8 +79,7 @@ export default function RecipeForm() {
 
         if (propName === 'unit') {
           const optionIndex = e.nativeEvent.target.selectedIndex;
-          ingredientList[index]['unitShort'] =
-            e.nativeEvent.target[optionIndex].text;
+          ingredientList[index].unitShort = e.nativeEvent.target[optionIndex].text;
         }
 
         setRecipe({ ...recipe, ingredients: ingredientList });
@@ -124,43 +123,41 @@ export default function RecipeForm() {
         <div className="form-group">
           <label className="form__label" htmlFor="title">
             Recipe Title
+            <input
+              className="form__input"
+              onChange={(e) => handleChange(e)}
+              id="title"
+              type="text"
+              name="title"
+            />
           </label>
-          <input
-            className="form__input"
-            onChange={(e) => handleChange(e)}
-            id="title"
-            type="text"
-            name="title"
-          />
         </div>
         <div className="form-group">
           <label className="form__label" htmlFor="description">
             Recipe Description
+            <textarea
+              className="form__textarea"
+              onChange={(e) => handleChange(e)}
+              id="description"
+              name="description"
+            />
           </label>
-          <textarea
-            className="form__textarea"
-            onChange={(e) => handleChange(e)}
-            id="description"
-            name="description"
-          />
         </div>
         <section className="form__ingredients flex-column">
           <h2 className="section-heading--small">Ingredients</h2>
           <ul>
-            {recipe.ingredients.map((ingredient, index) => {
-              return (
-                <li key={index}>
-                  <fieldset className="form__fieldset flex align-items-center">
-                    <legend className="form__legend">{`Ingredient ${
-                      index + 1
-                    }`}</legend>
-                    <div className="form-group">
-                      <label
-                        className="form__label"
-                        htmlFor={`ingredient-${index}-name`}
-                      >
-                        Name
-                      </label>
+            {recipe.ingredients.map((ingredient, index) => (
+              <li key={ingredient._id}>
+                <fieldset className="form__fieldset flex align-items-center">
+                  <legend className="form__legend">
+                    {`Ingredient ${index + 1}`}
+                  </legend>
+                  <div className="form-group">
+                    <label
+                      className="form__label"
+                      htmlFor={`ingredient-${index}-name`}
+                    >
+                      Name
                       <input
                         id={`ingredient-${index}-name`}
                         className="form__input"
@@ -169,14 +166,14 @@ export default function RecipeForm() {
                         type="text"
                         value={ingredient.name}
                       />
-                    </div>
-                    <div className="form-group">
-                      <label
-                        className="form__label"
-                        htmlFor={`ingredient-${index}-amount`}
-                      >
-                        Amount
-                      </label>
+                    </label>
+                  </div>
+                  <div className="form-group">
+                    <label
+                      className="form__label"
+                      htmlFor={`ingredient-${index}-amount`}
+                    >
+                      Amount
                       <input
                         id={`ingredient-${index}-amount`}
                         className="form__input"
@@ -187,14 +184,14 @@ export default function RecipeForm() {
                         min="0"
                         step="0.1"
                       />
-                    </div>
-                    <div className="form-group">
-                      <label
-                        className="form__label"
-                        htmlFor={`ingredient-${index}-unit`}
-                      >
-                        Unit
-                      </label>
+                    </label>
+                  </div>
+                  <div className="form-group">
+                    <label
+                      className="form__label"
+                      htmlFor={`ingredient-${index}-unit`}
+                    >
+                      Unit
                       <select
                         id={`ingredient-${index}-unit`}
                         className="select"
@@ -207,18 +204,18 @@ export default function RecipeForm() {
                         <option value="liter">l</option>
                         <option value="milliliter">ml</option>
                       </select>
-                    </div>
-                    <button
-                      className="btn btn--delete align-self-end"
-                      type="button"
-                      onClick={() => deleteIngredient(index)}
-                    >
-                      <FaTrash />
-                    </button>
-                  </fieldset>
-                </li>
-              );
-            })}
+                    </label>
+                  </div>
+                  <button
+                    className="btn btn--delete align-self-end"
+                    type="button"
+                    onClick={() => deleteIngredient(index)}
+                  >
+                    <FaTrash />
+                  </button>
+                </fieldset>
+              </li>
+            ))}
           </ul>
           <button
             className="btn btn--add align-self-end"
@@ -232,56 +229,54 @@ export default function RecipeForm() {
         <section className="form__instructions flex-column">
           <h2 className="section-heading--small">Instructions</h2>
           <ul>
-            {recipe.instructions.map((instruction, index) => {
-              return (
-                <li key={index}>
-                  <fieldset className="form__fieldset instruction-group">
-                    <legend className="form__legend">{`Instruction ${
-                      index + 1
-                    }`}</legend>
-                    <div className="form-group">
+            {recipe.instructions.map((instruction, index) => (
+              <li key={instruction._id}>
+                <fieldset className="form__fieldset instruction-group">
+                  <legend className="form__legend">
+                    {`Instruction ${index + 1}`}
+                  </legend>
+                  <div className="form-group">
                     <label
                       className="form__label"
                       htmlFor={`instruction-${index}-title`}
                     >
                       Title
+                      <input
+                        id={`instruction-${index}-title`}
+                        className="form__input"
+                        onChange={(e) => handleChange(e)}
+                        name={`instructions-title-${index}`}
+                        type="text"
+                        value={instruction.title}
+                      />
                     </label>
-                    <input
-                      id={`instruction-${index}-title`}
-                      className="form__input"
-                      onChange={(e) => handleChange(e)}
-                      name={`instructions-title-${index}`}
-                      type="text"
-                      value={instruction.title}
-                    />
-                    </div>
-                    <div className="form-group">
+                  </div>
+                  <div className="form-group">
                     <label
                       className="form__label"
                       htmlFor={`instruction-${index}-description`}
                     >
                       Description
+                      <textarea
+                        id={`instruction-${index}-description`}
+                        className="form__textarea"
+                        onChange={(e) => handleChange(e)}
+                        name={`instructions-text-${index}`}
+                        type="text"
+                        value={instruction.text}
+                      />
                     </label>
-                    <textarea
-                      id={`instruction-${index}-description`}
-                      className="form__textarea"
-                      onChange={(e) => handleChange(e)}
-                      name={`instructions-text-${index}`}
-                      type="text"
-                      value={instruction.text}
-                    />
-                    </div>
-                    <button
-                      className="btn btn--delete align-self-end"
-                      type="button"
-                      onClick={() => deleteInstruction(index)}
-                    >
-                      <FaTrash />
-                    </button>
-                  </fieldset>
-                </li>
-              );
-            })}
+                  </div>
+                  <button
+                    className="btn btn--delete align-self-end"
+                    type="button"
+                    onClick={() => deleteInstruction(index)}
+                  >
+                    <FaTrash />
+                  </button>
+                </fieldset>
+              </li>
+            ))}
           </ul>
           <button
             className="btn btn--add align-self-end"

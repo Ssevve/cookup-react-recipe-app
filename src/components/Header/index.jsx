@@ -1,9 +1,11 @@
+import React from 'react';
+import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 
 import './style.css';
 
 export default function Header({ user, setUser }) {
-  async function logout(e) {
+  const logout = async (e) => {
     e.preventDefault();
 
     try {
@@ -12,16 +14,14 @@ export default function Header({ user, setUser }) {
         credentials: 'include',
       });
 
-      const data = await res.json();
-
-      if (res.status === 200) {
+      if (res.ok) {
         setUser(null);
-        console.log(data);
       }
     } catch (err) {
+      // eslint-disable-next-line no-console
       console.log(err);
     }
-  }
+  };
 
   return (
     <header className="header">
@@ -97,3 +97,8 @@ export default function Header({ user, setUser }) {
     </header>
   );
 }
+
+Header.propTypes = {
+  user: PropTypes.oneOf(null, PropTypes.objectOf(PropTypes.string)).isRequired,
+  setUser: PropTypes.func.isRequired,
+};

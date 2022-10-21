@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import isEmail from 'validator/lib/isEmail';
 
 import './style.css';
@@ -22,7 +22,9 @@ export default function Signup() {
   function validateInput() {
     const errors = [];
 
-    const { firstName, lastName, email, password, confirmPassword } = userInput;
+    const {
+      firstName, lastName, email, password, confirmPassword,
+    } = userInput;
 
     if (firstName.length === 0) errors.push('First name cannot be empty');
     if (lastName.length === 0) errors.push('Last name cannot be empty');
@@ -30,11 +32,10 @@ export default function Signup() {
     if (email.length === 0) errors.push('Email cannot be empty');
     else if (!isEmail(email)) errors.push('Email is not valid');
 
-    if (password.length < 8)
-      errors.push('Password must be at least 8 characters long');
+    if (password.length < 8) errors.push('Password must be at least 8 characters long');
     if (confirmPassword !== password) errors.push('Passwords do not match');
 
-    setFormErrors(errors ? errors : null);
+    setFormErrors(errors || null);
     return Object.values(errors).length === 0;
   }
 
@@ -58,7 +59,7 @@ export default function Signup() {
       const data = await res.json();
 
       if (!res.ok) {
-        return setFormErrors([data.message]);
+        setFormErrors([data.message]);
       }
     } catch (err) {
       console.log(err);
@@ -75,69 +76,69 @@ export default function Signup() {
             <div className="form-group">
               <label className="form__label" htmlFor="signup-first-name">
                 First name
+                <input
+                  className="form__input"
+                  onChange={handleChange}
+                  id="signup-first-name"
+                  type="text"
+                  name="firstName"
+                />
               </label>
-              <input
-                className="form__input"
-                onChange={handleChange}
-                id="signup-first-name"
-                type="text"
-                name="firstName"
-              />
             </div>
             <div className="form-group">
               <label className="form__label" htmlFor="signup-last-name">
                 Last name
+                <input
+                  className="form__input"
+                  onChange={handleChange}
+                  id="signup-last-name"
+                  type="text"
+                  name="lastName"
+                />
               </label>
-              <input
-                className="form__input"
-                onChange={handleChange}
-                id="signup-last-name"
-                type="text"
-                name="lastName"
-              />
             </div>
             <div className="form-group">
               <label className="form__label" htmlFor="signup-email">
                 Email
+                <input
+                  className="form__input"
+                  onChange={handleChange}
+                  id="signup-email"
+                  type="email"
+                  name="email"
+                />
               </label>
-              <input
-                className="form__input"
-                onChange={handleChange}
-                id="signup-email"
-                type="email"
-                name="email"
-              />
             </div>
             <div className="form-group">
               <label className="form__label" htmlFor="signup-password">
                 Password
+                <input
+                  className="form__input"
+                  onChange={handleChange}
+                  id="signup-password"
+                  type="password"
+                  name="password"
+                />
               </label>
-              <input
-                className="form__input"
-                onChange={handleChange}
-                id="signup-password"
-                type="password"
-                name="password"
-              />
             </div>
             <div className="form-group">
               <label className="form__label" htmlFor="signup-confirm-password">
                 Confirm Password
+                <input
+                  className="form__input"
+                  onChange={handleChange}
+                  id="signup-confirm-password"
+                  type="password"
+                  name="confirmPassword"
+                />
               </label>
-              <input
-                className="form__input"
-                onChange={handleChange}
-                id="signup-confirm-password"
-                type="password"
-                name="confirmPassword"
-              />
             </div>
             <button className="btn btn--cta pt-2 align-self-end" type="submit">
               Signup
             </button>
           </form>
         </section>
-        <section className="signup__image"></section>
+        <section className="signup__image" />
       </div>
     </main>
   );
