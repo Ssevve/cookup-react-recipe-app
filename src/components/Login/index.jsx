@@ -2,6 +2,8 @@ import { useState } from 'react';
 import isEmail from 'validator/lib/isEmail';
 
 import './style.css';
+ 
+import ErrorBox from '../ErrorBox';
 
 export default function Login({ setUser }) {
   const [userInput, setUserInput] = useState({
@@ -60,9 +62,7 @@ export default function Login({ setUser }) {
       <div className="container flex justify-content-sb h-full align-items-center">
         <section className="form-section">
           <h1 className="subpage-title">Login</h1>
-          {error &&<div className="alert-box">
-            <p>{error}</p>
-          </div>}
+          {error && <ErrorBox errors={error} />}
           <form className="auth-form" onSubmit={handleSubmit} noValidate>
             <div className="form-group">
               <label className="form__label" htmlFor="login-email">

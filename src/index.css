@@ -251,19 +251,11 @@ a {
   font-size: 2rem;
 }
 
-.border-error {
+/* .border-error {
   border-color: var(--clr-error);
-}
+} */
 
-.form-error-message {
+/* .form-error-message {
   color: var(--clr-error);
   margin-top: 0.25rem;
-}
-
-.alert-box {
-  padding: 0.75rem 1rem;
-  color: var(--clr-error);
-  border: 1px solid currentColor;
-  border-radius: var(--border-radius);
-  margin-top: 1.5rem;
-}
+} */
