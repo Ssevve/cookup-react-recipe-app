@@ -78,6 +78,15 @@ export default function Header({ user, setUser }) {
                   <NavLink
                     activeclassname="active"
                     className="btn header__link"
+                    to="/recipes"
+                  >
+                    Recipes
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    activeclassname="active"
+                    className="btn header__link"
                     to="/add"
                   >
                     Add Recipe
@@ -99,6 +108,10 @@ export default function Header({ user, setUser }) {
 }
 
 Header.propTypes = {
-  user: PropTypes.oneOf(null, PropTypes.objectOf(PropTypes.string)).isRequired,
+  user: PropTypes.objectOf(PropTypes.string),
   setUser: PropTypes.func.isRequired,
+};
+
+Header.defaultProps = {
+  user: null,
 };
