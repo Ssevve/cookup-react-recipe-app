@@ -6,9 +6,19 @@ const upload = multer({ storage: multer.diskStorage({}) });
 const Recipe = require('../models/Recipe');
 const cloudinary = require('../lib/cloudinary');
 
+router.get('/:recipeId', async (req, res, next) => {
+  const { recipeId } = req.params;
+  try {
+    const recipe = await Recipe.findById(recipeId);
+    res.json(recipe);
+  } catch (error) {
+    next(error);
+  }
+});
+
 router.get('/', async (req, res, next) => {
   try {
-    const recipes = await Recipe.find();
+    const recipes = await Recipe.find().select('_id title description image');
     res.json(recipes);
   } catch (error) {
     next(error);
