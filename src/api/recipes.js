@@ -32,6 +32,8 @@ router.post('/', upload.single('image'), async (req, res, next) => {
 
     const createdRecipe = await Recipe.create({
       ...recipe,
+      // eslint-disable-next-line no-underscore-dangle
+      createdBy: req.user._id,
       image: result.secure_url,
       cloudinaryId: result.public_id,
     });
