@@ -104,6 +104,7 @@ export default function RecipeForm() {
     const requestOptions = {
       method: 'POST',
       body: formData,
+      credentials: 'include',
     };
 
     try {
