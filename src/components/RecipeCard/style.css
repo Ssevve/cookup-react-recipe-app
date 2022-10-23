@@ -1,7 +1,8 @@
 .card {
   max-width: 500px;
   padding: 1rem;
-  box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); 
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+  background: var(--clr-primary);
 }
 
 .card__image {
@@ -13,4 +14,17 @@
 .card__title,
 .card__description {
   margin-top: 1rem;
+}
+
+.card__author,
+.card__options {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.author-avatar {
+  border-radius: 50%;
+  height: 2rem;
 }

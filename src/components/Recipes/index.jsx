@@ -27,9 +27,9 @@ export default function Recipes() {
       <div className="container">
         <ul className="recipes">
           {recipes.length ? (
-            recipes.map((recipe) => <RecipeCard key={recipe._id} recipe={recipe} />)
+            recipes.map((recipe) => <RecipeCard key={recipe._id} recipe={recipe} showAuthor />)
           ) : (
-            <p>No recipes to show! :(</p>
+            <p>You have not created any recipes yet...</p>
           )}
         </ul>
       </div>
