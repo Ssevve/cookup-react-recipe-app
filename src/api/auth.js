@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable consistent-return */
 /* eslint-disable no-shadow */
 const router = require('express').Router();
@@ -8,6 +9,7 @@ const User = require('../models/User');
 router.get('/', (req, res) => {
   if (req.user) {
     const user = {
+      id: req.user._id,
       firstName: req.user.firstName,
       lastName: req.user.lastName,
       avatar: req.user.avatar,
@@ -80,6 +82,7 @@ router.post('/login', (req, res, next) => {
       if (err) return next(err);
       return res.json({
         user: {
+          id: user._id,
           firstName: user.firstName,
           lastName: user.lastName,
           avatar: user.avatar,

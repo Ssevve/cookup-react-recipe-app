@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 const router = require('express').Router();
 const multer = require('multer');
 
@@ -11,6 +12,16 @@ router.get('/:recipeId', async (req, res, next) => {
   try {
     const recipe = await Recipe.findById(recipeId);
     res.json(recipe);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get('/user/:userId', async (req, res, next) => {
+  try {
+    const { userId } = req.params;
+    const recipes = await Recipe.find({ createdBy: userId }).select('_id title description image');
+    res.json(recipes);
   } catch (error) {
     next(error);
   }
@@ -32,7 +43,6 @@ router.post('/', upload.single('image'), async (req, res, next) => {
 
     const createdRecipe = await Recipe.create({
       ...recipe,
-      // eslint-disable-next-line no-underscore-dangle
       createdBy: req.user._id,
       image: result.secure_url,
       cloudinaryId: result.public_id,
