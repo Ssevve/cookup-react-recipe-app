@@ -20,7 +20,7 @@ router.get('/:recipeId', async (req, res, next) => {
 router.get('/user/:userId', async (req, res, next) => {
   try {
     const { userId } = req.params;
-    const recipes = await Recipe.find({ createdBy: userId }).select('_id title description image');
+    const recipes = await Recipe.find({ createdBy: userId }).populate('createdBy').select('_id title description image createdBy');
     res.json(recipes);
   } catch (error) {
     next(error);
@@ -29,7 +29,7 @@ router.get('/user/:userId', async (req, res, next) => {
 
 router.get('/', async (req, res, next) => {
   try {
-    const recipes = await Recipe.find().select('_id title description image');
+    const recipes = await Recipe.find().populate('createdBy').select('_id title description image createdBy');
     res.json(recipes);
   } catch (error) {
     next(error);
