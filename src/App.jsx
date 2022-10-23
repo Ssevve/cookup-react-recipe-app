@@ -10,31 +10,25 @@ import Recipes from './components/Recipes';
 import Recipe from './components/Recipe';
 import Login from './components/Login';
 import Signup from './components/Signup';
+import Dashboard from './components/Dashboard';
 
 function App() {
-  // eslint-disable-next-line no-unused-vars
   const [user, setUser] = useState(null);
 
-  async function getUser() {
+  const fetchUser = async () => {
     try {
       const res = await fetch('http://localhost:8000/api/auth', {
         credentials: 'include',
       });
       const data = await res.json();
-
-      if (data.user) {
-        setUser(data.user);
-      } else {
-        setUser(null);
-      }
+      return setUser(data.user);
     } catch (err) {
-      // eslint-disable-next-line no-console
-      console.log(err);
+      return console.log(err);
     }
-  }
+  };
 
   useEffect(() => {
-    getUser();
+    fetchUser();
   }, []);
 
   return (
@@ -48,6 +42,7 @@ function App() {
           <Route path="/add" element={<AddRecipe />} />
           <Route path="/login" element={<Login setUser={setUser} />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/dashboard" element={<Dashboard user={user} />} />
         </Routes>
       </div>
     </Router>

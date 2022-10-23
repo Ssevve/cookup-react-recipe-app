@@ -34,39 +34,22 @@ export default function Header({ user, setUser }) {
             {!user && (
               <>
                 <li>
-                  <NavLink
-                    activeclassname="active"
-                    className="btn header__link"
-                    to="/"
-                    end
-                  >
+                  <NavLink activeclassname="active" className="btn header__link" to="/" end>
                     Home
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink
-                    activeclassname="active"
-                    className="btn header__link"
-                    to="/recipes"
-                  >
+                  <NavLink activeclassname="active" className="btn header__link" to="/recipes">
                     Recipes
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink
-                    activeclassname="active"
-                    className="btn header__link"
-                    to="/login"
-                  >
+                  <NavLink activeclassname="active" className="btn header__link" to="/login">
                     Login
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink
-                    activeclassname="active"
-                    className="btn header__link"
-                    to="/signup"
-                  >
+                  <NavLink activeclassname="active" className="btn header__link" to="/signup">
                     Signup
                   </NavLink>
                 </li>
@@ -75,20 +58,17 @@ export default function Header({ user, setUser }) {
             {user && (
               <>
                 <li>
-                  <NavLink
-                    activeclassname="active"
-                    className="btn header__link"
-                    to="/recipes"
-                  >
+                  <NavLink activeclassname="active" className="btn header__link" to="/dashboard">
+                    Dashboard
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink activeclassname="active" className="btn header__link" to="/recipes">
                     Recipes
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink
-                    activeclassname="active"
-                    className="btn header__link"
-                    to="/add"
-                  >
+                  <NavLink activeclassname="active" className="btn header__link" to="/add">
                     Add Recipe
                   </NavLink>
                 </li>
