@@ -58,18 +58,15 @@ router.delete('/:recipeId', async (req, res, next) => {
   try {
     const recipe = await Recipe.findById({ _id: req.params.recipeId });
 
-    console.log(recipe);
-
     if (req.user._id.equals(recipe.createdBy)) {
       await cloudinary.uploader.destroy(recipe.cloudinaryId);
       await Recipe.remove({ _id: req.params.recipeId });
-      console.log(`Deleted Recipe:\n ${recipe}`);
-      res.json(recipe);
+      return res.json({ message: 'Recipe deleted' });
     }
 
-    res.status(401).json({ message: 'Unauthorized' });
+    return res.status(401).json({ message: 'Unauthorized' });
   } catch (error) {
-    next(error);
+    return next(error);
   }
 });
 
