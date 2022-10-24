@@ -7,7 +7,9 @@ import './style.css';
 
 import CardOptions from '../CardOptions';
 
-export default function RecipeCard({ recipe, showOptions, showAuthor }) {
+export default function RecipeCard({
+  setRecipes, recipe, showOptions, showAuthor,
+}) {
   return (
     <li>
       <section className="card flex-column">
@@ -17,7 +19,7 @@ export default function RecipeCard({ recipe, showOptions, showAuthor }) {
           </section>
           <section className="card__section flex align-items-center justify-content-sb">
             <h2 className="card__title">{recipe.title}</h2>
-            {showOptions && <CardOptions recipeId={recipe._id} />}
+            {showOptions && <CardOptions setRecipes={setRecipes} recipeId={recipe._id} />}
           </section>
           <p className="card__description">{recipe.description}</p>
         </Link>
@@ -37,6 +39,7 @@ export default function RecipeCard({ recipe, showOptions, showAuthor }) {
 }
 
 RecipeCard.propTypes = {
+  setRecipes: PropTypes.func.isRequired,
   recipe: PropTypes.shape({
     _id: PropTypes.string,
     title: PropTypes.string,

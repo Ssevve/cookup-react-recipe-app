@@ -47,10 +47,10 @@ export default function Dashboard({ user }) {
         <ul className="recipes">
           {recipes.length ? (
             recipes.map((recipe) => (
-              <RecipeCard key={recipe._id} recipe={recipe} showOptions />
+              <RecipeCard key={recipe._id} setRecipes={setRecipes} recipe={recipe} showOptions />
             ))
           ) : (
-            <p>No recipes to show! :(</p>
+            <p>You have not created any recipes yet...</p>
           )}
         </ul>
       </div>

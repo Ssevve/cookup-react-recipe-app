@@ -29,7 +29,7 @@ export default function Recipes() {
           {recipes.length ? (
             recipes.map((recipe) => <RecipeCard key={recipe._id} recipe={recipe} showAuthor />)
           ) : (
-            <p>You have not created any recipes yet...</p>
+            <p>No recipes to show!</p>
           )}
         </ul>
       </div>

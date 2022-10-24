@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 import './style.css';
 
-export default function CardOptions({ recipeId }) {
+export default function CardOptions({ recipeId, setRecipes }) {
   const [showOptions, setShowOptions] = useState(false);
 
   const toggleOptions = (e) => {
@@ -21,7 +21,7 @@ export default function CardOptions({ recipeId }) {
         credentials: 'include',
       });
       if (res.ok) {
-        console.log('Recipe deleted');
+        setRecipes((recipes) => recipes.filter((recipe) => recipe._id !== recipeId));
       }
     } catch (error) {
       console.log(error);
@@ -53,4 +53,5 @@ export default function CardOptions({ recipeId }) {
 
 CardOptions.propTypes = {
   recipeId: PropTypes.string.isRequired,
+  setRecipes: PropTypes.func.isRequired,
 };
