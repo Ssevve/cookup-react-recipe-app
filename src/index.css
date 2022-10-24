@@ -12,6 +12,7 @@
   --clr-error-hover: #c67f89;
 
   --border-radius: 3px;
+  --border-size: 1px;
 }
 
 * {
@@ -109,7 +110,7 @@ a {
 .btn {
   background: var(--clr-primary);
   color: var(--clr-accent);
-  border: 2px solid currentColor;
+  border: 1px solid currentColor;
   border-radius: var(--border-radius);
   padding: 0.75rem 1rem;
   text-decoration: none;
