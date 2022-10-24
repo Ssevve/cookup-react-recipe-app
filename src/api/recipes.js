@@ -20,7 +20,7 @@ router.get('/:recipeId', async (req, res, next) => {
 router.get('/user/:userId', async (req, res, next) => {
   try {
     const { userId } = req.params;
-    const recipes = await Recipe.find({ createdBy: userId }).populate('createdBy').select('_id title description image createdBy');
+    const recipes = await Recipe.find({ createdBy: userId }).populate('createdBy').select('_id title description imageUrl createdBy');
     res.json(recipes);
   } catch (error) {
     next(error);
@@ -29,7 +29,7 @@ router.get('/user/:userId', async (req, res, next) => {
 
 router.get('/', async (req, res, next) => {
   try {
-    const recipes = await Recipe.find().populate('createdBy').select('_id title description image createdBy');
+    const recipes = await Recipe.find().populate('createdBy').select('_id title description imageUrl createdBy');
     res.json(recipes);
   } catch (error) {
     next(error);
@@ -44,11 +44,30 @@ router.post('/', upload.single('image'), async (req, res, next) => {
     const createdRecipe = await Recipe.create({
       ...recipe,
       createdBy: req.user._id,
-      image: result.secure_url,
+      imageUrl: result.secure_url,
       cloudinaryId: result.public_id,
     });
 
     res.json(createdRecipe);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.delete('/:recipeId', async (req, res, next) => {
+  try {
+    const recipe = await Recipe.findById({ _id: req.params.recipeId });
+
+    console.log(recipe);
+
+    if (req.user._id.equals(recipe.createdBy)) {
+      await cloudinary.uploader.destroy(recipe.cloudinaryId);
+      await Recipe.remove({ _id: req.params.recipeId });
+      console.log(`Deleted Recipe:\n ${recipe}`);
+      res.json(recipe);
+    }
+
+    res.status(401).json({ message: 'Unauthorized' });
   } catch (error) {
     next(error);
   }

@@ -45,7 +45,11 @@ const recipeSchema = new Schema(
         'You must provide at least one instruction.',
       ],
     },
-    image: {
+    imageUrl: {
+      type: String,
+      default: null,
+    },
+    cloudinaryId: {
       type: String,
       default: null,
     },
