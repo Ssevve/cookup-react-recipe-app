@@ -11,17 +11,11 @@ export default function Dashboard() {
   const toggleOptions = (e) => {
     e.preventDefault();
     setShowOptions((prev) => !prev);
-    if (e.target.ariaExpanded) e.target.ariaExpanded = 'false';
-    else e.target.ariaExpanded = 'true';
   };
 
   return (
-    <section onMouseLeave={(e) => toggleOptions(e)} className="card-options">
-      <button
-        onClick={(e) => toggleOptions(e)}
-        type="button"
-        className="btn dropdown-toggle"
-      >
+    <section onMouseLeave={() => setShowOptions(false)} className="card-options">
+      <button onClick={(e) => toggleOptions(e)} type="button" className="btn dropdown-toggle">
         <BsThreeDots />
       </button>
       {showOptions && (
@@ -41,7 +35,3 @@ export default function Dashboard() {
     </section>
   );
 }
-
-// Dashboard.propTypes = {
-//   recipeId: PropTypes.string.isRequired,
-// };
