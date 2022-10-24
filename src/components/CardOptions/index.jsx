@@ -1,11 +1,11 @@
 /* eslint-disable no-underscore-dangle */
 import React, { useState } from 'react';
 import { BsThreeDots } from 'react-icons/bs';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 import './style.css';
 
-export default function Dashboard() {
+export default function CardOptions({ recipeId }) {
   const [showOptions, setShowOptions] = useState(false);
 
   const toggleOptions = (e) => {
@@ -13,9 +13,24 @@ export default function Dashboard() {
     setShowOptions((prev) => !prev);
   };
 
+  const deleteRecipe = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await fetch(`http://localhost:8000/api/recipes/${recipeId}`, {
+        method: 'DELETE',
+        credentials: 'include',
+      });
+      if (res.ok) {
+        console.log('Recipe deleted');
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <section onMouseLeave={() => setShowOptions(false)} className="card-options">
-      <button onClick={(e) => toggleOptions(e)} type="button" className="btn dropdown-toggle">
+      <button onClick={toggleOptions} type="button" className="btn dropdown-toggle">
         <BsThreeDots />
       </button>
       {showOptions && (
@@ -26,7 +41,7 @@ export default function Dashboard() {
             </button>
           </li>
           <li>
-            <button className="btn dropdown-item" type="button">
+            <button onClick={deleteRecipe} className="btn dropdown-item" type="button">
               Delete
             </button>
           </li>
@@ -35,3 +50,7 @@ export default function Dashboard() {
     </section>
   );
 }
+
+CardOptions.propTypes = {
+  recipeId: PropTypes.string.isRequired,
+};
