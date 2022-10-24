@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 
 import './style.css';
 
+import CardOptions from '../CardOptions';
+
 export default function RecipeCard({ recipe, showOptions, showAuthor }) {
   return (
     <li>
@@ -13,10 +15,11 @@ export default function RecipeCard({ recipe, showOptions, showAuthor }) {
           <section className="card__section">
             <img className="card__image" src={recipe.image} alt={recipe.title} />
           </section>
-          <section className="card__section">
+          <section className="card__section flex align-items-center justify-content-sb">
             <h2 className="card__title">{recipe.title}</h2>
-            <p className="card__description">{recipe.description}</p>
+            {showOptions && <CardOptions />}
           </section>
+          <p className="card__description">{recipe.description}</p>
         </Link>
         {showAuthor && (
           <div className="card__author">
@@ -27,16 +30,6 @@ export default function RecipeCard({ recipe, showOptions, showAuthor }) {
             />
             {`${recipe.createdBy.firstName} ${recipe.createdBy.lastName}`}
           </div>
-        )}
-        {showOptions && (
-          <section className="card__options">
-            <button className="btn" type="button">
-              Edit recipe
-            </button>
-            <button className="btn btn--delete" type="button">
-              Delete recipe
-            </button>
-          </section>
         )}
       </section>
     </li>
