@@ -12,7 +12,6 @@ export default function Recipe() {
   const [fetching, setFetching] = useState(true);
 
   const fetchRecipe = async () => {
-    console.log('fetching...');
     try {
       const res = await fetch(`http://localhost:8000/api/recipes/${recipeId}`);
       const recipeData = await res.json();

@@ -20,6 +20,7 @@ export default function CardOptions({ recipeId, setRecipes }) {
         method: 'DELETE',
         credentials: 'include',
       });
+
       if (res.ok) {
         setRecipes((recipes) => recipes.filter((recipe) => recipe._id !== recipeId));
       }
