@@ -11,7 +11,7 @@ router.get('/:recipeId', async (req, res, next) => {
   const { recipeId } = req.params;
   try {
     const recipe = await Recipe.findById(recipeId);
-    res.json(recipe);
+    res.status(200).json(recipe);
   } catch (error) {
     next(error);
   }
@@ -20,8 +20,10 @@ router.get('/:recipeId', async (req, res, next) => {
 router.get('/user/:userId', async (req, res, next) => {
   try {
     const { userId } = req.params;
-    const recipes = await Recipe.find({ createdBy: userId }).populate('createdBy').select('_id title description imageUrl createdBy');
-    res.json(recipes);
+    const recipes = await Recipe.find({ createdBy: userId })
+      .populate('createdBy')
+      .select('_id title description imageUrl createdBy');
+    res.status(200).json(recipes);
   } catch (error) {
     next(error);
   }
@@ -29,8 +31,10 @@ router.get('/user/:userId', async (req, res, next) => {
 
 router.get('/', async (req, res, next) => {
   try {
-    const recipes = await Recipe.find().populate('createdBy').select('_id title description imageUrl createdBy');
-    res.json(recipes);
+    const recipes = await Recipe.find()
+      .populate('createdBy')
+      .select('_id title description imageUrl createdBy');
+    res.status(200).json(recipes);
   } catch (error) {
     next(error);
   }
@@ -48,7 +52,7 @@ router.post('/', upload.single('image'), async (req, res, next) => {
       cloudinaryId: result.public_id,
     });
 
-    res.json(createdRecipe);
+    res.status(201).json(createdRecipe);
   } catch (error) {
     next(error);
   }
@@ -56,15 +60,16 @@ router.post('/', upload.single('image'), async (req, res, next) => {
 
 router.delete('/:recipeId', async (req, res, next) => {
   try {
-    const recipe = await Recipe.findById({ _id: req.params.recipeId });
+    const recipe = await Recipe.findOne({
+      _id: req.params.recipeId,
+      createdBy: req.user._id,
+    });
 
-    if (req.user._id.equals(recipe.createdBy)) {
-      await cloudinary.uploader.destroy(recipe.cloudinaryId);
-      await Recipe.remove({ _id: req.params.recipeId });
-      return res.json({ message: 'Recipe deleted' });
-    }
+    console.log(recipe.cloudinaryId);
 
-    return res.status(401).json({ message: 'Unauthorized' });
+    await cloudinary.uploader.destroy(recipe.cloudinaryId);
+    await Recipe.deleteOne({ _id: req.params.recipeId });
+    return res.status(204).json('success');
   } catch (error) {
     return next(error);
   }
