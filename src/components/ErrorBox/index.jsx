@@ -7,7 +7,8 @@ export default function ErrorBox({ errors, error }) {
   return (
     <div className="error-box">
       {errors ? (
-        errors.map((err) => <p>{err}</p>)
+        // eslint-disable-next-line react/no-array-index-key
+        errors.map((err, index) => <p key={index}>{err}</p>)
       ) : (
         <p>{error}</p>
       )}

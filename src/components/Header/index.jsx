@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { NavLink } from 'react-router-dom';
+import { useNavigate, NavLink } from 'react-router-dom';
 
 import './style.css';
 
 export default function Header({ user, setUser }) {
+  const navigate = useNavigate();
   const logout = async (e) => {
     e.preventDefault();
 
@@ -16,6 +17,7 @@ export default function Header({ user, setUser }) {
 
       if (res.ok) {
         setUser(null);
+        navigate('/');
       }
     } catch (err) {
       // eslint-disable-next-line no-console

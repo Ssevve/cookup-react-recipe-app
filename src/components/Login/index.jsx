@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import isEmail from 'validator/lib/isEmail';
 
@@ -7,6 +8,7 @@ import './style.css';
 import ErrorBox from '../ErrorBox';
 
 export default function Login({ setUser }) {
+  const navigate = useNavigate();
   const [userInput, setUserInput] = useState({
     email: '',
     password: '',
@@ -54,6 +56,7 @@ export default function Login({ setUser }) {
 
       if (data.user) {
         setUser(data.user);
+        navigate('/dashboard');
       }
     } catch (err) {
       console.log(err);

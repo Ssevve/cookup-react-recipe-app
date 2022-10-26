@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import isEmail from 'validator/lib/isEmail';
 
 import './style.css';
@@ -6,6 +7,7 @@ import './style.css';
 import ErrorBox from '../ErrorBox';
 
 export default function Signup() {
+  const navigate = useNavigate();
   const [userInput, setUserInput] = useState({
     firstName: '',
     lastName: '',
@@ -60,9 +62,11 @@ export default function Signup() {
 
       if (!res.ok) {
         setFormErrors([data.message]);
+      } else {
+        navigate('/login');
       }
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      console.log(error);
     }
   }
 

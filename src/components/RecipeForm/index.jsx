@@ -1,6 +1,7 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable no-underscore-dangle */
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FaTrash, FaPlus } from 'react-icons/fa';
 
 import './style.css';
@@ -8,6 +9,7 @@ import './style.css';
 import ImageUpload from '../ImageUpload';
 
 export default function RecipeForm() {
+  const navigate = useNavigate();
   const [image, setImage] = useState({ preview: '', data: null });
   const [recipe, setRecipe] = useState({
     title: '',
@@ -110,6 +112,7 @@ export default function RecipeForm() {
     try {
       const res = await fetch(url, requestOptions);
       const data = await res.json();
+      navigate('/dashboard');
       console.log(data);
     } catch (error) {
       console.log(error);
