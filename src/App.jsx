@@ -11,6 +11,7 @@ import Recipe from './components/Recipe';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import Dashboard from './components/Dashboard';
+import PrivateRoutes from './utils/PrivateRoutes';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -36,13 +37,17 @@ function App() {
       <div className="flex-column h-full">
         <Header user={user} setUser={setUser} />
         <Routes>
+          {/* Public Routes */}
           <Route path="/" element={<Landing />} />
           <Route path="/recipes" element={<Recipes />} />
           <Route path="/recipe/:recipeId" element={<Recipe />} />
-          <Route path="/add" element={<AddRecipe />} />
           <Route path="/login" element={<Login setUser={setUser} />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/dashboard" element={<Dashboard user={user} />} />
+          {/* Private Routes */}
+          <Route element={<PrivateRoutes />}>
+            <Route path="/add" element={<AddRecipe />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+          </Route>
         </Routes>
       </div>
     </Router>
