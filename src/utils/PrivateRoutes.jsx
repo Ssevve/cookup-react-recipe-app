@@ -23,7 +23,7 @@ export default function PrivateRoutes() {
     fetchUser();
   }, []);
 
-  return !isFetchingUser && (user ? <Outlet /> : <Navigate to="/login" />);
+  return !isFetchingUser && (user ? <Outlet context={user} /> : <Navigate to="/login" />);
 }
 
 // PrivateRoutes.propTypes = {

@@ -1,18 +1,19 @@
-/* eslint-disable no-underscore-dangle */
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import { useOutletContext } from 'react-router-dom';
 
 import './style.css';
 
 import RecipeCard from '../RecipeCard';
 
-export default function Dashboard({ user }) {
+export default function Dashboard() {
+  const user = useOutletContext();
   const [recipes, setRecipes] = useState([]);
-  const [currentUser, setCurrentUser] = useState(user);
 
   const fetchRecipes = async () => {
     try {
-      const res = await fetch(`http://localhost:8000/api/recipes/user/${currentUser.id}`);
+      const res = await fetch(`http://localhost:8000/api/recipes/user/${user.id}`, {
+        credentials: 'include',
+      });
       const recipesData = await res.json();
       setRecipes([...recipesData]);
     } catch (error) {
@@ -20,25 +21,9 @@ export default function Dashboard({ user }) {
     }
   };
 
-  const fetchUser = async () => {
-    try {
-      const res = await fetch('http://localhost:8000/api/auth', {
-        credentials: 'include',
-      });
-      const data = await res.json();
-      return setCurrentUser(data.user);
-    } catch (err) {
-      return console.log(err);
-    }
-  };
-
   useEffect(() => {
-    if (!user) fetchUser();
+    fetchRecipes();
   }, []);
-
-  useEffect(() => {
-    if (currentUser) fetchRecipes();
-  }, [currentUser]);
 
   return (
     <section className="container page">
@@ -47,6 +32,7 @@ export default function Dashboard({ user }) {
         <ul className="recipes">
           {recipes.length ? (
             recipes.map((recipe) => (
+              // eslint-disable-next-line no-underscore-dangle
               <RecipeCard key={recipe._id} setRecipes={setRecipes} recipe={recipe} showOptions />
             ))
           ) : (
@@ -57,11 +43,3 @@ export default function Dashboard({ user }) {
     </section>
   );
 }
-
-Dashboard.propTypes = {
-  user: PropTypes.objectOf(PropTypes.string),
-};
-
-Dashboard.defaultProps = {
-  user: null,
-};
