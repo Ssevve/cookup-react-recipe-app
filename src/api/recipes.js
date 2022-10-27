@@ -21,7 +21,7 @@ router.get('/:recipeId', async (req, res, next) => {
 router.get('/', async (req, res, next) => {
   try {
     const recipes = await Recipe.find()
-      .populate('createdBy')
+      .populate('createdBy', '_id firstName lastName avatar')
       .select('_id title description imageUrl createdBy');
     res.status(200).json(recipes);
   } catch (error) {
