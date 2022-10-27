@@ -6,24 +6,13 @@ const upload = multer({ storage: multer.diskStorage({}) });
 
 const Recipe = require('../models/Recipe');
 const cloudinary = require('../lib/cloudinary');
+const ensureAuth = require('../middleware/ensureAuth');
 
 router.get('/:recipeId', async (req, res, next) => {
   const { recipeId } = req.params;
   try {
     const recipe = await Recipe.findById(recipeId);
     res.status(200).json(recipe);
-  } catch (error) {
-    next(error);
-  }
-});
-
-router.get('/user/:userId', async (req, res, next) => {
-  try {
-    const { userId } = req.params;
-    const recipes = await Recipe.find({ createdBy: userId })
-      .populate('createdBy')
-      .select('_id title description imageUrl createdBy');
-    res.status(200).json(recipes);
   } catch (error) {
     next(error);
   }
@@ -40,7 +29,19 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-router.post('/', upload.single('image'), async (req, res, next) => {
+router.get('/user/:userId', ensureAuth, async (req, res, next) => {
+  try {
+    const { userId } = req.params;
+    const recipes = await Recipe.find({ createdBy: userId })
+      .populate('createdBy')
+      .select('_id title description imageUrl createdBy');
+    res.status(200).json(recipes);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.post('/', ensureAuth, upload.single('image'), async (req, res, next) => {
   try {
     const result = await cloudinary.uploader.upload(req.file.path);
     const recipe = JSON.parse(req.body.recipe);
@@ -58,7 +59,7 @@ router.post('/', upload.single('image'), async (req, res, next) => {
   }
 });
 
-router.delete('/:recipeId', async (req, res, next) => {
+router.delete('/:recipeId', ensureAuth, async (req, res, next) => {
   try {
     const recipe = await Recipe.findOne({
       _id: req.params.recipeId,
