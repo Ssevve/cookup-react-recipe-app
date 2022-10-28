@@ -1,304 +1,136 @@
+/* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable no-underscore-dangle */
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { FaTrash, FaPlus } from 'react-icons/fa';
-
+import React from 'react';
+import { useForm, useFieldArray } from 'react-hook-form';
 import './style.css';
 
-import ImageUpload from '../ImageUpload';
-
 export default function RecipeForm() {
-  const navigate = useNavigate();
-  const [image, setImage] = useState({ preview: '', data: null });
-  const [recipe, setRecipe] = useState({
-    title: '',
-    description: '',
-    ingredients: [
-      {
-        name: '',
-        unit: 'kilogram',
-        unitShort: 'kg',
-        amount: 0,
-      },
-    ],
-    instructions: [
-      {
-        title: '',
-        text: '',
-      },
-    ],
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm({ mode: 'onChange' });
+  const {
+    fields: ingredientFields,
+    append: ingredientAppend,
+    remove: ingredientRemove,
+  } = useFieldArray({
+    control,
+    name: 'ingredients',
+    rules: { minLength: 1 },
   });
 
-  function addIngredient() {
-    setRecipe({
-      ...recipe,
-      ingredients: [
-        ...recipe.ingredients,
-        {
-          name: '',
-          unit: 'kilogram',
-          unitShort: 'kg',
-          amount: 0,
-        },
-      ],
-    });
-  }
-
-  function deleteIngredient(index) {
-    const newIngredients = recipe.ingredients.filter((_, i) => i !== index);
-    setRecipe({ ...recipe, ingredients: newIngredients });
-  }
-
-  function addInstruction() {
-    setRecipe({
-      ...recipe,
-      instructions: [
-        ...recipe.instructions,
-        {
-          title: '',
-          text: '',
-        },
-      ],
-    });
-  }
-
-  function deleteInstruction(index) {
-    const newInstructions = recipe.instructions.filter((_, i) => i !== index);
-    setRecipe({ ...recipe, instructions: newInstructions });
-  }
-
-  function handleChange(e) {
-    const { name, value } = e.target;
-
-    if (name === 'title') setRecipe({ ...recipe, title: value });
-    else if (name === 'description') setRecipe({ ...recipe, description: value });
-    else {
-      const [recipePropName, propName, index] = name.split('-');
-
-      if (recipePropName === 'ingredients') {
-        const ingredientList = [...recipe.ingredients];
-        ingredientList[index][propName] = value;
-
-        if (propName === 'unit') {
-          const optionIndex = e.nativeEvent.target.selectedIndex;
-          ingredientList[index].unitShort = e.nativeEvent.target[optionIndex].text;
-        }
-
-        setRecipe({ ...recipe, ingredients: ingredientList });
-      } else if (recipePropName === 'instructions') {
-        const instructionList = [...recipe.instructions];
-        instructionList[index][propName] = value;
-
-        setRecipe({ ...recipe, instructions: instructionList });
-      }
-    }
-  }
-
-  async function handleSubmit(e) {
+  async function handleFormSubmit(e) {
     e.preventDefault();
-
-    const formData = new FormData();
-    formData.append('recipe', JSON.stringify(recipe));
-    formData.append('image', image.data);
-
-    const url = 'http://localhost:8000/api/recipes';
-    const requestOptions = {
-      method: 'POST',
-      body: formData,
-      credentials: 'include',
-    };
-
-    try {
-      const res = await fetch(url, requestOptions);
-      const data = await res.json();
-      navigate('/dashboard');
-      console.log(data);
-    } catch (error) {
-      console.log(error);
-    }
+    console.log('submit');
+    console.log(`errors: ${JSON.stringify(errors)}`);
   }
 
   return (
-    <form
-      className="recipe-form flex justify-content-sb"
-      onSubmit={(e) => handleSubmit(e)}
-    >
-      <div className="col-1-2">
-        <div className="form-group">
-          <label className="form__label" htmlFor="title">
-            Recipe Title
-            <input
-              className="form__input"
-              onChange={(e) => handleChange(e)}
-              id="title"
-              type="text"
-              name="title"
-            />
-          </label>
-        </div>
-        <div className="form-group">
-          <label className="form__label" htmlFor="description">
-            Recipe Description
-            <textarea
-              className="form__textarea"
-              onChange={(e) => handleChange(e)}
-              id="description"
-              name="description"
-            />
-          </label>
-        </div>
-        <section className="form__ingredients flex-column">
-          <h2 className="section-heading--small">Ingredients</h2>
-          <ul>
-            {recipe.ingredients.map((ingredient, index) => (
-              <li key={index}>
-                <fieldset className="form__fieldset flex align-items-center">
-                  <legend className="form__legend">
-                    {`Ingredient ${index + 1}`}
-                  </legend>
-                  <div className="form-group">
-                    <label
-                      className="form__label"
-                      htmlFor={`ingredient-${index}-name`}
-                    >
-                      Name
-                      <input
-                        id={`ingredient-${index}-name`}
-                        className="form__input"
-                        onChange={(e) => handleChange(e)}
-                        name={`ingredients-name-${index}`}
-                        type="text"
-                        value={ingredient.name}
-                      />
-                    </label>
-                  </div>
-                  <div className="form-group">
-                    <label
-                      className="form__label"
-                      htmlFor={`ingredient-${index}-amount`}
-                    >
-                      Amount
-                      <input
-                        id={`ingredient-${index}-amount`}
-                        className="form__input"
-                        onChange={(e) => handleChange(e)}
-                        name={`ingredients-amount-${index}`}
-                        type="number"
-                        value={ingredient.amount}
-                        min="0"
-                        step="0.1"
-                      />
-                    </label>
-                  </div>
-                  <div className="form-group">
-                    <label
-                      className="form__label"
-                      htmlFor={`ingredient-${index}-unit`}
-                    >
-                      Unit
-                      <select
-                        id={`ingredient-${index}-unit`}
-                        className="select"
-                        onChange={(e) => handleChange(e)}
-                        name={`ingredients-unit-${index}`}
-                        value={ingredient.unit}
-                      >
-                        <option value="kilogram">kg</option>
-                        <option value="gram">g</option>
-                        <option value="liter">l</option>
-                        <option value="milliliter">ml</option>
-                      </select>
-                    </label>
-                  </div>
-                  <button
-                    className="btn btn--delete align-self-end"
-                    type="button"
-                    onClick={() => deleteIngredient(index)}
-                  >
-                    <FaTrash />
-                  </button>
-                </fieldset>
-              </li>
-            ))}
-          </ul>
-          <button
-            className="btn btn--add align-self-end"
-            onClick={addIngredient}
-            type="button"
-          >
-            <FaPlus />
-            Add ingredient
-          </button>
-        </section>
-        <section className="form__instructions flex-column">
-          <h2 className="section-heading--small">Instructions</h2>
-          <ul>
-            {recipe.instructions.map((instruction, index) => (
-              <li key={index}>
-                <fieldset className="form__fieldset instruction-group">
-                  <legend className="form__legend">
-                    {`Instruction ${index + 1}`}
-                  </legend>
-                  <div className="form-group">
-                    <label
-                      className="form__label"
-                      htmlFor={`instruction-${index}-title`}
-                    >
-                      Title
-                      <input
-                        id={`instruction-${index}-title`}
-                        className="form__input"
-                        onChange={(e) => handleChange(e)}
-                        name={`instructions-title-${index}`}
-                        type="text"
-                        value={instruction.title}
-                      />
-                    </label>
-                  </div>
-                  <div className="form-group">
-                    <label
-                      className="form__label"
-                      htmlFor={`instruction-${index}-description`}
-                    >
-                      Description
-                      <textarea
-                        id={`instruction-${index}-description`}
-                        className="form__textarea"
-                        onChange={(e) => handleChange(e)}
-                        name={`instructions-text-${index}`}
-                        type="text"
-                        value={instruction.text}
-                      />
-                    </label>
-                  </div>
-                  <button
-                    className="btn btn--delete align-self-end"
-                    type="button"
-                    onClick={() => deleteInstruction(index)}
-                  >
-                    <FaTrash />
-                  </button>
-                </fieldset>
-              </li>
-            ))}
-          </ul>
-          <button
-            className="btn btn--add align-self-end"
-            onClick={addInstruction}
-            type="button"
-          >
-            <FaPlus />
-            Add instruction
-          </button>
-        </section>
+    <form className="recipe-form justify-content-center" onSubmit={(e) => handleSubmit(handleFormSubmit(e))}>
+      <div className="form-group">
+        <label className="form__label" htmlFor="title">
+          Recipe Title
+          <input
+            {...register('title', { required: true })}
+            className="form__input"
+            id="title"
+            type="text"
+            name="title"
+          />
+        </label>
+        {errors.title && <span role="alert" className="form-error-message">Title is required</span>}
       </div>
-      <section className="col-1-2 flex-column align-items-end">
-        <ImageUpload image={image} setImage={setImage} />
-        <button className="btn btn--cta" type="submit">
-          Add Recipe
+      <div className="form-group">
+        <label className="form__label" htmlFor="description">
+          Recipe Description
+          <textarea
+            {...register('description', { required: true })}
+            className="form__textarea"
+            id="description"
+            name="description"
+          />
+        </label>
+        {errors.description && <span role="alert" className="form-error-message">Description is required</span>}
+      </div>
+
+      {/* INGREDIENTS */}
+      <section className="form__ingredients flex-column">
+        <h2 className="section-heading--small">Ingredients</h2>
+        <ul>
+          {ingredientFields.map((ingredient, index) => (
+            <li key={ingredient.id}>
+              <fieldset className="form__fieldset flex align-items-center">
+                <legend className="form__legend">{`Ingredient ${index + 1}`}</legend>
+                <div className="form-group">
+                  <label className="form__label" htmlFor={`ingredients[${index}].name`}>
+                    Name
+                    <input
+                      {...register(`ingredients[${index}].name`, { required: true })}
+                      id={`ingredients[${index}].name`}
+                      className="form__input"
+                      name={`ingredients[${index}].name`}
+                      type="text"
+                    />
+                  </label>
+                </div>
+                <div className="form-group">
+                  <label className="form__label" htmlFor={`ingredients[${index}].amount`}>
+                    Amount
+                    <input
+                      {...register(`ingredients[${index}].amount`, { required: true, min: 0.1 })}
+                      name={`ingredients[${index}].amount`}
+                      id={`ingredients[${index}].amount`}
+                      className="form__input"
+                      type="number"
+                      min="0.1"
+                      step="0.1"
+                    />
+                  </label>
+                </div>
+                <div className="form-group">
+                  <label className="form__label" htmlFor={`ingredients[${index}].unit`}>
+                    Unit
+                    <select
+                      {...register(`ingredients[${index}].unit`, { required: true })}
+                      id={`ingredients[${index}].unit`}
+                      className="select"
+                      name={`ingredients[${index}].unit`}
+                    >
+                      <option value="kilogram">kg</option>
+                      <option value="gram">g</option>
+                      <option value="liter">l</option>
+                      <option value="milliliter">ml</option>
+                    </select>
+                  </label>
+                </div>
+                <button
+                  className="btn btn--delete align-self-end"
+                  type="button"
+                  onClick={() => ingredientRemove(index)}
+                >
+                  &#8722;
+                </button>
+              </fieldset>
+            </li>
+          ))}
+        </ul>
+        { errors?.ingredientFields?.root && <span role="alert" className="form-error-message">Lol</span>}
+        <button
+          className="btn btn--add align-self-end"
+          onClick={() => ingredientAppend({ name: '', amount: 0, unit: 'kg' })}
+          type="button"
+        >
+          {/* <FaPlus /> */}
+          Add ingredient
         </button>
       </section>
+
+      <button className="btn btn--cta" type="submit">
+        Add Recipe
+      </button>
     </form>
   );
 }
