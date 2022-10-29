@@ -257,7 +257,7 @@ a {
   border-color: var(--clr-error);
 } */
 
-/* .form-error-message {
+.form-error-message {
   color: var(--clr-error);
   margin-top: 0.25rem;
-} */
+}
