@@ -87,12 +87,16 @@ a {
   align-items: center;
 }
 
-.align-items-end {
-  align-items: end;
+.align-items-start {
+  align-items: flex-start;
 }
 
 .align-self-end {
   align-self: end;
+}
+
+.align-self-start {
+  align-self: start;
 }
 
 .h-full {

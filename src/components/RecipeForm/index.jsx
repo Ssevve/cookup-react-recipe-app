@@ -3,9 +3,13 @@
 /* eslint-disable no-underscore-dangle */
 import React, { useState, useEffect } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
+
 import './style.css';
 
+import ImageUpload from '../ImageUpload';
+
 export default function RecipeForm() {
+  // const [imagePreviewURL, setImagePreviewURL] = useState(undefined);
   const [units, setUnits] = useState(undefined);
   const [fetchingUnits, setFetchingUnits] = useState(true);
   const {
@@ -14,6 +18,8 @@ export default function RecipeForm() {
     control,
     formState: { errors },
     trigger,
+    watch,
+    setValue,
   } = useForm({ mode: 'onChange' });
   const {
     fields: ingredientFields,
@@ -38,7 +44,6 @@ export default function RecipeForm() {
     try {
       const res = await fetch('http://localhost:8000/api/units');
       const data = await res.json();
-      console.log(`Data: ${data}`);
       setUnits(data);
       setFetchingUnits(false);
     } catch (error) {
@@ -50,10 +55,11 @@ export default function RecipeForm() {
     getUnits();
   }, []);
 
-  async function handleFormSubmit(e) {
+  const handleFormSubmit = async (e, data) => {
     e.preventDefault();
     trigger();
-  }
+    console.log(data);
+  };
 
   const requiredField = {
     required: { value: true, message: 'Required field' },
@@ -185,7 +191,7 @@ export default function RecipeForm() {
             ))}
           </ul>
           <button
-            className="btn btn--add align-self-end"
+            className="btn btn--add align-self-start"
             onClick={() => ingredientAppend({ name: '', amount: 0.1 })}
             type="button"
           >
@@ -242,7 +248,7 @@ export default function RecipeForm() {
                     )}
                   </div>
                   <button
-                    className="btn btn--delete align-self-end"
+                    className="btn btn--delete"
                     type="button"
                     onClick={() => instructionRemove(index)}
                   >
@@ -253,13 +259,14 @@ export default function RecipeForm() {
             ))}
           </ul>
           <button
-            className="btn btn--add align-self-end"
+            className="btn btn--add align-self-start"
             onClick={() => instructionAppend({ title: '', description: '' })}
             type="button"
           >
             Add Instruction
           </button>
         </section>
+        <ImageUpload onChange={(e) => setValue('image', e.target.files)} src={watch('image')} />
 
         <button className="btn btn--cta" type="submit">
           Add Recipe

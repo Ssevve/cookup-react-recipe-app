@@ -1,32 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FaImage } from 'react-icons/fa';
+
 import './style.css';
 
-export default function ImageUpload({ image, setImage }) {
-  function handleChange(e) {
-    setImage({
-      preview: URL.createObjectURL(e.target.files[0]),
-      data: e.target.files[0],
-    });
-  }
-
+export default function ImageUpload({ onChange, src }) {
   return (
-    <div className="file flex-column align-items-end">
-
+    <div className="file flex-column align-items-start">
       <label className="file__label" htmlFor="file">
-        <FaImage />
         Choose an image
         <input
+          onChange={onChange}
           className="file__input"
           id="file"
           type="file"
-          onChange={(e) => handleChange(e)}
+          accept="image/png, image/jpeg, image/jpg, image/webp"
         />
       </label>
       <img
         className="file__preview"
-        src={image.preview || 'https://imgs.search.brave.com/lzU2qftfabnreLPjEn36tNM7Mj6koROCIu92-R_kY9E/rs:fit:720:225:1/g:ce/aHR0cHM6Ly90c2Uz/Lm1tLmJpbmcubmV0/L3RoP2lkPU9JUC5o/dEZLMlB6YzFYcGcy/M1B3aV9mZXpRSGFF/NCZwaWQ9QXBp'}
+        src={
+          src
+            ? URL.createObjectURL(src[0])
+            : '../../images/placeholder-recipe-image.jpg'
+        }
         alt=""
       />
     </div>
@@ -34,6 +30,10 @@ export default function ImageUpload({ image, setImage }) {
 }
 
 ImageUpload.propTypes = {
-  image: PropTypes.shape({ preview: PropTypes.string, data: PropTypes.shape({}) }).isRequired,
-  setImage: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
+  src: PropTypes.shape({}),
+};
+
+ImageUpload.defaultProps = {
+  src: null,
 };

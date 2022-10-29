@@ -1,6 +1,7 @@
 .file {
   width: 100%;
   flex: 1;
+  margin-top: 2rem;
 }
 
 .file__input {
