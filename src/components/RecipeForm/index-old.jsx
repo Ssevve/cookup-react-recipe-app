@@ -267,7 +267,6 @@ export default function RecipeForm() {
                         className="form__textarea"
                         onChange={(e) => handleChange(e)}
                         name={`instructions-text-${index}`}
-                        type="text"
                         value={instruction.text}
                       />
                     </label>
