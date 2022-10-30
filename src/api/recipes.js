@@ -94,7 +94,7 @@ router.put('/:recipeId', ensureAuth, upload.single('image'), async (req, res, ne
         cloudinaryId: cloudinaryResult ? cloudinaryResult.public_id : recipe.cloudinaryId,
       },
     });
-    return res.status(201).json(updatedRecipe);
+    return res.status(200).json(updatedRecipe);
   } catch (error) {
     return next(error);
   }
