@@ -15,7 +15,7 @@ export default function RecipeCard({
       <section className="card flex-column">
         <Link to={`/recipe/${recipe._id}`}>
           <section className="card__section">
-            <img className="card__image" src={recipe.imageUrl} alt={recipe.title} />
+            <img className="card__image" src={recipe.imageUrl || '../../images/placeholder-recipe-image.jpg'} alt={recipe.title} />
           </section>
           <section className="card__section flex align-items-center justify-content-sb">
             <h2 className="card__title">{recipe.title}</h2>

@@ -32,7 +32,7 @@ export default function Recipe() {
         {!fetching && (
           <>
             <section className="recipe__image">
-              <img src={recipe.imageUrl} alt={recipe.title} />
+              <img src={recipe.imageUrl || '../../images/placeholder-recipe-image.jpg'} alt={recipe.title} />
             </section>
             <section className="recipe__details flex flex-column">
               <div>
