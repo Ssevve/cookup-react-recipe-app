@@ -84,16 +84,19 @@ router.put('/:recipeId', ensureAuth, upload.single('image'), async (req, res, ne
       return { ...ingredient, unitShort: shortUnit };
     });
 
-    const updatedRecipe = await Recipe.findByIdAndUpdate(req.params.recipeId, {
-      $set: {
-        title: recipe.title,
-        description: recipe.description,
-        ingredients: ingredientsWithShortUnits,
-        instructions: recipe.instructions,
-        imageUrl: cloudinaryResult ? cloudinaryResult.secure_url : recipe.imageUrl,
-        cloudinaryId: cloudinaryResult ? cloudinaryResult.public_id : recipe.cloudinaryId,
+    const updatedRecipe = await Recipe.findOneAndUpdate(
+      { _id: req.params.recipeId, createdBy: req.user._id },
+      {
+        $set: {
+          title: recipe.title,
+          description: recipe.description,
+          ingredients: ingredientsWithShortUnits,
+          instructions: recipe.instructions,
+          imageUrl: cloudinaryResult ? cloudinaryResult.secure_url : recipe.imageUrl,
+          cloudinaryId: cloudinaryResult ? cloudinaryResult.public_id : recipe.cloudinaryId,
+        },
       },
-    });
+    );
     return res.status(200).json(updatedRecipe);
   } catch (error) {
     return next(error);
@@ -108,7 +111,7 @@ router.delete('/:recipeId', ensureAuth, async (req, res, next) => {
     });
 
     await cloudinary.uploader.destroy(recipe.cloudinaryId);
-    await Recipe.deleteOne({ _id: req.params.recipeId });
+    await recipe.remove();
     return res.status(204).json('success');
   } catch (error) {
     return next(error);
