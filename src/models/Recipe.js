@@ -37,7 +37,7 @@ const recipeSchema = new Schema(
         {
           instructionIndex: Number,
           title: requiredString,
-          text: requiredString,
+          description: requiredString,
         },
       ],
       validate: [

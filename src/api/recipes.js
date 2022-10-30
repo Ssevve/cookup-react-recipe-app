@@ -7,7 +7,7 @@ const upload = multer({ storage: multer.diskStorage({}) });
 const Recipe = require('../models/Recipe');
 const cloudinary = require('../lib/cloudinary');
 const ensureAuth = require('../middleware/ensureAuth');
-const unitMapping = require('../lib/units.json');
+const units = require('../lib/units.json');
 
 router.get('/:recipeId', async (req, res, next) => {
   const { recipeId } = req.params;
@@ -47,9 +47,15 @@ router.post('/', ensureAuth, upload.single('image'), async (req, res, next) => {
     const result = await cloudinary.uploader.upload(req.file.path);
     const recipe = JSON.parse(req.body.recipe);
 
+    const ingredientsWithShortUnits = recipe.ingredients.map((ingredient) => {
+      const shortUnit = units[ingredient.unit];
+      if (!shortUnit) return res.status(400).json({ message: 'Invalid ingredient unit.' });
+      return { ...ingredient, unitShort: shortUnit };
+    });
+
     const createdRecipe = await Recipe.create({
       ...recipe,
-      unitShort: unitMapping[recipe.unit],
+      ingredients: ingredientsWithShortUnits,
       createdBy: req.user._id,
       imageUrl: result.secure_url,
       cloudinaryId: result.public_id,
@@ -67,8 +73,6 @@ router.delete('/:recipeId', ensureAuth, async (req, res, next) => {
       _id: req.params.recipeId,
       createdBy: req.user._id,
     });
-
-    console.log(recipe.cloudinaryId);
 
     await cloudinary.uploader.destroy(recipe.cloudinaryId);
     await Recipe.deleteOne({ _id: req.params.recipeId });
