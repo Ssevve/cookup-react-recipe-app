@@ -70,6 +70,36 @@ router.post('/', ensureAuth, upload.single('image'), async (req, res, next) => {
   }
 });
 
+router.put('/:recipeId', ensureAuth, upload.single('image'), async (req, res, next) => {
+  try {
+    let cloudinaryResult;
+    if (req.file) cloudinaryResult = await cloudinary.uploader.upload(req.file.path);
+
+    const recipe = JSON.parse(req.body.recipe);
+    if (!recipe) return res.status(400).json({ message: 'Invalid input' });
+
+    const ingredientsWithShortUnits = recipe.ingredients.map((ingredient) => {
+      const shortUnit = units[ingredient.unit];
+      if (!shortUnit) return res.status(400).json({ message: 'Invalid ingredient unit.' });
+      return { ...ingredient, unitShort: shortUnit };
+    });
+
+    const updatedRecipe = await Recipe.findByIdAndUpdate(req.params.recipeId, {
+      $set: {
+        title: recipe.title,
+        description: recipe.description,
+        ingredients: ingredientsWithShortUnits,
+        instructions: recipe.instructions,
+        imageUrl: cloudinaryResult ? cloudinaryResult.secure_url : recipe.imageUrl,
+        cloudinaryId: cloudinaryResult ? cloudinaryResult.public_id : recipe.cloudinaryId,
+      },
+    });
+    return res.status(201).json(updatedRecipe);
+  } catch (error) {
+    return next(error);
+  }
+});
+
 router.delete('/:recipeId', ensureAuth, async (req, res, next) => {
   try {
     const recipe = await Recipe.findOne({
