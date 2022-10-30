@@ -6,6 +6,7 @@ import './index.css';
 import Header from './components/Header';
 import Landing from './components/Landing';
 import AddRecipe from './components/AddRecipe';
+import EditRecipe from './components/EditRecipe';
 import Recipes from './components/Recipes';
 import Recipe from './components/Recipe';
 import Login from './components/Login';
@@ -46,6 +47,7 @@ function App() {
           {/* Private Routes */}
           <Route element={<PrivateRoutes />}>
             <Route path="/add" element={<AddRecipe />} />
+            <Route path="/edit/:recipeId" element={<EditRecipe />} />
             <Route path="/dashboard" element={<Dashboard />} />
           </Route>
         </Routes>

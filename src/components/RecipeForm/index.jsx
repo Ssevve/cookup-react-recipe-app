@@ -1,7 +1,8 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable no-underscore-dangle */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import { useForm, useFieldArray } from 'react-hook-form';
 
@@ -9,7 +10,8 @@ import './style.css';
 
 import ImageUpload from '../ImageUpload';
 
-export default function RecipeForm() {
+export default function RecipeForm({ recipe }) {
+  const [editingRecipe] = useState(recipe);
   const navigate = useNavigate();
   const [file, setFile] = useState(undefined);
   const {
@@ -18,6 +20,7 @@ export default function RecipeForm() {
     control,
     formState: { errors },
     trigger,
+    setValue,
   } = useForm({ mode: 'onChange' });
   const {
     fields: ingredientFields,
@@ -40,14 +43,14 @@ export default function RecipeForm() {
 
   const onSubmit = async (data) => {
     trigger();
-
     const formData = new FormData();
+
     formData.append('recipe', JSON.stringify(data));
     formData.append('image', file);
 
-    const url = 'http://localhost:8000/api/recipes';
+    const url = `http://localhost:8000/api/recipes/${editingRecipe ? editingRecipe._id : ''}`;
     const requestOptions = {
-      method: 'POST',
+      method: editingRecipe ? 'PUT' : 'POST',
       body: formData,
       credentials: 'include',
     };
@@ -64,6 +67,15 @@ export default function RecipeForm() {
   const requiredField = {
     required: { value: true, message: 'Required field' },
   };
+
+  useEffect(() => {
+    if (editingRecipe) {
+      setValue('title', editingRecipe.title);
+      setValue('description', editingRecipe.description);
+      setValue('ingredients', editingRecipe.ingredients);
+      setValue('instructions', editingRecipe.instructions);
+    }
+  }, []);
 
   return (
     <form
@@ -93,7 +105,7 @@ export default function RecipeForm() {
         <label className="form__label" htmlFor="description">
           Recipe Description
           <textarea
-            {...register('description', requiredField)}
+            {...register('description', requiredField, { value: editingRecipe?.description || '' })}
             aria-invalid={errors.description ? 'true' : 'false'}
             className="form__textarea"
             id="description"
@@ -264,11 +276,25 @@ export default function RecipeForm() {
           Add Instruction
         </button>
       </section>
-      <ImageUpload onChange={(e) => setFile(() => e.target?.files[0])} src={file} />
+      <ImageUpload
+        onChange={(e) => setFile(() => e.target?.files[0])}
+        src={file ? URL.createObjectURL(file) : editingRecipe?.imageUrl}
+      />
 
       <button className="btn btn--cta" type="submit">
-        Add Recipe
+        {editingRecipe ? 'Save' : 'Add Recipe'}
       </button>
     </form>
   );
 }
+
+RecipeForm.propTypes = {
+  recipe: PropTypes.shape({
+    title: PropTypes.string,
+    description: PropTypes.string,
+  }),
+};
+
+RecipeForm.defaultProps = {
+  recipe: null,
+};

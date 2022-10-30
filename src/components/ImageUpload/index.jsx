@@ -19,9 +19,7 @@ export default function ImageUpload({ onChange, src }) {
       <img
         className="file__preview"
         src={
-          src
-            ? URL.createObjectURL(src)
-            : '../../images/placeholder-recipe-image.jpg'
+          src || '../../images/placeholder-recipe-image.jpg'
         }
         alt=""
       />
@@ -31,7 +29,7 @@ export default function ImageUpload({ onChange, src }) {
 
 ImageUpload.propTypes = {
   onChange: PropTypes.func.isRequired,
-  src: PropTypes.shape({}),
+  src: PropTypes.string,
 };
 
 ImageUpload.defaultProps = {

@@ -20,7 +20,7 @@ export default function InstructionList({ instructions }) {
             />
             {instruction.title}
           </label>
-          <p className="instruction__text">{instruction.text}</p>
+          <p className="instruction__text">{instruction.description}</p>
         </li>
       ))}
     </ol>

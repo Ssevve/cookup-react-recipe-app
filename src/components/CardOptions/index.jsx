@@ -1,5 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { BsThreeDots } from 'react-icons/bs';
 import PropTypes from 'prop-types';
 
@@ -37,9 +38,9 @@ export default function CardOptions({ recipeId, setRecipes }) {
       {showOptions && (
         <ul className="dropdown-menu">
           <li>
-            <button className="btn dropdown-item" type="button">
+            <Link onClick={(e) => e.stopPropagation()} to={`/edit/${recipeId}`} className="btn dropdown-item" type="button">
               Edit
-            </button>
+            </Link>
           </li>
           <li>
             <button onClick={deleteRecipe} className="btn dropdown-item" type="button">
