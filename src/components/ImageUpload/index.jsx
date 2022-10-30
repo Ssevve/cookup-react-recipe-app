@@ -20,7 +20,7 @@ export default function ImageUpload({ onChange, src }) {
         className="file__preview"
         src={
           src
-            ? URL.createObjectURL(src[0])
+            ? URL.createObjectURL(src)
             : '../../images/placeholder-recipe-image.jpg'
         }
         alt=""

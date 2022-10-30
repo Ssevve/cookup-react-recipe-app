@@ -1,7 +1,8 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable no-underscore-dangle */
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useForm, useFieldArray } from 'react-hook-form';
 
 import './style.css';
@@ -9,14 +10,14 @@ import './style.css';
 import ImageUpload from '../ImageUpload';
 
 export default function RecipeForm() {
+  const navigate = useNavigate();
+  const [file, setFile] = useState(undefined);
   const {
     register,
     handleSubmit,
     control,
     formState: { errors },
     trigger,
-    watch,
-    setValue,
   } = useForm({ mode: 'onChange' });
   const {
     fields: ingredientFields,
@@ -37,10 +38,27 @@ export default function RecipeForm() {
     rules: { required: { value: true, message: 'At least one instruction is required' } },
   });
 
-  const handleFormSubmit = async (e, data) => {
-    e.preventDefault();
+  const onSubmit = async (data) => {
     trigger();
-    console.log(data);
+
+    const formData = new FormData();
+    formData.append('recipe', JSON.stringify(data));
+    formData.append('image', file);
+
+    const url = 'http://localhost:8000/api/recipes';
+    const requestOptions = {
+      method: 'POST',
+      body: formData,
+      credentials: 'include',
+    };
+
+    try {
+      await fetch(url, requestOptions);
+      navigate('/dashboard');
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.log(error);
+    }
   };
 
   const requiredField = {
@@ -51,7 +69,7 @@ export default function RecipeForm() {
     <form
       noValidate
       className="recipe-form justify-content-center"
-      onSubmit={(e) => handleSubmit(handleFormSubmit(e))}
+      onSubmit={handleSubmit(onSubmit)}
     >
       <div className="form-group">
         <label className="form__label" htmlFor="title">
@@ -152,10 +170,10 @@ export default function RecipeForm() {
                       className="select"
                       name={`ingredients[${index}].unit`}
                     >
-                      <option value="kilogram">kg</option>
-                      <option value="gram">g</option>
-                      <option value="liter">l</option>
-                      <option value="milliliter">ml</option>
+                      <option value="kilogram">kilogram</option>
+                      <option value="gram">gram</option>
+                      <option value="liter">liter</option>
+                      <option value="milliliter">milliliter</option>
                     </select>
                   </label>
                 </div>
@@ -246,7 +264,7 @@ export default function RecipeForm() {
           Add Instruction
         </button>
       </section>
-      <ImageUpload onChange={(e) => setValue('image', e.target.files)} src={watch('image')} />
+      <ImageUpload onChange={(e) => setFile(() => e.target?.files[0])} src={file} />
 
       <button className="btn btn--cta" type="submit">
         Add Recipe

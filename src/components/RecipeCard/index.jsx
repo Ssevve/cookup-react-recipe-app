@@ -39,7 +39,7 @@ export default function RecipeCard({
 }
 
 RecipeCard.propTypes = {
-  setRecipes: PropTypes.func.isRequired,
+  setRecipes: PropTypes.func,
   recipe: PropTypes.shape({
     _id: PropTypes.string,
     title: PropTypes.string,
@@ -57,6 +57,7 @@ RecipeCard.propTypes = {
 };
 
 RecipeCard.defaultProps = {
+  setRecipes: null,
   showOptions: false,
   showAuthor: false,
 };
