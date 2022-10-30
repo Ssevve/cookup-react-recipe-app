@@ -7,6 +7,7 @@ const upload = multer({ storage: multer.diskStorage({}) });
 const Recipe = require('../models/Recipe');
 const cloudinary = require('../lib/cloudinary');
 const ensureAuth = require('../middleware/ensureAuth');
+const unitMapping = require('../lib/units.json');
 
 router.get('/:recipeId', async (req, res, next) => {
   const { recipeId } = req.params;
@@ -48,6 +49,7 @@ router.post('/', ensureAuth, upload.single('image'), async (req, res, next) => {
 
     const createdRecipe = await Recipe.create({
       ...recipe,
+      unitShort: unitMapping[recipe.unit],
       createdBy: req.user._id,
       imageUrl: result.secure_url,
       cloudinaryId: result.public_id,
