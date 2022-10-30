@@ -44,8 +44,11 @@ router.get('/user/:userId', ensureAuth, async (req, res, next) => {
 
 router.post('/', ensureAuth, upload.single('image'), async (req, res, next) => {
   try {
-    const result = await cloudinary.uploader.upload(req.file.path);
+    let cloudinaryResult;
+    if (req.file) cloudinaryResult = await cloudinary.uploader.upload(req.file.path);
+
     const recipe = JSON.parse(req.body.recipe);
+    if (!recipe) return res.status(400).json({ message: 'Invalid input' });
 
     const ingredientsWithShortUnits = recipe.ingredients.map((ingredient) => {
       const shortUnit = units[ingredient.unit];
@@ -57,13 +60,13 @@ router.post('/', ensureAuth, upload.single('image'), async (req, res, next) => {
       ...recipe,
       ingredients: ingredientsWithShortUnits,
       createdBy: req.user._id,
-      imageUrl: result.secure_url,
-      cloudinaryId: result.public_id,
+      imageUrl: cloudinaryResult ? cloudinaryResult.secure_url : null,
+      cloudinaryId: cloudinaryResult ? cloudinaryResult.public_id : null,
     });
 
-    res.status(201).json(createdRecipe);
+    return res.status(201).json(createdRecipe);
   } catch (error) {
-    next(error);
+    return next(error);
   }
 });
 
