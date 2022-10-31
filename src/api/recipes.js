@@ -110,7 +110,9 @@ router.delete('/:recipeId', ensureAuth, async (req, res, next) => {
       createdBy: req.user._id,
     });
 
-    await cloudinary.uploader.destroy(recipe.cloudinaryId);
+    console.log(recipe);
+
+    if (recipe.cloudinaryId) await cloudinary.uploader.destroy(recipe.cloudinaryId);
     await recipe.remove();
     return res.status(204).json('success');
   } catch (error) {
