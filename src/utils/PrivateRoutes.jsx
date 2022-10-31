@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
-// import PropTypes from 'prop-types';
 
 export default function PrivateRoutes() {
   const [user, setUser] = useState(null);
@@ -15,6 +14,7 @@ export default function PrivateRoutes() {
       setUser(data.user);
       return setIsFetchingUser(false);
     } catch (err) {
+      // eslint-disable-next-line no-console
       return console.log(err);
     }
   };
@@ -25,11 +25,3 @@ export default function PrivateRoutes() {
 
   return !isFetchingUser && (user ? <Outlet context={user} /> : <Navigate to="/login" />);
 }
-
-// PrivateRoutes.propTypes = {
-//   user: PropTypes.shape({}),
-// };
-
-// PrivateRoutes.defaultProps = {
-//   user: null,
-// };

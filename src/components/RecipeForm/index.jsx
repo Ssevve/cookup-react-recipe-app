@@ -1,6 +1,4 @@
 /* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable react/no-array-index-key */
-/* eslint-disable no-underscore-dangle */
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
@@ -8,6 +6,8 @@ import { useForm, useFieldArray } from 'react-hook-form';
 
 import './style.css';
 
+import Button from '../Button';
+import { Input, Select, Textarea } from '../FormFields';
 import ImageUpload from '../ImageUpload';
 
 export default function RecipeForm({ recipe }) {
@@ -48,6 +48,7 @@ export default function RecipeForm({ recipe }) {
     formData.append('recipe', JSON.stringify(data));
     formData.append('image', file);
 
+    // eslint-disable-next-line no-underscore-dangle
     const url = `http://localhost:8000/api/recipes/${editingRecipe ? editingRecipe._id : ''}`;
     const requestOptions = {
       method: editingRecipe ? 'PUT' : 'POST',
@@ -83,41 +84,20 @@ export default function RecipeForm({ recipe }) {
       className="recipe-form justify-content-center"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <div className="form-group">
-        <label className="form__label" htmlFor="title">
-          Recipe Title
-          <input
-            {...register('title', requiredField)}
-            aria-invalid={errors.title ? 'true' : 'false'}
-            className="form__input"
-            id="title"
-            type="text"
-            name="title"
-          />
-        </label>
-        {errors.title && (
-          <span role="alert" className="form-error-message">
-            {errors.title.message}
-          </span>
-        )}
-      </div>
-      <div className="form-group">
-        <label className="form__label" htmlFor="description">
-          Recipe Description
-          <textarea
-            {...register('description', requiredField, { value: editingRecipe?.description || '' })}
-            aria-invalid={errors.description ? 'true' : 'false'}
-            className="form__textarea"
-            id="description"
-            name="description"
-          />
-        </label>
-        {errors.description && (
-          <span role="alert" className="form-error-message">
-            {errors.description.message}
-          </span>
-        )}
-      </div>
+      <Input
+        label="Recipe title"
+        name="title"
+        register={register}
+        validationRules={requiredField}
+        error={errors.title}
+      />
+      <Textarea
+        label="Recipe description"
+        name="description"
+        register={register}
+        validationRules={requiredField}
+        error={errors.description}
+      />
 
       {/* INGREDIENTS */}
       <section className="form__ingredients flex-column">
@@ -132,81 +112,38 @@ export default function RecipeForm({ recipe }) {
             <li key={ingredient.id}>
               <fieldset className="form__fieldset flex align-items-center">
                 <legend className="form__legend">{`Ingredient ${index + 1}`}</legend>
-                <div className="form-group">
-                  <label className="form__label" htmlFor={`ingredients[${index}].name`}>
-                    Name
-                    <input
-                      {...register(`ingredients[${index}].name`, requiredField)}
-                      aria-invalid={errors.ingredients?.[index]?.name ? 'true' : 'false'}
-                      id={`ingredients[${index}].name`}
-                      className="form__input"
-                      name={`ingredients[${index}].name`}
-                      type="text"
-                    />
-                  </label>
-                  {errors.ingredients?.[index]?.name && (
-                    <span role="alert" className="form-error-message">
-                      {errors.ingredients?.[index]?.name.message}
-                    </span>
-                  )}
-                </div>
-                <div className="form-group">
-                  <label className="form__label" htmlFor={`ingredients[${index}].amount`}>
-                    Amount
-                    <input
-                      {...register(`ingredients[${index}].amount`, {
-                        ...requiredField,
-                        min: { value: 0.1, message: 'Invalid amount' },
-                      })}
-                      aria-invalid={errors.ingredients?.[index]?.amount ? 'true' : 'false'}
-                      name={`ingredients[${index}].amount`}
-                      id={`ingredients[${index}].amount`}
-                      className="form__input"
-                      type="number"
-                      min="0.1"
-                      step="0.1"
-                    />
-                  </label>
-                  {errors.ingredients?.[index]?.amount && (
-                    <span role="alert" className="form-error-message">
-                      {errors.ingredients?.[index]?.amount.message}
-                    </span>
-                  )}
-                </div>
-                <div className="form-group">
-                  <label className="form__label" htmlFor={`ingredients[${index}].unit`}>
-                    Unit
-                    <select
-                      {...register(`ingredients[${index}].unit`)}
-                      id={`ingredients[${index}].unit`}
-                      className="select"
-                      name={`ingredients[${index}].unit`}
-                    >
-                      <option value="kilogram">kilogram</option>
-                      <option value="gram">gram</option>
-                      <option value="liter">liter</option>
-                      <option value="milliliter">milliliter</option>
-                    </select>
-                  </label>
-                </div>
-                <button
-                  className="btn btn--delete align-self-end"
-                  type="button"
-                  onClick={() => ingredientRemove(index)}
-                >
-                  &#8722;
-                </button>
+                <Input
+                  label="Name"
+                  name={`ingredients[${index}].name`}
+                  register={register}
+                  validationRules={requiredField}
+                  error={errors.ingredients?.[index]?.name}
+                />
+                <Input
+                  label="Amount"
+                  name={`ingredients[${index}].amount`}
+                  register={register}
+                  validationRules={{
+                    ...requiredField,
+                    min: { value: 0.1, message: 'Invalid amount' },
+                  }}
+                  error={errors.ingredients?.[index]?.amount}
+                  type="number"
+                  min="0.1"
+                  step="0.1"
+                />
+                <Select
+                  label="Unit"
+                  register={register}
+                  options={['kilogram', 'gram', 'liter', 'milliliter']}
+                  name={`ingredients[${index}].unit`}
+                />
+                <Button className="btn--delete align-self-end" onClick={() => ingredientRemove(index)} text="&#8722;" />
               </fieldset>
             </li>
           ))}
         </ul>
-        <button
-          className="btn btn--add align-self-start"
-          onClick={() => ingredientAppend({ name: '', amount: 0.1 })}
-          type="button"
-        >
-          Add ingredient
-        </button>
+        <Button className="btn--add align-self-start" onClick={() => ingredientAppend({ name: '', amount: 0.1, unit: 'kilogram' })} text="Add ingredient" />
       </section>
 
       {/* INSTRUCTIONS */}
@@ -222,68 +159,32 @@ export default function RecipeForm({ recipe }) {
             <li key={instruction.id}>
               <fieldset className="form__fieldset flex align-items-center">
                 <legend className="form__legend">{`Instruction ${index + 1}`}</legend>
-                <div className="form-group">
-                  <label className="form__label" htmlFor={`instructions[${index}].title`}>
-                    Title
-                    <input
-                      {...register(`instructions[${index}].title`, requiredField)}
-                      aria-invalid={errors.instructions?.[index]?.title ? 'true' : 'false'}
-                      id={`instructions[${index}].title`}
-                      className="form__input"
-                      name={`instructions[${index}].title`}
-                      type="text"
-                    />
-                  </label>
-                  {errors.instructions?.[index]?.title && (
-                    <span role="alert" className="form-error-message">
-                      {errors.instructions?.[index]?.title.message}
-                    </span>
-                  )}
-                </div>
-                <div className="form-group">
-                  <label className="form__label" htmlFor={`instructions[${index}].description`}>
-                    Description
-                    <textarea
-                      {...register(`instructions[${index}].description`, requiredField)}
-                      aria-invalid={errors.instructions?.[index]?.description ? 'true' : 'false'}
-                      name={`instructions[${index}].description`}
-                      id={`instructions[${index}].description`}
-                      className="form__textarea"
-                    />
-                  </label>
-                  {errors.instructions?.[index]?.description && (
-                    <span role="alert" className="form-error-message">
-                      {errors.instructions?.[index]?.description.message}
-                    </span>
-                  )}
-                </div>
-                <button
-                  className="btn btn--delete"
-                  type="button"
-                  onClick={() => instructionRemove(index)}
-                >
-                  &#8722;
-                </button>
+                <Input
+                  label="Title"
+                  name={`instructions[${index}].title`}
+                  register={register}
+                  validationRules={requiredField}
+                  error={errors?.instructions?.[index]?.title}
+                />
+                <Textarea
+                  label="Description"
+                  name={`instructions[${index}].description`}
+                  register={register}
+                  validationRules={requiredField}
+                  error={errors?.instructions?.[index]?.description}
+                />
+                <Button className="btn--delete align-self-end" onClick={() => instructionRemove(index)} text="&#8722;" />
               </fieldset>
             </li>
           ))}
         </ul>
-        <button
-          className="btn btn--add align-self-start"
-          onClick={() => instructionAppend({ title: '', description: '' })}
-          type="button"
-        >
-          Add Instruction
-        </button>
+        <Button className="btn--add align-self-start" onClick={() => instructionAppend({ title: '', description: '' })} text="Add instruction" />
       </section>
       <ImageUpload
         onChange={(e) => setFile(() => e.target?.files[0])}
         src={file ? URL.createObjectURL(file) : editingRecipe?.imageUrl}
       />
-
-      <button className="btn btn--cta" type="submit">
-        {editingRecipe ? 'Save' : 'Add Recipe'}
-      </button>
+      <Button className=" btn--cta" type="submit" text={editingRecipe ? 'Save' : 'Add Recipe'} />
     </form>
   );
 }

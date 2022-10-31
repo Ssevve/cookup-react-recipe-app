@@ -3,7 +3,6 @@
   padding-bottom: 4rem;
 }
 
-.form__label, 
 .form__legend {
   display: block;
   margin-bottom: 0.15rem;
@@ -33,9 +32,9 @@
   width: 100%;
 } */
 
-.form__textarea {
+/* .form__textarea {
   margin-bottom: 0.5rem;
-}
+} */
 
 .instruction-group {
   display: flex;
