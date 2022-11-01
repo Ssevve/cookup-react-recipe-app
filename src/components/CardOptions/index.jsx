@@ -1,17 +1,25 @@
 /* eslint-disable no-underscore-dangle */
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { BsThreeDots } from 'react-icons/bs';
 import PropTypes from 'prop-types';
 
 import './style.css';
 
+import Button from '../Button';
+
 export default function CardOptions({ recipeId, setRecipes }) {
   const [showOptions, setShowOptions] = useState(false);
+  const navigate = useNavigate();
 
   const toggleOptions = (e) => {
     e.preventDefault();
     setShowOptions((prev) => !prev);
+  };
+
+  const navigateToEditPage = (e) => {
+    e.preventDefault();
+    navigate(`/edit/${recipeId}`);
   };
 
   const deleteRecipe = async (e) => {
@@ -38,14 +46,10 @@ export default function CardOptions({ recipeId, setRecipes }) {
       {showOptions && (
         <ul className="dropdown-menu">
           <li>
-            <Link onClick={(e) => e.stopPropagation()} to={`/edit/${recipeId}`} className="btn dropdown-item" type="button">
-              Edit
-            </Link>
+            <Button onClick={navigateToEditPage} className="dropdown-item" text="Edit" />
           </li>
           <li>
-            <button onClick={deleteRecipe} className="btn dropdown-item" type="button">
-              Delete
-            </button>
+            <Button onClick={deleteRecipe} className="dropdown-item" text="Delete" />
           </li>
         </ul>
       )}
