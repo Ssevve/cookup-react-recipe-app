@@ -77,8 +77,12 @@ Input.propTypes = {
   validationRules: PropTypes.shape({}).isRequired,
   error: PropTypes.shape({
     message: PropTypes.string,
-  }).isRequired,
+  }),
   label: PropTypes.string.isRequired,
+};
+
+Input.defaultProps = {
+  error: {},
 };
 
 Select.propTypes = {
@@ -94,6 +98,10 @@ Textarea.propTypes = {
   validationRules: PropTypes.shape({}).isRequired,
   error: PropTypes.shape({
     message: PropTypes.string,
-  }).isRequired,
+  }),
   label: PropTypes.string.isRequired,
+};
+
+Textarea.defaultProps = {
+  error: {},
 };
