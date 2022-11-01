@@ -12,8 +12,8 @@ import ImageUpload from '../ImageUpload';
 
 export default function RecipeForm({ recipe }) {
   const [editingRecipe] = useState(recipe);
-  const navigate = useNavigate();
   const [file, setFile] = useState(undefined);
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -75,6 +75,9 @@ export default function RecipeForm({ recipe }) {
       setValue('description', editingRecipe.description);
       setValue('ingredients', editingRecipe.ingredients);
       setValue('instructions', editingRecipe.instructions);
+    } else {
+      ingredientAppend({ name: '', amount: 0.1, unit: 'kilogram' });
+      instructionAppend({ title: '', description: '' });
     }
   }, []);
 
