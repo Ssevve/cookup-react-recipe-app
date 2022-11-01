@@ -1,6 +1,11 @@
 {
   "kilogram": "kg",
   "gram": "g",
+  "milligram": "mg",
   "liter": "l",
-  "milliliter": "ml"
+  "milliliter": "ml",
+  "cup": "c",
+  "tablespoon": "T",
+  "teaspoon": "t",
+  "piece": "pcs"
 }

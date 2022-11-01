@@ -19,18 +19,41 @@ const recipeSchema = new Schema(
       type: [
         {
           name: requiredString,
-          unit: requiredString,
-          unitShort: requiredString,
+          unit: {
+            ...requiredString,
+            enum: [
+              'kilogram',
+              'gram',
+              'milligram',
+              'liter',
+              'milliliter',
+              'cup',
+              'tablespoon',
+              'teaspoon',
+              'piece',
+            ],
+          },
+          unitShort: {
+            ...requiredString,
+            enum: [
+              'kg',
+              'g',
+              'mgm',
+              'l',
+              'ml',
+              'c',
+              'T',
+              't',
+              'pcs',
+            ],
+          },
           amount: {
             type: Number,
             required: true,
           },
         },
       ],
-      validate: [
-        (value) => value.length > 0,
-        'You must provide at least one ingredient.',
-      ],
+      validate: [(value) => value.length > 0, 'You must provide at least one ingredient.'],
     },
     instructions: {
       type: [
@@ -40,10 +63,7 @@ const recipeSchema = new Schema(
           description: requiredString,
         },
       ],
-      validate: [
-        (value) => value.length > 0,
-        'You must provide at least one instruction.',
-      ],
+      validate: [(value) => value.length > 0, 'You must provide at least one instruction.'],
     },
     imageUrl: {
       type: String,
