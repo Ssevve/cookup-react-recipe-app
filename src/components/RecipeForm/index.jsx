@@ -76,7 +76,7 @@ export default function RecipeForm({ recipe }) {
       setValue('ingredients', editingRecipe.ingredients);
       setValue('instructions', editingRecipe.instructions);
     } else {
-      ingredientAppend({ name: '', amount: 0.1, unit: 'kilogram' });
+      ingredientAppend({ name: '', amount: 0.1, unit: 'piece' });
       instructionAppend({ title: '', description: '' });
     }
   }, []);
@@ -138,7 +138,7 @@ export default function RecipeForm({ recipe }) {
                 <Select
                   label="Unit"
                   register={register}
-                  options={['kilogram', 'gram', 'liter', 'milliliter']}
+                  options={['kilogram', 'gram', 'milligram', 'liter', 'milliliter', 'cup', 'tablespoon', 'teaspoon', 'piece']}
                   name={`ingredients[${index}].unit`}
                 />
                 <Button className="btn--delete align-self-end" onClick={() => ingredientRemove(index)} text="&#8722;" />
@@ -146,7 +146,7 @@ export default function RecipeForm({ recipe }) {
             </li>
           ))}
         </ul>
-        <Button className="btn--add align-self-start" onClick={() => ingredientAppend({ name: '', amount: 0.1, unit: 'kilogram' })} text="Add ingredient" />
+        <Button className="btn--add align-self-start" onClick={() => ingredientAppend({ name: '', amount: 0.1, unit: 'piece' })} text="Add ingredient" />
       </section>
 
       {/* INSTRUCTIONS */}
@@ -187,7 +187,8 @@ export default function RecipeForm({ recipe }) {
         onChange={(e) => setFile(() => e.target?.files[0])}
         src={file ? URL.createObjectURL(file) : editingRecipe?.imageUrl}
       />
-      <Button className=" btn--cta" type="submit" text={editingRecipe ? 'Save' : 'Add Recipe'} />
+      <Button className="btn--cta" type="submit" text={editingRecipe ? 'Save' : 'Add Recipe'} />
+      <Button onClick={() => navigate(-1)} text={editingRecipe ? 'Cancel' : 'Go back'} />
     </form>
   );
 }
