@@ -3,15 +3,15 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import './index.css';
 
-import Header from './components/Header';
-import Landing from './components/Landing';
-import AddRecipe from './components/AddRecipe';
-import EditRecipe from './components/EditRecipe';
-import Recipes from './components/Recipes';
-import Recipe from './components/Recipe';
-import Login from './components/Login';
-import Signup from './components/Signup';
-import Dashboard from './components/Dashboard';
+import Header from './components/Navbar';
+import Landing from './pages/Landing';
+import AddRecipe from './pages/AddRecipe';
+import EditRecipe from './pages/EditRecipe';
+import Recipes from './pages/Recipes';
+import Recipe from './pages/Recipe';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
+import Dashboard from './pages/Dashboard';
 import PrivateRoutes from './utils/PrivateRoutes';
 
 function App() {

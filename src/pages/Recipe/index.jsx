@@ -3,8 +3,8 @@ import { useParams } from 'react-router-dom';
 
 import './style.css';
 
-import IngredientList from '../IngredientList';
-import InstructionList from '../InstructionList';
+import IngredientList from '../../components/IngredientList';
+import InstructionList from '../../components/InstructionList';
 
 export default function Recipe() {
   const { recipeId } = useParams();

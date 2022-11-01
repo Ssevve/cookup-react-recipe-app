@@ -3,7 +3,7 @@ import { useOutletContext } from 'react-router-dom';
 
 import './style.css';
 
-import RecipeCard from '../RecipeCard';
+import RecipeCard from '../../components/RecipeCard';
 
 export default function Dashboard() {
   const user = useOutletContext();

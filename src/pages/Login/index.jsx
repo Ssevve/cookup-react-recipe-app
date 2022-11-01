@@ -5,7 +5,7 @@ import isEmail from 'validator/lib/isEmail';
 
 import './style.css';
 
-import ErrorBox from '../ErrorBox';
+import ErrorBox from '../../components/ErrorBox';
 
 export default function Login({ setUser }) {
   const navigate = useNavigate();

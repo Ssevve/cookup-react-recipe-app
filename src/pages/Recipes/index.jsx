@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 
 import './style.css';
 
-import RecipeCard from '../RecipeCard';
+import RecipeCard from '../../components/RecipeCard';
 
 export default function Recipes() {
   const [recipes, setRecipes] = useState([]);

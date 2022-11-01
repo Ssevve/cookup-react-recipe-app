@@ -4,7 +4,7 @@ import { useNavigate, NavLink } from 'react-router-dom';
 
 import './style.css';
 
-export default function Header({ user, setUser }) {
+export default function Navbar({ user, setUser }) {
   const navigate = useNavigate();
   const logout = async (e) => {
     e.preventDefault();
@@ -89,11 +89,11 @@ export default function Header({ user, setUser }) {
   );
 }
 
-Header.propTypes = {
+Navbar.propTypes = {
   user: PropTypes.objectOf(PropTypes.string),
   setUser: PropTypes.func.isRequired,
 };
 
-Header.defaultProps = {
+Navbar.defaultProps = {
   user: null,
 };
