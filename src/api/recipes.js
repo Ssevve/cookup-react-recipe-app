@@ -5,7 +5,7 @@ const multer = require('multer');
 const upload = multer({ storage: multer.diskStorage({}) });
 
 const Recipe = require('../models/Recipe');
-const cloudinary = require('../lib/cloudinary');
+const cloudinary = require('../config/cloudinary');
 const ensureAuth = require('../middleware/ensureAuth');
 const units = require('../lib/units.json');
 
