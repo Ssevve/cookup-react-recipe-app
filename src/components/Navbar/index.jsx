@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import cx from 'classnames';
 import { GoThreeBars } from 'react-icons/go';
 import PropTypes from 'prop-types';
@@ -29,6 +29,13 @@ export default function Navbar({ user, setUser }) {
       console.log(err);
     }
   };
+
+  useEffect(() => {
+    const body = document.querySelector('body');
+    if (body) {
+      body.style.position = showMenu ? 'fixed' : 'static';
+    }
+  }, [showMenu]);
 
   return (
     <header className={styles.navbar}>

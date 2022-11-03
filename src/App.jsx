@@ -35,23 +35,21 @@ function App() {
 
   return (
     <Router>
-      <div>
-        <Header user={user} setUser={setUser} />
-        <Routes>
-          {/* Public Routes */}
-          <Route path="/" element={<Landing />} />
-          <Route path="/recipes" element={<Recipes />} />
-          <Route path="/recipe/:recipeId" element={<Recipe />} />
-          <Route path="/login" element={<Login setUser={setUser} />} />
-          <Route path="/signup" element={<Signup />} />
-          {/* Private Routes */}
-          <Route element={<PrivateRoutes />}>
-            <Route path="/add" element={<AddRecipe />} />
-            <Route path="/edit/:recipeId" element={<EditRecipe />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-          </Route>
-        </Routes>
-      </div>
+      <Header user={user} setUser={setUser} />
+      <Routes>
+        {/* Public Routes */}
+        <Route path="/" element={<Landing />} />
+        <Route path="/recipes" element={<Recipes />} />
+        <Route path="/recipe/:recipeId" element={<Recipe />} />
+        <Route path="/login" element={<Login setUser={setUser} />} />
+        <Route path="/signup" element={<Signup />} />
+        {/* Private Routes */}
+        <Route element={<PrivateRoutes />}>
+          <Route path="/add" element={<AddRecipe />} />
+          <Route path="/edit/:recipeId" element={<EditRecipe />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Route>
+      </Routes>
     </Router>
   );
 }

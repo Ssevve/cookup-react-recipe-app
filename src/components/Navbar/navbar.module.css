@@ -64,6 +64,7 @@
 .link {
   padding: 1rem;
   width: 100%;
+  cursor: pointer;
 }
 
 .active {
@@ -77,18 +78,4 @@
   background: var(--clr-accent);
   position: absolute;
   transition: all 0.1s ease-in-out;
-}
-
-.signup {
-  background: var(--clr-accent);
-  padding: 1rem 1.5rem;
-  border-radius: var(--border-radius);
-  font-weight: 700;
-  color: var(--clr-bg-primary);
-}
-
-@media screen and (min-width: 700px) {
-  /* .navbar {
-    padding-block: 1.25rem;
-  } */
 }
