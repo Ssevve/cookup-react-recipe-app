@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
+import cx from 'classnames';
+import { GoThreeBars } from 'react-icons/go';
 import PropTypes from 'prop-types';
-import { useNavigate, NavLink } from 'react-router-dom';
+import { useNavigate, NavLink, Link } from 'react-router-dom';
 
-import './style.css';
+import styles from './navbar.module.css';
+
+import Button from '../Button';
 
 export default function Navbar({ user, setUser }) {
+  const [showMenu, setShowMenu] = useState(false);
   const navigate = useNavigate();
   const logout = async (e) => {
     e.preventDefault();
@@ -26,51 +31,58 @@ export default function Navbar({ user, setUser }) {
   };
 
   return (
-    <header className="header">
-      <div className="container flex justify-content-sb align-items-center">
-        <NavLink className="header__logo" to="/">
-          <span>Cookup</span>
+    <header className={styles.navbar}>
+      <div className={styles.container}>
+        <NavLink className={styles.logo} to="/">
+          Cookup
         </NavLink>
-        <nav className="header__nav">
-          <ul className="header__link-list flex">
+        <button
+          className={styles.hamburger}
+          type="button"
+          onClick={() => setShowMenu((prev) => !prev)}
+        >
+          <GoThreeBars />
+        </button>
+        <nav className={cx(styles.nav, showMenu && styles.expanded)}>
+          <ul className={styles.links}>
             {!user && (
               <>
                 <li>
-                  <NavLink activeclassname="active" className="btn header__link" to="/" end>
+                  <NavLink className={styles.link} activeClassName={styles.active} to="/" end>
                     Home
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink activeclassname="active" className="btn header__link" to="/recipes">
+                  <NavLink className={styles.link} activeClassName={styles.active} to="/recipes">
                     Recipes
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink activeclassname="active" className="btn header__link" to="/login">
+                  <NavLink className={styles.link} activeStyle={styles.active} to="/login">
                     Login
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink activeclassname="active" className="btn header__link" to="/signup">
-                    Signup
-                  </NavLink>
+                  <Link to="/signup">
+                    <Button text="Signup" />
+                  </Link>
                 </li>
               </>
             )}
             {user && (
               <>
                 <li>
-                  <NavLink activeclassname="active" className="btn header__link" to="/dashboard">
+                  <NavLink activeclassname="active" className={styles.navbarLink} to="/dashboard">
                     Dashboard
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink activeclassname="active" className="btn header__link" to="/recipes">
+                  <NavLink activeclassname="active" className={styles.navbarLink} to="/recipes">
                     Recipes
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink activeclassname="active" className="btn header__link" to="/add">
+                  <NavLink activeclassname="active" className={styles.navbarLink} to="/add">
                     Add Recipe
                   </NavLink>
                 </li>

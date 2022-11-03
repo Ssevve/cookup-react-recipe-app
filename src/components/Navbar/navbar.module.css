@@ -1,0 +1,94 @@
+@import '../../vars.css';
+
+.navbar {
+  width: 100vw;
+  height: 8vh;
+  min-height: 55px;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.25);
+  background: var(--clr-bg-primary);
+  display: flex;
+  justify-content: space-between;
+  position: fixed;
+  top: 0;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  max-width: 1600px;
+  margin-inline: auto;
+  background: inherit;
+}
+
+.logo {
+  font-size: clamp(1.8rem, 2vw, 2.5rem);
+  font-weight: bold;
+}
+
+.hamburger {
+  display: grid;
+  font-size: 1.75rem;
+  margin: 0;
+  padding: 0;
+  color: var(--clr-accent);
+  border: none;
+  background: none;
+}
+
+.nav {
+  position: absolute;
+  height: 92vh;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--clr-bg-primary);
+  display: grid;
+  place-items: center;
+  transition: bottom 0.2s ease-in-out;
+  z-index: -1;
+}
+
+.expanded {
+  bottom: -92vh;
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  align-items: center;
+}
+
+.link {
+  padding: 1rem;
+  width: 100%;
+}
+
+.active {
+  font-weight: 700;
+}
+
+.active::after {
+  content: '';
+  height: 0.3rem;
+  width: 100%;
+  background: var(--clr-accent);
+  position: absolute;
+  transition: all 0.1s ease-in-out;
+}
+
+.signup {
+  background: var(--clr-accent);
+  padding: 1rem 1.5rem;
+  border-radius: var(--border-radius);
+  font-weight: 700;
+  color: var(--clr-bg-primary);
+}
+
+@media screen and (min-width: 700px) {
+  /* .navbar {
+    padding-block: 1.25rem;
+  } */
+}

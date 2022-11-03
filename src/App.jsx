@@ -35,7 +35,7 @@ function App() {
 
   return (
     <Router>
-      <div className="flex-column h-full">
+      <div>
         <Header user={user} setUser={setUser} />
         <Routes>
           {/* Public Routes */}

@@ -2,12 +2,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import styles from './button.module.css';
+
 export default function Button({
   className, onClick, text, ...rest
 }) {
   return (
     <button
-      className={`btn ${className}`}
+      className={styles.btn}
       onClick={onClick}
       type="button"
       {...rest}
