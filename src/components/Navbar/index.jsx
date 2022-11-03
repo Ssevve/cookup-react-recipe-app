@@ -7,6 +7,7 @@ import { useNavigate, NavLink, Link } from 'react-router-dom';
 import styles from './navbar.module.css';
 
 import Button from '../Button';
+import Container from '../Container';
 
 export default function Navbar({ user, setUser }) {
   const [showMenu, setShowMenu] = useState(false);
@@ -40,7 +41,7 @@ export default function Navbar({ user, setUser }) {
 
   return (
     <header className={styles.navbar}>
-      <div className={styles.container}>
+      <Container className={styles.container}>
         <Link className={styles.logo} to="/">
           Cookup
         </Link>
@@ -104,7 +105,7 @@ export default function Navbar({ user, setUser }) {
             )}
           </ul>
         </nav>
-      </div>
+      </Container>
     </header>
   );
 }
