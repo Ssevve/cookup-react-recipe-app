@@ -40,9 +40,9 @@ export default function Navbar({ user, setUser }) {
   return (
     <header className={styles.navbar}>
       <div className={styles.container}>
-        <NavLink className={styles.logo} to="/">
+        <Link className={styles.logo} to="/">
           Cookup
-        </NavLink>
+        </Link>
         <button
           className={styles.hamburger}
           type="button"
@@ -55,17 +55,17 @@ export default function Navbar({ user, setUser }) {
             {!user && (
               <>
                 <li>
-                  <NavLink className={styles.link} activeClassName={styles.active} to="/" end>
+                  <NavLink className={({ isActive }) => (isActive ? cx(styles.link, styles.active) : styles.link)} to="/" end>
                     Home
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink className={styles.link} activeClassName={styles.active} to="/recipes">
+                  <NavLink className={({ isActive }) => (isActive ? cx(styles.link, styles.active) : styles.link)} to="/recipes">
                     Recipes
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink className={styles.link} activeStyle={styles.active} to="/login">
+                  <NavLink className={({ isActive }) => (isActive ? cx(styles.link, styles.active) : styles.link)} to="/login">
                     Login
                   </NavLink>
                 </li>
@@ -79,19 +79,19 @@ export default function Navbar({ user, setUser }) {
             {user && (
               <>
                 <li>
-                  <NavLink activeclassname="active" className={styles.navbarLink} to="/dashboard">
+                  <NavLink className={({ isActive }) => (isActive ? cx(styles.link, styles.active) : styles.link)} to="/dashboard">
                     Dashboard
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink activeclassname="active" className={styles.navbarLink} to="/recipes">
-                    Recipes
+                  <NavLink className={({ isActive }) => (isActive ? cx(styles.link, styles.active) : styles.link)} to="/recipes">
+                    Browse recipes
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink activeclassname="active" className={styles.navbarLink} to="/add">
+                  <Link activeclassname="active" className={styles.navbarLink} to="/add">
                     Add Recipe
-                  </NavLink>
+                  </Link>
                 </li>
 
                 <li>

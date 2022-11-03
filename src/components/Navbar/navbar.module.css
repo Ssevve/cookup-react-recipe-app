@@ -35,6 +35,7 @@
   color: var(--clr-accent);
   border: none;
   background: none;
+  cursor: pointer;
 }
 
 .nav {
@@ -62,20 +63,33 @@
 }
 
 .link {
-  padding: 1rem;
   width: 100%;
   cursor: pointer;
+  position: relative;
 }
 
-.active {
+.link::after {
+  content: '';
+  height: 0.2rem;
+  width: 0;
+  background: var(--clr-accent);
+  position: absolute;
+  bottom: -0.5rem;
+  left: 50%;
+  transform: translate(-50%);
+  transition: width 0.1s ease-in-out;
+  transform-origin: left;
+}
+
+.link:hover::after {
+  width: 100%;
+}
+
+.link.active {
   font-weight: 700;
 }
 
-.active::after {
-  content: '';
-  height: 0.3rem;
+.link.active::after {
+  visibility: visible;
   width: 100%;
-  background: var(--clr-accent);
-  position: absolute;
-  transition: all 0.1s ease-in-out;
 }
