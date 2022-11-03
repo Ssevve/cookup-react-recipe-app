@@ -23,6 +23,7 @@ export default function Navbar({ user, setUser }) {
       if (res.ok) {
         setUser(null);
         navigate('/');
+        setShowMenu(false);
       }
     } catch (err) {
       // eslint-disable-next-line no-console
@@ -54,24 +55,24 @@ export default function Navbar({ user, setUser }) {
           <ul className={styles.links}>
             {!user && (
               <>
-                <li>
-                  <NavLink className={({ isActive }) => (isActive ? cx(styles.link, styles.active) : styles.link)} to="/" end>
+                <li className={styles.listItem}>
+                  <NavLink onClick={() => setShowMenu(false)} className={({ isActive }) => (isActive ? cx(styles.link, styles.active) : styles.link)} to="/" end>
                     Home
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink className={({ isActive }) => (isActive ? cx(styles.link, styles.active) : styles.link)} to="/recipes">
-                    Recipes
+                  <NavLink onClick={() => setShowMenu(false)} className={({ isActive }) => (isActive ? cx(styles.link, styles.active) : styles.link)} to="/recipes">
+                    Browse Recipes
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink className={({ isActive }) => (isActive ? cx(styles.link, styles.active) : styles.link)} to="/login">
+                  <NavLink onClick={() => setShowMenu(false)} className={({ isActive }) => (isActive ? cx(styles.link, styles.active) : styles.link)} to="/login">
                     Login
                   </NavLink>
                 </li>
                 <li>
-                  <Link to="/signup">
-                    <Button text="Signup" />
+                  <Link onClick={() => setShowMenu(false)} to="/signup">
+                    <Button className={styles.navBtn} text="Signup" />
                   </Link>
                 </li>
               </>
@@ -79,17 +80,17 @@ export default function Navbar({ user, setUser }) {
             {user && (
               <>
                 <li>
-                  <NavLink className={({ isActive }) => (isActive ? cx(styles.link, styles.active) : styles.link)} to="/dashboard">
+                  <NavLink onClick={() => setShowMenu(false)} className={({ isActive }) => (isActive ? cx(styles.link, styles.active) : styles.link)} to="/dashboard">
                     Dashboard
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink className={({ isActive }) => (isActive ? cx(styles.link, styles.active) : styles.link)} to="/recipes">
+                  <NavLink onClick={() => setShowMenu(false)} className={({ isActive }) => (isActive ? cx(styles.link, styles.active) : styles.link)} to="/recipes">
                     Browse recipes
                   </NavLink>
                 </li>
                 <li>
-                  <Link activeclassname="active" className={styles.navbarLink} to="/add">
+                  <Link onClick={() => setShowMenu(false)} to="/add">
                     Add Recipe
                   </Link>
                 </li>

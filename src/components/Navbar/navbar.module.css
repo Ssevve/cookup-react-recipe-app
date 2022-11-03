@@ -23,7 +23,7 @@
 }
 
 .logo {
-  font-size: clamp(1.8rem, 2vw, 2.5rem);
+  font-size: clamp(1.8rem, 2vw, 2rem);
   font-weight: bold;
 }
 
@@ -58,8 +58,17 @@
 .links {
   display: flex;
   flex-direction: column;
-  gap: 3rem;
+  gap: 4rem;
   align-items: center;
+}
+
+.listItem {
+  padding: 1rem;
+}
+
+.navBtn,
+.link {
+  font-size: 1rem;
 }
 
 .link {
@@ -70,7 +79,7 @@
 
 .link::after {
   content: '';
-  height: 0.2rem;
+  height: 0.15rem;
   width: 0;
   background: var(--clr-accent);
   position: absolute;
@@ -90,6 +99,29 @@
 }
 
 .link.active::after {
-  visibility: visible;
   width: 100%;
+}
+
+@media screen and (min-width: 50em) {
+  .navbar {
+    padding-block: 2.5rem;
+  }
+
+  .hamburger {
+    display: none;
+  }
+
+  .nav {
+    position: static;
+    height: auto;
+  }
+
+  .links {
+    flex-direction: row;
+  }
+
+  .navBtn,
+  .link {
+    font-size: 0.875rem;
+  }
 }
