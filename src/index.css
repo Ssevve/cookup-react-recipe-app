@@ -12,10 +12,6 @@ body {
   background: var(--clr-bg-primary);
 }
 
-#root {
-  height: 100vh;
-}
-
 img {
   display: block;
   max-width: 100%;
