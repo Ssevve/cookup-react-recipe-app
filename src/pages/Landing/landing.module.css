@@ -1,23 +1,49 @@
 .hero {
-  flex: 1;
+  padding-block: 3rem;
 }
 
-.hero__body {
+.heroBody {
   flex: 0.3;
 }
 
-.hero__title {
-  font-size: 5rem;
+.heroTitle,
+.heroCopy {
+  text-align: center;
+}
+
+.heroTitle {
+  font-size: 3.25rem;
   line-height: 1.1;
 }
 
-.hero__copy {
-  margin-top: 2rem;
-  font-size: 1.1rem;
+.highlightedText {
+  color: var(--clr-accent);
+  display: block;
+}
+
+.heroCopy,
+.buttons {
+  margin-top: 3rem;
+}
+
+.heroCopy {
+  font-size: 1rem;
   line-height: 1.5;
 }
 
+.link,
+.btn {
+  width: 100%;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
 .hero__image {
+  display: none;
   background-image: url('/public/images/landing-bg.jpg');
   background-repeat: no-repeat;
   background-size: cover;

@@ -9,3 +9,14 @@
   padding: 1rem 1.5rem;
   font-weight: 700;
 }
+
+.btn:hover {
+  background: var(--clr-accent-hover);
+}
+
+.outline {
+  color: var(--clr-accent);
+  border-color: currentColor;
+  font-weight: 400;
+  background: var(--clr-bg-primary);
+}
