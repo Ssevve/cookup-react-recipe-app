@@ -1,15 +1,14 @@
 @import '../../vars.css';
 
 .navbar {
-  width: 100vw;
-  height: 8vh;
-  min-height: 55px;
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.25);
   background: var(--clr-bg-primary);
-  display: flex;
-  justify-content: space-between;
   position: sticky;
   top: 0;
+  flex: 0.2;
+  display: flex;
+  min-height: 65px;
+  max-height: 95px;
 }
 
 .container {
@@ -36,7 +35,6 @@
 
 .nav {
   position: absolute;
-  height: 92vh;
   left: 0;
   right: 0;
   bottom: 0;
@@ -44,11 +42,12 @@
   display: grid;
   place-items: center;
   transition: bottom 0.2s ease-in-out;
+  height: var(--height-page);;
   z-index: -1;
 }
 
 .expanded {
-  bottom: -92vh;
+  bottom: calc(-1 * var(--height-page));
 }
 
 .links {
@@ -100,7 +99,7 @@
 
 @media screen and (min-width: 50em) {
   .navbar {
-    padding-block: 2.5rem;
+    min-height: 85px;
   }
 
   .hamburger {
@@ -110,6 +109,7 @@
   .nav {
     position: static;
     height: auto;
+    z-index: 1;
   }
 
   .links {

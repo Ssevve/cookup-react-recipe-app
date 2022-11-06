@@ -10,7 +10,12 @@
   --clr-success-hover: #45dbae;
   --clr-error: #c35868;
   --clr-error-hover: #c67f89;
+  
+  --clr-btn-outline-hover: #ffe3dc;
 
   --border-radius: 0.2rem;
   --border-size: 1px;
+
+  --height-nav: 10vh;
+  --height-page: 90vh;
 }

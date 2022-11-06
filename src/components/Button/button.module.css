@@ -20,3 +20,7 @@
   font-weight: 400;
   background: var(--clr-bg-primary);
 }
+
+.outline:hover {
+  background: var(--clr-btn-outline-hover);
+}

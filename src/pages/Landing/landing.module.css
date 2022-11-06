@@ -1,34 +1,29 @@
 .hero {
-  padding-block: 3rem;
+  display: flex;
+  align-items: stretch;
 }
 
-.heroBody {
-  flex: 0.3;
+.container {
+  display: flex;
+  align-items: center;
 }
 
-.heroTitle,
-.heroCopy {
+.heroContent {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
   text-align: center;
+
 }
 
 .heroTitle {
-  font-size: 3.25rem;
+  font-size: clamp(3.25rem, 5vw, 5rem);
   line-height: 1.1;
 }
 
 .highlightedText {
   color: var(--clr-accent);
   display: block;
-}
-
-.heroCopy,
-.buttons {
-  margin-top: 3rem;
-}
-
-.heroCopy {
-  font-size: 1rem;
-  line-height: 1.5;
 }
 
 .link,
@@ -39,23 +34,21 @@
 .buttons {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.5rem;
 }
 
-.hero__image {
+.heroImage {
   display: none;
   background-image: url('/public/images/landing-bg.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   background-position-y: 45%;
-  height: 100%;
-  flex: 0.7;
-  position: relative;
-  left: 6rem;
+  /* height: var(--height-page); */
+  flex: 0.6;
   clip-path: polygon(35% 0, 100% 0, 100% 100%, 0% 100%);
 }
 
-.hero__image::after {
+.heroImage::after {
   content: '';
   position: absolute;
   top: 0;
@@ -63,4 +56,37 @@
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.4);
+}
+
+@media screen and (min-width: 50em) {
+  .container {
+    align-items: stretch;
+  }
+
+  .heroContent {
+    align-self: center;
+    text-align: left;
+    flex: 0.4;
+  }
+
+  .buttons {
+    flex-direction: row;
+  }
+
+  .heroImage {
+    display: block;
+    position: relative;
+    left: 10%;
+    z-index: -1;
+  }
+}
+
+@media screen and (min-width: 70em) {
+  .heroContent {
+    flex: 0.3;
+  }
+
+  .heroImage {
+    flex: 0.7;
+  }
 }

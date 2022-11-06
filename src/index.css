@@ -10,6 +10,12 @@ body {
   font-family: var(--ff-body);
   color: var(--clr-font-body);
   background: var(--clr-bg-primary);
+  line-height: 1.5;
+}
+
+#root {
+  display: grid;
+  grid-template-rows: var(--height-nav) var(--height-page);
 }
 
 img {
