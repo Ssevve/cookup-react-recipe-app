@@ -1,6 +1,7 @@
 .hero {
   display: flex;
   align-items: stretch;
+  min-height: var(--min-height-page);
 }
 
 .container {
@@ -11,8 +12,9 @@
 .heroContent {
   display: flex;
   flex-direction: column;
-  gap: 3rem;
   text-align: center;
+  gap: 3rem;
+  padding-block: 2rem;
 }
 
 .heroTitle {
@@ -42,8 +44,11 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-position-y: 45%;
-  /* height: var(--height-page); */
+  /* height: var(--min-height-page); */
   flex: 0.6;
+  position: relative;
+  left: 10%;
+  z-index: -1;
   clip-path: polygon(35% 0, 100% 0, 100% 100%, 0% 100%);
 }
 
@@ -74,9 +79,6 @@
 
   .heroImage {
     display: block;
-    position: relative;
-    left: 10%;
-    z-index: -1;
   }
 }
 

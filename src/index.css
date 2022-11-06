@@ -11,11 +11,14 @@ body {
   color: var(--clr-font-body);
   background: var(--clr-bg-primary);
   line-height: 1.5;
+  min-height: 100vh;
+  display: grid;
 }
 
 #root {
+  height: 100%;
   display: grid;
-  grid-template-rows: var(--height-nav) var(--height-page);
+  grid-template-rows: clamp(75px, 10vh, 95px) auto;
 }
 
 img {

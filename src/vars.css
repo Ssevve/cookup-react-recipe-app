@@ -16,6 +16,5 @@
   --border-radius: 0.2em;
   --border-size: 1px;
 
-  --height-nav: 10vh;
-  --height-page: 90vh;
+  --min-height-page: 90vh;
 }

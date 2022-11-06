@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import isEmail from 'validator/lib/isEmail';
 
 import styles from './signup.module.css';
@@ -77,6 +77,10 @@ export default function Signup() {
       <Container className={styles.container}>
         <section className={styles.formSection}>
           <h1 className={styles.title}>Signup</h1>
+          <p>
+            Existing user?
+            <Link className={styles.link} to="/login">Log in</Link>
+          </p>
           {formErrors && <ErrorBox errors={formErrors} />}
           <form className={styles.form} onSubmit={handleSubmit} noValidate>
             <div className="form-group">
@@ -139,10 +143,10 @@ export default function Signup() {
                 />
               </label>
             </div>
-            <Button type="submit" text="Signup" />
+            <Button className={styles.btn} type="submit" text="Signup" />
           </form>
         </section>
-        <section className="signup__image" />
+        <section className={styles.signupImage} />
       </Container>
     </main>
   );

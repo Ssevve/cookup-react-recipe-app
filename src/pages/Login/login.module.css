@@ -13,19 +13,33 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 3rem;
+  justify-content: center;
+  gap: 2rem;
   flex: 1;
+  padding-block: 2rem;
 }
 
 .title {
-  font-size: clamp(3.25rem, 5vw, 5rem);
+  font-size: 3.25rem;
+  line-height: 1.1;
+}
+
+.link {
+  margin-left: 0.5rem;
+  color: var(--clr-accent);
+  text-decoration: underline;
+  transition: color 0.1s ease-in-out;
+}
+
+.link:hover {
+  color: var(--clr-accent-hover);
 }
 
 .form {
   display: flex;
   flex-direction: column;
-  margin: 0 auto;
-  gap: 2rem;
+  margin: 1rem auto 0;
+  gap: 1rem;
   width: 80%;
 }
 
@@ -41,17 +55,20 @@
   font-size: 0.875rem;
 }
 
+.btn {
+  margin-top: 1rem;
+}
+
 .loginImage {
   display: none;
-  background-image: url('/public/images/signup-bg.jpg');
+  background-image: url('/public/images/login-bg.jpg');
   background-repeat: no-repeat;
   background-size: cover;
-  background-position-y: 30%;
-  height: 100%;
-  position: relative;
+  background-position-y: 25%;
   flex: 0.7;
-  left: 6rem;
-  clip-path: polygon(35% 0, 100% 0, 100% 100%, 0% 100%);
+  position: relative;
+  left: 10%;
+  z-index: -1;
 }
 
 .loginImage::after {
@@ -62,4 +79,25 @@
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.4);
+}
+
+@media screen and (min-width: 50em) {
+  .container {
+    justify-content: space-between;
+    align-items: stretch;
+  }
+
+  .formSection {
+    align-items: start;
+    padding-block: 4rem;
+    flex: 0.3;
+  }
+
+  .form {
+    margin: 2rem 0;
+  }
+
+  .loginImage {
+    display: block;
+  }
 }

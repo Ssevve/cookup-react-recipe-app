@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import isEmail from 'validator/lib/isEmail';
 
@@ -70,10 +70,13 @@ export default function Login({ setUser }) {
       <Container className={styles.container}>
         <section className={styles.formSection}>
           <h1 className={styles.title}>Login</h1>
+          <p>
+            New user?
+            <Link className={styles.link} to="/signup">Sign up</Link>
+          </p>
           {error && <ErrorBox error={error} />}
           <form className={styles.form} onSubmit={handleSubmit} noValidate>
             <div className="form-group">
-
               <label className={styles.label} htmlFor="login-email">
                 Email
                 <input
@@ -97,7 +100,7 @@ export default function Login({ setUser }) {
                 />
               </label>
             </div>
-            <Button type="submit" text="Login" />
+            <Button className={styles.btn} type="submit" text="Login" />
           </form>
         </section>
         <section className={styles.loginImage} />

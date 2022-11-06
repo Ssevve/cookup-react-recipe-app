@@ -7,8 +7,7 @@
   top: 0;
   flex: 0.2;
   display: flex;
-  min-height: 65px;
-  max-height: 95px;
+  /* min-height: 65px; */
   width: 100vw;
 }
 
@@ -43,12 +42,12 @@
   display: grid;
   place-items: center;
   transition: bottom 0.2s ease-in-out;
-  height: var(--height-page);;
+  height: var(--min-height-page);
   z-index: -1;
 }
 
 .expanded {
-  bottom: calc(-1 * var(--height-page));
+  bottom: calc(-1 * var(--min-height-page));
 }
 
 .links {
@@ -100,7 +99,7 @@
 
 @media screen and (min-width: 50em) {
   .navbar {
-    min-height: 85px;
+    /* min-height: 85px; */
   }
 
   .hamburger {
