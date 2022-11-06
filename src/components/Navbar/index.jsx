@@ -42,7 +42,7 @@ export default function Navbar({ user, setUser }) {
   return (
     <header className={styles.navbar}>
       <Container className={styles.container}>
-        <Link className={styles.logo} to="/">
+        <Link onClick={() => setShowMenu(false)} className={styles.logo} to="/">
           Cookup
         </Link>
         <button

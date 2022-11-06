@@ -6,6 +6,7 @@ import styles from './signup.module.css';
 
 import ErrorBox from '../../components/ErrorBox';
 import Container from '../../components/Container';
+import Button from '../../components/Button';
 
 export default function Signup() {
   const navigate = useNavigate();
@@ -138,9 +139,7 @@ export default function Signup() {
                 />
               </label>
             </div>
-            <button className="btn btn--cta pt-2 align-self-end" type="submit">
-              Signup
-            </button>
+            <Button type="submit" text="Signup" />
           </form>
         </section>
         <section className="signup__image" />
