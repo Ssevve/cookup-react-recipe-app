@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import isEmail from 'validator/lib/isEmail';
 
-import './style.css';
+import styles from './signup.module.css';
 
 import ErrorBox from '../../components/ErrorBox';
+import Container from '../../components/Container';
 
 export default function Signup() {
   const navigate = useNavigate();
@@ -71,17 +72,17 @@ export default function Signup() {
   }
 
   return (
-    <main className="signup">
-      <div className="container flex justify-content-sb h-full align-items-center">
-        <section className="form-section">
-          <h1 className="subpage-title">Signup</h1>
+    <main className={styles.signup}>
+      <Container className={styles.container}>
+        <section className={styles.formSection}>
+          <h1 className={styles.title}>Signup</h1>
           {formErrors && <ErrorBox errors={formErrors} />}
-          <form className="auth-form" onSubmit={handleSubmit} noValidate>
+          <form className={styles.form} onSubmit={handleSubmit} noValidate>
             <div className="form-group">
-              <label className="form__label" htmlFor="signup-first-name">
+              <label className={styles.label} htmlFor="signup-first-name">
                 First name
                 <input
-                  className="form__input"
+                  className={styles.input}
                   onChange={handleChange}
                   id="signup-first-name"
                   type="text"
@@ -90,10 +91,10 @@ export default function Signup() {
               </label>
             </div>
             <div className="form-group">
-              <label className="form__label" htmlFor="signup-last-name">
+              <label className={styles.label} htmlFor="signup-last-name">
                 Last name
                 <input
-                  className="form__input"
+                  className={styles.input}
                   onChange={handleChange}
                   id="signup-last-name"
                   type="text"
@@ -102,10 +103,10 @@ export default function Signup() {
               </label>
             </div>
             <div className="form-group">
-              <label className="form__label" htmlFor="signup-email">
+              <label className={styles.label} htmlFor="signup-email">
                 Email
                 <input
-                  className="form__input"
+                  className={styles.input}
                   onChange={handleChange}
                   id="signup-email"
                   type="email"
@@ -114,10 +115,10 @@ export default function Signup() {
               </label>
             </div>
             <div className="form-group">
-              <label className="form__label" htmlFor="signup-password">
+              <label className={styles.label} htmlFor="signup-password">
                 Password
                 <input
-                  className="form__input"
+                  className={styles.input}
                   onChange={handleChange}
                   id="signup-password"
                   type="password"
@@ -126,10 +127,10 @@ export default function Signup() {
               </label>
             </div>
             <div className="form-group">
-              <label className="form__label" htmlFor="signup-confirm-password">
+              <label className={styles.label} htmlFor="signup-confirm-password">
                 Confirm Password
                 <input
-                  className="form__input"
+                  className={styles.input}
                   onChange={handleChange}
                   id="signup-confirm-password"
                   type="password"
@@ -143,7 +144,7 @@ export default function Signup() {
           </form>
         </section>
         <section className="signup__image" />
-      </div>
+      </Container>
     </main>
   );
 }
