@@ -3,9 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import isEmail from 'validator/lib/isEmail';
 
-import './style.css';
+import styles from './login.module.css';
 
 import ErrorBox from '../../components/ErrorBox';
+import Container from '../../components/Container';
+import Button from '../../components/Button';
 
 export default function Login({ setUser }) {
   const navigate = useNavigate();
@@ -64,18 +66,18 @@ export default function Login({ setUser }) {
   }
 
   return (
-    <main className="login">
-      <div className="container flex justify-content-sb h-full align-items-center">
-        <section className="form-section">
-          <h1 className="subpage-title">Login</h1>
+    <main className={styles.login}>
+      <Container className={styles.container}>
+        <section className={styles.formSection}>
+          <h1 className={styles.title}>Login</h1>
           {error && <ErrorBox error={error} />}
-          <form className="auth-form" onSubmit={handleSubmit} noValidate>
+          <form className={styles.form} onSubmit={handleSubmit} noValidate>
             <div className="form-group">
 
-              <label className="form__label" htmlFor="login-email">
+              <label className={styles.label} htmlFor="login-email">
                 Email
                 <input
-                  className="form__input"
+                  className={styles.input}
                   onChange={handleChange}
                   id="login-email"
                   type="email"
@@ -84,10 +86,10 @@ export default function Login({ setUser }) {
               </label>
             </div>
             <div className="form-group">
-              <label className="form__label" htmlFor="login-password">
+              <label className={styles.label} htmlFor="login-password">
                 Password
                 <input
-                  className="form__input"
+                  className={styles.input}
                   onChange={handleChange}
                   id="login-password"
                   type="password"
@@ -95,13 +97,11 @@ export default function Login({ setUser }) {
                 />
               </label>
             </div>
-            <button className="btn btn--cta pt-2 align-self-end" type="submit">
-              Login
-            </button>
+            <Button type="submit" text="Login" />
           </form>
         </section>
-        <section className="login__image" />
-      </div>
+        <section className={styles.loginImage} />
+      </Container>
     </main>
   );
 }
