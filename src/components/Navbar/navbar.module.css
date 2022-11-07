@@ -66,6 +66,12 @@
   font-size: 1rem;
 }
 
+.navBtn {
+  align-items: center;
+  display: flex;
+  gap: 0.5rem;
+}
+
 .link {
   width: 100%;
   cursor: pointer;
@@ -95,6 +101,10 @@
 
 .link.active::after {
   width: 100%;
+}
+
+.addIcon {
+  font-size: 1.4rem;
 }
 
 @media screen and (min-width: 50em) {

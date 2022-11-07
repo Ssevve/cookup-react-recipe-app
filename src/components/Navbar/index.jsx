@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import cx from 'classnames';
 import { GoThreeBars } from 'react-icons/go';
+import { AiOutlinePlusSquare } from 'react-icons/ai';
 import PropTypes from 'prop-types';
 import { useNavigate, NavLink, Link } from 'react-router-dom';
 
@@ -91,11 +92,12 @@ export default function Navbar({ user, setUser }) {
                   </NavLink>
                 </li>
                 <li>
-                  <Link onClick={() => setShowMenu(false)} to="/add">
-                    Add Recipe
+                  <Link onClick={() => setShowMenu(false)} to="/addRecipe">
+                    <Button lowPadding className={styles.navBtn} text="Add Recipe">
+                      <AiOutlinePlusSquare className={styles.addIcon} />
+                    </Button>
                   </Link>
                 </li>
-
                 <li>
                   <NavLink onClick={logout} className="btn" to="#">
                     Logout

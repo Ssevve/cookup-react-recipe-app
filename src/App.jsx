@@ -45,7 +45,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         {/* Private Routes */}
         <Route element={<PrivateRoutes />}>
-          <Route path="/add" element={<AddRecipe />} />
+          <Route path="/addRecipe" element={<AddRecipe />} />
           <Route path="/edit/:recipeId" element={<EditRecipe />} />
           <Route path="/dashboard" element={<Dashboard />} />
         </Route>

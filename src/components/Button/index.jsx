@@ -5,15 +5,17 @@ import PropTypes from 'prop-types';
 import styles from './button.module.css';
 
 export default function Button({
-  className, onClick, text, variant, ...rest
+  className, onClick, text, variant, children, lowPadding, ...rest
 }) {
   return (
     <button
       className={`${styles.btn} ${className} ${variant === 'outline' && styles.outline}`}
+      style={{ padding: lowPadding ? '0.75rem 1rem' : '1rem 1.5rem;' }}
       onClick={onClick}
       type="button"
       {...rest}
     >
+      {children}
       {text}
     </button>
   );
@@ -24,6 +26,8 @@ Button.propTypes = {
   onClick: PropTypes.func,
   text: PropTypes.string,
   variant: PropTypes.string,
+  children: PropTypes.node,
+  lowPadding: PropTypes.bool,
 };
 
 Button.defaultProps = {
@@ -31,4 +35,6 @@ Button.defaultProps = {
   onClick: undefined,
   text: '',
   variant: '',
+  children: '',
+  lowPadding: false,
 };
