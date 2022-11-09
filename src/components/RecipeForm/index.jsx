@@ -1,13 +1,14 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import { useForm, useFieldArray } from 'react-hook-form';
 
-import './style.css';
+import styles from './recipeForm.module.css';
 
 import Button from '../Button';
-import { Input, Select, Textarea } from '../FormFields';
+import { Input, Textarea, Select } from '../FormFields';
 import ImageUpload from '../ImageUpload';
 
 export default function RecipeForm({ recipe }) {
@@ -32,13 +33,13 @@ export default function RecipeForm({ recipe }) {
     rules: { required: { value: true, message: 'At least one ingredient is required' } },
   });
   const {
-    fields: instructionFields,
-    append: instructionAppend,
-    remove: instructionRemove,
+    fields: directionFields,
+    append: directionAppend,
+    remove: directionRemove,
   } = useFieldArray({
     control,
-    name: 'instructions',
-    rules: { required: { value: true, message: 'At least one instruction is required' } },
+    name: 'directions',
+    rules: { required: { value: true, message: 'At least one direction is required' } },
   });
 
   const onSubmit = async (data) => {
@@ -74,19 +75,15 @@ export default function RecipeForm({ recipe }) {
       setValue('title', editingRecipe.title);
       setValue('description', editingRecipe.description);
       setValue('ingredients', editingRecipe.ingredients);
-      setValue('instructions', editingRecipe.instructions);
+      setValue('directions', editingRecipe.directions);
     } else {
-      ingredientAppend({ name: '', amount: 0.1, unit: 'piece' });
-      instructionAppend({ title: '', description: '' });
+      // ingredientAppend('');
+      directionAppend({ title: '', description: '' });
     }
   }, []);
 
   return (
-    <form
-      noValidate
-      className="recipe-form justify-content-center"
-      onSubmit={handleSubmit(onSubmit)}
-    >
+    <form noValidate className={styles.recipeForm} onSubmit={handleSubmit(onSubmit)}>
       <Input
         label="Recipe title"
         name="title"
@@ -101,93 +98,99 @@ export default function RecipeForm({ recipe }) {
         validationRules={requiredField}
         error={errors.description}
       />
+      <Select register={register} label="Dish type" name="type" options={['Main dish', 'Side dish', 'Appetizer', 'Soup', 'Salad', 'Dessert', 'Drink']} />
+      <fieldset className={styles.fieldset}>
+        <legend>Preparation time</legend>
+        <Input name="preparation-time" register={register} title="Preparation time" />
+        <Select name="preparation-unit" register={register} title="Preparation time unit" options={['minutes', 'hours']} />
+      </fieldset>
+
+      <fieldset className={styles.fieldset}>
+        <legend>Cooking time</legend>
+        <Input name="cooking-time" register={register} title="Cooking time" />
+        <Select name="cooking-time-unit" register={register} title="Cooking time unit" options={['minutes', 'hours']} />
+      </fieldset>
 
       {/* INGREDIENTS */}
-      <section className="form__ingredients flex-column">
-        <h2 className="section-heading--small">Ingredients</h2>
+      <section className={styles.ingredients}>
+        <h2 className={styles.sectionHeading}>Ingredients</h2>
         {errors?.ingredients?.root && (
-          <span role="alert" className="form-error-message">
+          <span role="alert" className={styles.errorMessage}>
             {errors?.ingredients?.root.message}
           </span>
         )}
         <ul>
           {ingredientFields.map((ingredient, index) => (
             <li key={ingredient.id}>
-              <fieldset className="form__fieldset flex align-items-center">
-                <legend className="form__legend">{`Ingredient ${index + 1}`}</legend>
-                <Input
-                  label="Name"
-                  name={`ingredients[${index}].name`}
-                  register={register}
-                  validationRules={requiredField}
-                  error={errors.ingredients?.[index]?.name}
-                />
-                <Input
-                  label="Amount"
-                  name={`ingredients[${index}].amount`}
-                  register={register}
-                  validationRules={{
-                    ...requiredField,
-                    min: { value: 0.1, message: 'Invalid amount' },
-                  }}
-                  error={errors.ingredients?.[index]?.amount}
-                  type="number"
-                  min="0.1"
-                  step="0.1"
-                />
-                <Select
-                  label="Unit"
-                  register={register}
-                  options={['kilogram', 'gram', 'milligram', 'liter', 'milliliter', 'cup', 'tablespoon', 'teaspoon', 'piece']}
-                  name={`ingredients[${index}].unit`}
-                />
-                <Button className="btn--delete align-self-end" onClick={() => ingredientRemove(index)} text="&#8722;" />
-              </fieldset>
+              <Input
+                label={`Ingredient ${index + 1}`}
+                name={`ingredients[${index}]`}
+                register={register}
+                validationRules={requiredField}
+                error={errors.ingredients?.[index]}
+              />
+              <Button
+                className={styles.btnDelete}
+                onClick={() => ingredientRemove(index)}
+                text="&#8722;"
+              />
             </li>
           ))}
         </ul>
-        <Button className="btn--add align-self-start" onClick={() => ingredientAppend({ name: '', amount: 0.1, unit: 'piece' })} text="Add ingredient" />
+        <Button
+          className={styles.btnAdd}
+          onClick={() => ingredientAppend('')}
+          text="Add ingredient"
+        />
       </section>
 
-      {/* INSTRUCTIONS */}
-      <section className="form__ingredients flex-column">
-        <h2 className="section-heading--small">Instructions</h2>
-        {errors?.instructions?.root && (
-          <span role="alert" className="form-error-message">
-            {errors?.instructions?.root.message}
+      {/* DIRECTIONS */}
+      {/* <section className={styles.directions}>
+        <h2 className={styles.sectionHeading}>Directions</h2>
+        {errors?.directions?.root && (
+          <span role="alert" className={styles.errorMessage}>
+            {errors?.directions?.root.message}
           </span>
         )}
         <ul>
-          {instructionFields.map((instruction, index) => (
-            <li key={instruction.id}>
-              <fieldset className="form__fieldset flex align-items-center">
-                <legend className="form__legend">{`Instruction ${index + 1}`}</legend>
+          {directionFields.map((direction, index) => (
+            <li key={direction.id}>
+              <fieldset className={styles.fieldset}>
+                <legend className={styles.legend}>{`Direction ${index + 1}`}</legend>
                 <Input
                   label="Title"
-                  name={`instructions[${index}].title`}
+                  name={`directions[${index}].title`}
                   register={register}
                   validationRules={requiredField}
-                  error={errors?.instructions?.[index]?.title}
+                  error={errors?.directions?.[index]?.title}
                 />
                 <Textarea
                   label="Description"
-                  name={`instructions[${index}].description`}
+                  name={`directions[${index}].description`}
                   register={register}
                   validationRules={requiredField}
-                  error={errors?.instructions?.[index]?.description}
+                  error={errors?.directions?.[index]?.description}
                 />
-                <Button className="btn--delete align-self-end" onClick={() => instructionRemove(index)} text="&#8722;" />
+                <Button
+                  className={styles.btnDelete}
+                  onClick={() => directionRemove(index)}
+                  text="&#8722;"
+                />
               </fieldset>
             </li>
           ))}
         </ul>
-        <Button className="btn--add align-self-start" onClick={() => instructionAppend({ title: '', description: '' })} text="Add instruction" />
-      </section>
+        <Button
+          className={styles.btnAdd}
+          onClick={() => directionAppend({ title: '', description: '' })}
+          text="Add direction"
+        />
+      </section> */}
       <ImageUpload
         onChange={(e) => setFile(() => e.target?.files[0])}
         src={file ? URL.createObjectURL(file) : editingRecipe?.imageUrl}
       />
-      <Button className="btn--cta" type="submit" text={editingRecipe ? 'Save' : 'Add Recipe'} />
+      <Button type="submit" text={editingRecipe ? 'Save' : 'Add Recipe'} />
       <Button onClick={() => navigate(-1)} text={editingRecipe ? 'Cancel' : 'Go back'} />
     </form>
   );

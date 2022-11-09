@@ -9,7 +9,7 @@ export default function Container({ className, children }) {
 
 Container.propTypes = {
   className: PropTypes.string,
-  children: PropTypes.element.isRequired,
+  children: PropTypes.arrayOf(PropTypes.element).isRequired,
 };
 
 Container.defaultProps = {

@@ -1,5 +1,3 @@
-@import '../../vars.css';
-
 .btn {
   background: var(--clr-accent);
   color: #fff;

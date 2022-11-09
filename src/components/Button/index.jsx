@@ -10,7 +10,7 @@ export default function Button({
   return (
     <button
       className={`${styles.btn} ${className} ${variant === 'outline' && styles.outline}`}
-      style={{ padding: lowPadding ? '0.75rem 1rem' : '1rem 1.5rem;' }}
+      style={{ padding: lowPadding ? '0.75rem 1rem' : '1rem 1.5rem' }}
       onClick={onClick}
       type="button"
       {...rest}

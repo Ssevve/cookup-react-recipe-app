@@ -2,24 +2,38 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import styles from './formFields.module.css';
+
 export function Input({
-  register, name, validationRules, error, label, ...rest
+  register, name, validationRules, error, label, title, ...rest
 }) {
   return (
-    <div className="form-group">
-      <label className="form__label" htmlFor={name}>
-        {label}
+    <div className={styles.group}>
+      {label ? (
+        <label className={styles.label} htmlFor={name}>
+          {label}
+          <input
+            {...register(name, validationRules)}
+            className={styles.input}
+            id={name}
+            name={name}
+            aria-invalid={error ? 'true' : 'false'}
+            {...rest}
+          />
+        </label>
+      ) : (
         <input
           {...register(name, validationRules)}
-          className="form__input"
+          className={styles.input}
           id={name}
+          title={title}
           name={name}
           aria-invalid={error ? 'true' : 'false'}
           {...rest}
         />
-      </label>
+      )}
       {error && (
-        <span role="alert" className="form-error-message">
+        <span role="alert" className={styles.errorMessage}>
           {error.message}
         </span>
       )}
@@ -28,20 +42,36 @@ export function Input({
 }
 
 export function Select({
-  register, options, name, label, ...rest
+  register, options, name, label, title, ...rest
 }) {
   return (
-    <div className="form-group">
-      <label className="form__label" htmlFor={name}>
-        {label}
-        <select {...register(name)} className="select" {...rest}>
+    <div className={styles.group}>
+      {label ? (
+        <label className={styles.label} htmlFor={name}>
+          {label}
+          <select value {...register(name)} className={styles.select} {...rest}>
+            <option disabled value>
+              -- Select one --
+            </option>
+            {options.map((value) => (
+              <option key={value} value={value}>
+                {value}
+              </option>
+            ))}
+          </select>
+        </label>
+      ) : (
+        <select value title={title} {...register(name)} className={styles.select} {...rest}>
+          <option disabled value>
+            -- Select one --
+          </option>
           {options.map((value) => (
             <option key={value} value={value}>
               {value}
             </option>
           ))}
         </select>
-      </label>
+      )}
     </div>
   );
 }
@@ -50,20 +80,20 @@ export function Textarea({
   register, validationRules, name, label, error, ...rest
 }) {
   return (
-    <div className="form-group">
-      <label className="form__label" htmlFor={name}>
+    <div className={styles.group}>
+      <label className={styles.label} htmlFor={name}>
         {label}
         <textarea
           {...register(name, validationRules)}
           aria-invalid={error ? 'true' : 'false'}
-          className="form__textarea"
+          className={styles.textArea}
           id={name}
           name={name}
           {...rest}
         />
       </label>
       {error && (
-        <span role="alert" className="form-error-message">
+        <span role="alert" className={styles.errorMessage}>
           {error.message}
         </span>
       )}
@@ -78,18 +108,27 @@ Input.propTypes = {
   error: PropTypes.shape({
     message: PropTypes.string,
   }),
-  label: PropTypes.string.isRequired,
+  label: PropTypes.string,
+  title: PropTypes.string,
 };
 
 Input.defaultProps = {
   error: {},
+  label: undefined,
+  title: undefined,
 };
 
 Select.propTypes = {
   register: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
-  options: PropTypes.shape([]).isRequired,
-  label: PropTypes.string.isRequired,
+  options: PropTypes.arrayOf(PropTypes.string).isRequired,
+  label: PropTypes.string,
+  title: PropTypes.string,
+};
+
+Select.defaultProps = {
+  label: undefined,
+  title: undefined,
 };
 
 Textarea.propTypes = {
