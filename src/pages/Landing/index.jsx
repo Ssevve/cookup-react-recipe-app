@@ -3,13 +3,10 @@ import { Link } from 'react-router-dom';
 
 import styles from './landing.module.css';
 
-import Container from '../../components/Container';
-import Button from '../../components/Button';
-
 export default function Landing() {
   return (
     <main className={styles.hero}>
-      <Container className={styles.container}>
+      <div className={styles.container}>
         <section className={styles.heroContent}>
           <h1 className={styles.heroTitle}>
             Cookup.
@@ -21,16 +18,16 @@ export default function Landing() {
             minima quo nulla sequi quas eos deleniti consectetur dolor?
           </p>
           <div className={styles.buttons}>
-            <Link to="/signup">
-              <Button text="Signup" className={styles.btn} />
+            <Link className={styles.btn} to="/signup">
+              Signup
             </Link>
-            <Link to="/recipes">
-              <Button text="Browse Recipes" variant="outline" className={styles.btn} />
+            <Link className={styles.btnOutline} to="/recipes">
+              Browse recipes
             </Link>
           </div>
         </section>
         <div className={styles.heroImage} />
-      </Container>
+      </div>
     </main>
   );
 }

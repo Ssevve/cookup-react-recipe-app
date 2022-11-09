@@ -1,14 +1,11 @@
+/* eslint-disable max-len */
 import React, { useState, useEffect } from 'react';
 import cx from 'classnames';
 import { GoThreeBars } from 'react-icons/go';
-import { AiOutlinePlusSquare } from 'react-icons/ai';
 import PropTypes from 'prop-types';
 import { useNavigate, NavLink, Link } from 'react-router-dom';
 
 import styles from './navbar.module.css';
-
-import Button from '../Button';
-import Container from '../Container';
 
 export default function Navbar({ user, setUser }) {
   const [showMenu, setShowMenu] = useState(false);
@@ -42,72 +39,91 @@ export default function Navbar({ user, setUser }) {
 
   return (
     <header className={styles.navbar}>
-      <Container className={styles.container}>
-        <Link onClick={() => setShowMenu(false)} className={styles.logo} to="/">
-          Cookup
-        </Link>
-        <button
-          className={styles.hamburger}
-          type="button"
-          onClick={() => setShowMenu((prev) => !prev)}
-        >
-          <GoThreeBars />
-        </button>
-        <nav className={cx(styles.nav, showMenu && styles.expanded)}>
-          <ul className={styles.links}>
-            {!user && (
-              <>
-                <li className={styles.listItem}>
-                  <NavLink onClick={() => setShowMenu(false)} className={({ isActive }) => (isActive ? cx(styles.link, styles.active) : styles.link)} to="/" end>
-                    Home
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink onClick={() => setShowMenu(false)} className={({ isActive }) => (isActive ? cx(styles.link, styles.active) : styles.link)} to="/recipes">
-                    Browse Recipes
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink onClick={() => setShowMenu(false)} className={({ isActive }) => (isActive ? cx(styles.link, styles.active) : styles.link)} to="/login">
-                    Login
-                  </NavLink>
-                </li>
-                <li>
-                  <Link onClick={() => setShowMenu(false)} to="/signup">
-                    <Button lowPadding className={styles.navBtn} text="Signup" />
-                  </Link>
-                </li>
-              </>
-            )}
-            {user && (
-              <>
-                <li>
-                  <NavLink onClick={() => setShowMenu(false)} className={({ isActive }) => (isActive ? cx(styles.link, styles.active) : styles.link)} to="/dashboard">
-                    Dashboard
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink onClick={() => setShowMenu(false)} className={({ isActive }) => (isActive ? cx(styles.link, styles.active) : styles.link)} to="/recipes">
-                    Browse recipes
-                  </NavLink>
-                </li>
-                <li>
-                  <Link onClick={() => setShowMenu(false)} to="/addRecipe">
-                    <Button lowPadding className={styles.navBtn} text="Add Recipe">
-                      <AiOutlinePlusSquare className={styles.addIcon} />
-                    </Button>
-                  </Link>
-                </li>
-                <li>
-                  <NavLink onClick={logout} className="btn" to="#">
-                    Logout
-                  </NavLink>
-                </li>
-              </>
-            )}
-          </ul>
-        </nav>
-      </Container>
+      <nav className={styles.nav}>
+        <div className={cx(styles.nav, styles.left)}>
+          <Link className={styles.logo} onClick={() => setShowMenu(false)} to="/">
+            Cookup
+          </Link>
+          <button
+            className={styles.hamburger}
+            type="button"
+            onClick={() => setShowMenu((prev) => !prev)}
+          >
+            <GoThreeBars />
+          </button>
+        </div>
+        <ul className={cx(styles.navMenu, showMenu && styles.expanded)}>
+          {!user && (
+            <>
+              <li className={styles.navItem}>
+                <NavLink
+                  onClick={() => setShowMenu(false)}
+                  className={({ isActive }) => (isActive ? cx(styles.link, styles.active) : styles.link)}
+                  to="/"
+                  end
+                >
+                  Home
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  onClick={() => setShowMenu(false)}
+                  className={({ isActive }) => (isActive ? cx(styles.link, styles.active) : styles.link)}
+                  to="/recipes"
+                >
+                  Browse Recipes
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  onClick={() => setShowMenu(false)}
+                  className={({ isActive }) => (isActive ? cx(styles.link, styles.active) : styles.link)}
+                  to="/login"
+                >
+                  Login
+                </NavLink>
+              </li>
+              <li>
+                <Link onClick={() => setShowMenu(false)} to="/signup">
+                  Signup
+                </Link>
+              </li>
+            </>
+          )}
+          {user && (
+            <>
+              <li>
+                <NavLink
+                  onClick={() => setShowMenu(false)}
+                  className={({ isActive }) => (isActive ? cx(styles.link, styles.active) : styles.link)}
+                  to="/dashboard"
+                >
+                  Dashboard
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  onClick={() => setShowMenu(false)}
+                  className={({ isActive }) => (isActive ? cx(styles.link, styles.active) : styles.link)}
+                  to="/recipes"
+                >
+                  Browse recipes
+                </NavLink>
+              </li>
+              <li>
+                <Link onClick={() => setShowMenu(false)} to="/addRecipe">
+                  Add recipe
+                </Link>
+              </li>
+              <li>
+                <NavLink onClick={logout} className="btn" to="#">
+                  Logout
+                </NavLink>
+              </li>
+            </>
+          )}
+        </ul>
+      </nav>
     </header>
   );
 }

@@ -1,3 +1,4 @@
+@import-normalize;
 @import './vars.css';
 
 * {
@@ -31,83 +32,4 @@ ol {
 a {
   color: inherit;
   text-decoration: none;
-}
-
-.btn--add,
-.btn--delete {
-  background: var(--clr-success);
-  border-color: var(--clr-success);
-  font-weight: 700;
-  color: #fff;
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-}
-
-.btn--add {
-  margin-top: 1rem;
-}
-
-.btn--add:hover {
-  background: var(--clr-success-hover);
-  border-color: var(--clr-success-hover);
-}
-
-.btn--delete {
-  background: var(--clr-error);
-  border-color: var(--clr-error);
-}
-
-.btn--delete:hover {
-  background: var(--clr-error-hover);
-  border-color: var(--clr-error-hover);
-}
-
-.btn:hover {
-  background: var(--clr-secondary);
-}
-
-.btn--cta {
-  background: var(--clr-accent);
-  border-color: var(--clr-accent);
-  color: var(--clr-primary);
-  font-weight: 600;
-  padding: 1rem;
-  margin-top: 4rem;
-}
-
-.btn--cta:hover {
-  background: var(--clr-accent-hover);
-  border-color: var(--clr-accent-hover);
-}
-
-
-.btn--add,
-.btn--delete {
-  background: var(--clr-success);
-  border-color: var(--clr-success);
-  font-weight: 700;
-  color: #fff;
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-}
-
-.btn--add {
-  margin-top: 1rem;
-}
-
-.btn--add:hover {
-  background: var(--clr-success-hover);
-  border-color: var(--clr-success-hover);
-}
-
-.btn--delete {
-  background: var(--clr-error);
-  border-color: var(--clr-error);
-}
-
-.btn--delete:hover {
-  background: var(--clr-error-hover);
-  border-color: var(--clr-error-hover);
 }

@@ -1,132 +1,53 @@
-@import '../../vars.css';
-
 .navbar {
-  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.25);
-  background: var(--clr-bg-primary);
+  display: flex;
+  box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.2);
+  height: 3.5rem;
+  width: 100vw;
   position: sticky;
   top: 0;
-  display: flex;
-  height: 4.5rem;
-  width: 100vw;
-}
-
-.container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.logo {
-  font-size: clamp(1.8rem, 2vw, 2rem);
-  font-weight: bold;
-}
-
-.hamburger {
-  display: grid;
-  font-size: 1.75rem;
-  margin: 0;
-  padding: 0;
-  color: var(--clr-accent);
-  border: none;
-  background: none;
-  cursor: pointer;
 }
 
 .nav {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: var(--clr-bg-primary);
-  display: grid;
-  place-items: center;
-  transition: bottom 0.2s ease-in-out;
-  height: var(--min-height-page);
-  z-index: -1;
-}
-
-.expanded {
-  bottom: calc(-1 * var(--min-height-page));
-}
-
-.links {
   display: flex;
-  flex-direction: column;
-  gap: 4rem;
+  justify-content: space-between;
   align-items: center;
+  margin: 0 auto;
 }
 
-.listItem {
-  padding: 1rem;
-}
-
-.navBtn,
-.link {
-  font-size: 1rem;
-}
-
-.navBtn {
-  align-items: center;
-  display: flex;
-  gap: 0.5rem;
-}
-
-.link {
+.nav {
   width: 100%;
-  cursor: pointer;
   position: relative;
 }
 
-.link::after {
-  content: '';
-  height: 0.15rem;
-  width: 0;
-  background: var(--clr-accent);
+.left {
+  width: 90%;
+  position: static;
+}
+
+.hamburger {
+  background: none;
+  border: none;
+  color: var(--clr-accent);
+  font-size: 1.3rem;
+  cursor: pointer;
+}
+
+.navMenu {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   position: absolute;
-  bottom: -0.5rem;
-  left: 50%;
-  transform: translate(-50%);
-  transition: width 0.1s ease-in-out;
-  transform-origin: left;
+  height: calc(100vh - 3.5rem);
+  max-height: 0;
+  top: 3.5rem;
+  left: 0;
+  right: 0;
+  background: var(--clr-bg-primary);
+  transition: max-height 0.2s ease-in-out;
+  overflow: hidden;
 }
 
-.link:hover::after {
-  width: 100%;
-}
-
-.link.active {
-  font-weight: 700;
-}
-
-.link.active::after {
-  width: 100%;
-}
-
-.addIcon {
-  font-size: 1.4rem;
-}
-
-@media screen and (min-width: 50em) {
-  .navbar {
-    /* min-height: 85px; */
-  }
-
-  .hamburger {
-    display: none;
-  }
-
-  .nav {
-    position: static;
-    height: auto;
-    z-index: 1;
-  }
-
-  .links {
-    flex-direction: row;
-  }
-
-  .navBtn,
-  .link {
-    font-size: 0.875rem;
-  }
+.expanded {
+  max-height: calc(100vh - 3.5rem);
 }
