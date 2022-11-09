@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import './index.css';
 
-import Navbar from './components/Navbar';
+import Layout from './components/Layout';
 import Landing from './pages/Landing';
 
 function App() {
@@ -27,12 +27,13 @@ function App() {
 
   return (
     <Router>
-      <Navbar user={user} setUser={setUser} />
-      <Routes>
-        {/* Public Routes */}
-        <Route path="/" element={<Landing />} />
-        {/* Private Routes */}
-      </Routes>
+      <Layout user={user} setUser={setUser}>
+        <Routes>
+          {/* Public Routes */}
+          <Route path="/" element={<Landing />} />
+          {/* Private Routes */}
+        </Routes>
+      </Layout>
     </Router>
   );
 }

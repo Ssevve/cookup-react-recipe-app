@@ -3,8 +3,6 @@
   box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.2);
   height: 3.5rem;
   width: 100vw;
-  position: sticky;
-  top: 0;
 }
 
 .nav {
@@ -24,16 +22,24 @@
   position: static;
 }
 
+.logo {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
 .hamburger {
   background: none;
   border: none;
   color: var(--clr-accent);
   font-size: 1.3rem;
   cursor: pointer;
+  display: flex;
+  padding: 0;
 }
 
 .navMenu {
   display: flex;
+  gap: 3rem;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -48,6 +54,75 @@
   overflow: hidden;
 }
 
+.navItem {
+  padding-block: 0.4rem;
+}
+
+.navLink {
+  width: 100%;
+  cursor: pointer;
+  position: relative;
+}
+
+.navLink::after {
+  content: '';
+  height: 0.15rem;
+  width: 100%;
+  max-width: 0;
+  background: var(--clr-accent);
+  position: absolute;
+  /* bottom: -0.5rem; */
+  bottom: -0.4rem;
+  left: 50%;
+  transform: translate(-50%);
+  transition: max-width 0.1s ease-in-out;
+}
+
+.navLink:hover::after {
+  max-width: 100%;
+}
+
+.navLink.active {
+  font-weight: 700;
+}
+
+.navLink.active::after {
+  max-width: 100%;
+}
+
 .expanded {
   max-height: calc(100vh - 3.5rem);
+}
+
+@media screen and (min-width: 40em) {
+  .header {
+    justify-content: space-between;
+  }
+
+  .nav {
+    width: 90%;
+  }
+
+  .left,
+  .navMenu {
+    width: auto;
+    margin: 0;
+  }
+
+  .hamburger {
+    display: none;
+  }
+
+  .navMenu {
+    max-height: fit-content;
+    height: auto;
+    flex-direction: row;
+    position: static;
+    font-size: 14px;
+  }
+
+  /* .navLinkBtn {
+    align-items: center;
+    display: flex;
+  } */
 }
