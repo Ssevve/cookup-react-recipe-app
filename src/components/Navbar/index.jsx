@@ -74,7 +74,7 @@ export default function Navbar({ user, setUser }) {
                 </li>
                 <li>
                   <Link onClick={() => setShowMenu(false)} to="/signup">
-                    <Button className={styles.navBtn} text="Signup" />
+                    <Button lowPadding className={styles.navBtn} text="Signup" />
                   </Link>
                 </li>
               </>

@@ -1,7 +1,6 @@
 .hero {
   display: flex;
-  align-items: stretch;
-  min-height: var(--min-height-page);
+  min-height: calc(100vh - 4.5rem);
 }
 
 .container {

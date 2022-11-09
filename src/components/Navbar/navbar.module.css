@@ -5,9 +5,8 @@
   background: var(--clr-bg-primary);
   position: sticky;
   top: 0;
-  flex: 0.2;
   display: flex;
-  /* min-height: 65px; */
+  height: 4.5rem;
   width: 100vw;
 }
 

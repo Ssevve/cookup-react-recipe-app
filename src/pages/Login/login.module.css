@@ -1,6 +1,6 @@
 .login {
   display: flex;
-  align-items: stretch;
+  min-height: calc(100vh - 4.5rem);
 }
 
 .container {

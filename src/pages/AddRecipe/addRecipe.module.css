@@ -1,7 +1,6 @@
 .addRecipe {
-  padding-block: 4rem;
-  /* display: flex; */
-  /* align-items: stretch; */
+  display: flex;
+  min-height: calc(100vh - 4.5rem);
 }
 
 .container {

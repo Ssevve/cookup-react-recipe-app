@@ -1,7 +1,6 @@
 .signup {
   display: flex;
-  align-items: stretch;
-  /* max-height: var(--min-height-page); */
+  height: calc(100vh - 4.5rem);
 }
 
 .container {
