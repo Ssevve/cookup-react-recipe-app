@@ -1,12 +1,10 @@
 .container {
   width: 90%;
   max-width: 1600px;
-  height: 100%;
   margin: 0 auto;
-  padding-block: 2rem;
   display: flex;
   align-items: center;
-  justify-content: center;
+  min-height: 100%;
 }
 
 .content {
@@ -16,17 +14,21 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 2rem;
+  gap: 3rem;
 }
 
 .title {
-  font-size: clamp(2rem, 13vw, 4rem);
+  font-size: clamp(2.5rem, 9vw, 5rem);
   line-height: 1.1;
 }
 
 .highlightedText {
   color: var(--clr-accent);
   display: block;
+}
+
+.copy {
+  font-size: clamp(1rem, 1vw, 1.125rem);
 }
 
 .buttons {
@@ -38,10 +40,11 @@
 
 .btn {
   cursor: pointer;
-  width: 100%;
-  padding-block: 0.75rem;
+  text-align: center;
+  flex: 1;
+  padding: 0.75rem 0.5rem;
   border-radius: var(--border-radius);
-  transition: background 0.15s ease-in-out;
+  transition: background 0.1s ease-in-out;
 }
 
 .cta {
@@ -63,4 +66,56 @@
 
 .outline:hover {
   background: var(--clr-btn-outline-hover);
+}
+
+@media screen and (min-width: 45em) {
+  .content {
+    text-align: left;
+    align-items: flex-start;
+    flex: 0.3;
+    width: 46%;
+  }
+
+  .copy,
+  .buttons {
+    max-width: 35rem;
+  }
+
+  .buttons {
+    flex-direction: row;
+    margin-top: 2rem;
+  }
+
+  .heroImage {
+    background-image: url('/public/images/landing-bg.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-y: 45%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 50%;
+    clip-path: polygon(35% 0, 100% 0, 100% 100%, 0% 100%);    
+  }
+  
+  .heroImage::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+  }
+}
+
+@media screen and (min-width:70em) {
+  .content {
+    width: 30%;
+  }
+
+  .heroImage {
+    width: 60%;
+  }
 }

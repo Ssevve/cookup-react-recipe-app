@@ -94,7 +94,7 @@
   max-height: calc(100vh - 3.5rem);
 }
 
-@media screen and (min-width: 40em) {
+@media screen and (min-width: 45em) {
   .header {
     justify-content: space-between;
   }
@@ -121,9 +121,4 @@
     position: static;
     font-size: 14px;
   }
-
-  /* .navLinkBtn {
-    align-items: center;
-    display: flex;
-  } */
 }
