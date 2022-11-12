@@ -5,6 +5,7 @@ import './index.css';
 
 import Layout from './components/Layout';
 import Landing from './pages/Landing';
+import Login from './pages/Login';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -31,6 +32,7 @@ function App() {
         <Routes>
           {/* Public Routes */}
           <Route path="/" element={<Landing />} />
+          <Route path="/login" element={<Login />} />
           {/* Private Routes */}
         </Routes>
       </Layout>
