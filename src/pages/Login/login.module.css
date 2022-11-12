@@ -18,7 +18,7 @@
 }
 
 .title {
-  font-size: clamp(2.5rem, 9vw, 5rem);
+  font-size: 4rem;
   line-height: 1.1;
 }
 
@@ -40,8 +40,10 @@
 .form {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 2rem;
   width: 100%;
+  max-width: 400px;
+
 }
 
 .errorBox {
@@ -60,7 +62,6 @@
 .label {
   display: flex;
   flex-direction: column;
-  /* text-align: left; */
   gap: 0.1rem;
   font-size: 0.875rem;
 }
@@ -91,4 +92,41 @@
 .btn:hover {
   background: var(--clr-accent-hover);
   border-color: var(--clr-accent-hover);
+}
+
+@media screen and (min-width: 45em) {
+.formSection {
+  flex: 0.4;
+}
+
+.newUser {
+  margin-bottom: 3rem;
+}
+
+.form {
+  gap: 2rem;
+}
+
+.loginImage {
+  background-image: url('/public/images/login-bg.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position-y: 45%;
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+}
+
+.loginImage::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+}
+
 }
