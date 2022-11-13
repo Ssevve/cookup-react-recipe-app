@@ -57,6 +57,7 @@
   color: var(--clr-error);
   background: var(--clr-error-light);
   width: 100%;
+  max-width: 400px;
 }
 
 .label {

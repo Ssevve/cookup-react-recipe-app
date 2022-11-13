@@ -1,82 +1,64 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
 import styles from './login.module.css';
 
 export default function Login({ setUser }) {
+  const [responseError, setResponseError] = useState('');
   const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({ reValidateMode: 'onSubmit' });
-  // const [error, setError] = useState('');
-
-  // function handleChange(e) {
-  //   setUserInput({ ...userInput, [e.target.name]: e.target.value });
-  // }
-
-  // function validateInput() {
-  //   const { email, password } = userInput;
-
-  //   if (!email || !isEmail(email) || password.length < 8) {
-  //     setError('Incorrect email address or password.');
-  //     return false;
-  //   }
-  //   setError('');
-  //   return true;
-  // }
 
   async function handleFormSubmit(data) {
-    console.log(data);
+    const url = 'http://localhost:8000/api/auth/login';
+    const requestOptions = {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    };
 
-    // const isValidInput = validateInput();
-    // if (!isValidInput) return;
+    try {
+      const res = await fetch(url, requestOptions);
+      const resData = await res.json();
 
-    // const url = 'http://localhost:8000/api/auth/login';
-    // const requestOptions = {
-    //   method: 'POST',
-    //   credentials: 'include',
-    //   headers: {
-    //     'content-type': 'application/json',
-    //   },
-    //   body: JSON.stringify(data),
-    // };
+      if (res.status === 400 || res.status === 401) setResponseError(resData.message);
+      else if (res.status === 404) setResponseError('Something went wrong.');
+      else if (res.status === 500) setResponseError('Server error.');
 
-    // try {
-    //   const res = await fetch(url, requestOptions);
-    //   const data = await res.json();
+      console.log(resData);
 
-    //   if (!res.ok) {
-    //     setError(data.message);
-    //   }
-
-    //   if (data.user) {
-    //     setUser(data.user);
-    //     navigate('/dashboard');
-    //   }
-    // } catch (err) {
-    //   console.log(err);
-    // }
+      if (resData.user) {
+        setUser(resData.user);
+        navigate('/dashboard');
+      }
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   return (
     <div className={styles.container}>
       <section className={styles.formSection}>
-        <h1 className={styles.title}>Login</h1>
+        <h1 className={styles.title}>Log in</h1>
         <p className={styles.newUser}>
           New user?
           <Link className={styles.link} to="/signup">
             Sign up
           </Link>
         </p>
-        {(errors.email || errors.password) && (
+        {(errors.email || errors.password || responseError) && (
           <div className={styles.errorBox}>
-            <span>Incorrect email or password.</span>
+            <span>{responseError || 'Incorrect email or password.'}</span>
             <span>Please try again.</span>
           </div>
         )}
