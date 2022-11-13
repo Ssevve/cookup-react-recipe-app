@@ -115,14 +115,22 @@ export default function Navbar({ user, setUser }) {
                 </NavLink>
               </li>
               <li className={styles.navItem}>
-                <Link onClick={() => setShowMenu(false)} to="/addRecipe">
+                <NavLink
+                  onClick={() => setShowMenu(false)}
+                  className={({ isActive }) => (isActive ? cx(styles.navLink, styles.active) : styles.navLink)}
+                  to="/addRecipe"
+                >
                   Add recipe
-                </Link>
+                </NavLink>
               </li>
               <li className={styles.navItem}>
-                <NavLink onClick={logout} className="btn" to="#">
+                <button
+                  type="button"
+                  onClick={logout}
+                  className={styles.navLink}
+                >
                   Logout
-                </NavLink>
+                </button>
               </li>
             </>
           )}
