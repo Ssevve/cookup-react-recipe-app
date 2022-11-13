@@ -57,6 +57,7 @@
   color: var(--clr-error);
   background: var(--clr-error-light);
   width: 100%;
+  max-width: 400px;
 }
 
 .label {
@@ -81,6 +82,10 @@
   display: block;
   margin-top: 0.1rem;
   color: var(--clr-error);
+}
+
+.error {
+  border-color: var(--clr-error);
 }
 
 .btn {
