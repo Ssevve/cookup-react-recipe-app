@@ -22,25 +22,29 @@ router.get('/', (req, res) => {
 });
 
 router.post('/signup', (req, res, next) => {
-  const validationErrors = [];
+  const validationErrors = {};
 
   const {
     firstName, lastName, email, password,
   } = req.body;
 
-  if (!firstName) validationErrors.push('First name cannot be empty');
-  if (!lastName) validationErrors.push('Last name cannot be empty');
+  if (!firstName) validationErrors.firstName = 'First name cannot be empty';
+  if (!lastName) validationErrors.lastName = 'Last name cannot be empty';
 
-  if (!email) validationErrors.push('Email cannot be empty');
-  else if (!isEmail(email)) validationErrors.push('Email is not valid');
+  if (!email) validationErrors.email = 'Email cannot be empty';
+  else if (!isEmail(email)) validationErrors.email = 'Email is not valid';
 
-  if (password.length < 8) validationErrors.push('Password must be at least 8 characters long');
+  if (password.length < 8) {
+    validationErrors.password = 'Password must be at least 8 characters long';
+  }
 
-  if (validationErrors.length) return res.status(400).json({ message: validationErrors });
+  if (Object.keys(validationErrors).length) {
+    return res.status(400).json({ message: validationErrors });
+  }
 
   User.findOne({ email }, (err, existingUser) => {
     if (err) return next(err);
-    if (existingUser) return res.status(400).json({ message: 'Email is already in use' });
+    if (existingUser) return res.status(409).json({ message: { email: 'Email is already in use' } });
 
     const user = new User({
       firstName,
