@@ -125,12 +125,12 @@
     background-repeat: no-repeat;
     background-size: cover;
     background-position-y: 45%;
-    position: absolute;
+    position: fixed;
     right: 0;
-    top: 0;
+    top: 4.5rem;
     bottom: 0;
     width: 50%;
-    
+    pointer-events: none;
   }
 
   .signupImage::after {
