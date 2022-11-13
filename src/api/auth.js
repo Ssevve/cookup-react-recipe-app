@@ -63,7 +63,7 @@ router.post('/signup', (req, res, next) => {
 });
 
 router.post('/login', (req, res, next) => {
-  const error = 'Incorrect username or password';
+  const error = 'Incorrect username or password.';
 
   const { email, password } = req.body;
 
@@ -75,7 +75,7 @@ router.post('/login', (req, res, next) => {
   passport.authenticate('local', (err, user) => {
     if (err) return next(err);
     if (!user) {
-      return res.status(400).json({ message: error });
+      return res.status(401).json({ message: error });
     }
 
     req.logIn(user, (err) => {
