@@ -19,7 +19,7 @@ export default function Landing() {
         </p>
         <div className={styles.buttons}>
           <Link className={cx(styles.btn, styles.cta)} to="/signup">
-            Signup
+            Sign up
           </Link>
           <Link className={cx(styles.btn, styles.outline)} to="/recipes">
             Browse recipes
