@@ -80,7 +80,7 @@ export default function Navbar({ user, setUser }) {
                   className={({ isActive }) => (isActive ? cx(styles.navLink, styles.active) : styles.navLink)}
                   to="/login"
                 >
-                  Login
+                  Log in
                 </NavLink>
               </li>
               <li className={styles.navItem}>
@@ -89,7 +89,7 @@ export default function Navbar({ user, setUser }) {
                   className={({ isActive }) => (isActive ? cx(styles.navLink, styles.active) : styles.navLink)}
                   to="/signup"
                 >
-                  Signup
+                  Sign up
                 </NavLink>
               </li>
             </>
@@ -129,7 +129,7 @@ export default function Navbar({ user, setUser }) {
                   onClick={logout}
                   className={styles.navLink}
                 >
-                  Logout
+                  Log out
                 </button>
               </li>
             </>
