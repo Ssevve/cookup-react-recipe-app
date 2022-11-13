@@ -83,7 +83,7 @@
   padding: 0.75rem 0.5rem;
   border-radius: var(--border-radius);
   background: var(--clr-accent);
-  color: var(--clr-bg-primary);
+  color: var(--clr-light-primary);
   border: 1px solid var(--clr-accent);
   font-weight: 700;
   margin-top: 1rem;

@@ -84,13 +84,13 @@ export default function Navbar({ user, setUser }) {
                 </NavLink>
               </li>
               <li className={styles.navItem}>
-                <NavLink
+                <Link
                   onClick={() => setShowMenu(false)}
-                  className={({ isActive }) => (isActive ? cx(styles.navLink, styles.active) : styles.navLink)}
+                  className={styles.btn}
                   to="/signup"
                 >
                   Sign up
-                </NavLink>
+                </Link>
               </li>
             </>
           )}

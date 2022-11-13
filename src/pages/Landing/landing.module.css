@@ -49,7 +49,7 @@
 
 .cta {
   background: var(--clr-accent);
-  color: var(--clr-bg-primary);
+  color: var(--clr-light-primary);
   border: 1px solid var(--clr-accent);
   font-weight: 700;
 }

@@ -49,7 +49,7 @@
   top: 3.5rem;
   left: 0;
   right: 0;
-  background: var(--clr-bg-primary);
+  background: var(--clr-light-primary);
   transition: max-height 0.2s ease-in-out;
   overflow: hidden;
 }
@@ -91,6 +91,19 @@
 
 .navLink.active::after {
   max-width: 100%;
+}
+
+.btn {
+  background: var(--clr-accent);
+  color: var(--clr-light-primary);
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  font-weight: bold;
+  transition: background 0.1s ease-in-out;
+}
+
+.btn:hover {
+  background: var(--clr-accent-hover);
 }
 
 .expanded {
