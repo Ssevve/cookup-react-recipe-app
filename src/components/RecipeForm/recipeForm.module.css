@@ -17,6 +17,63 @@
   font-size: 0.875rem;
 }
 
+.radioLabel {
+  /* flex-direction: row; */
+  /* align-items: center; */
+  /* justify-content: space-between; */
+  cursor: pointer;
+  user-select: none;
+  font-size: 1rem;
+  position: relative;
+  /* flex: 1; */
+}
+
+.radioInput {
+  display: none;
+}
+
+.radioSpan {
+  display: flex;
+  align-items: center;
+  margin-left: 1.75rem;
+  flex: 1;
+}
+
+.radioSpan::before {
+  --size: 1rem;
+  width: var(--size);
+  height: var(--size);
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-right: 0.5rem;
+  background: inherit;
+  border: 1px solid #000;
+  border-radius: 50%;
+}
+
+.radioSpan:after {
+  --size: 0.75rem;
+  width: var(--size);
+  height: var(--size);
+  content: '';
+
+  background: var(--clr-accent);
+  position: absolute;
+  left: 3px;
+  border-radius: 50%;
+  opacity: 0;
+  transform: scale(0, 0);
+  transition: transform 0.1s ease-in-out;
+}
+
+.radioInput:checked + .radioSpan:after {
+  opacity: 1;
+  transform: scale(1, 1);
+}
+
 .input {
   border: 1px solid #000;
   padding: 0.5rem;
@@ -28,16 +85,18 @@
   font-size: 1rem;
 }
 
-.servings {
-  margin-top: 2.25rem;
-}
-
 .fieldset {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
   border: none;
   padding: 0;
+  margin-top: 2rem;
+}
+
+.difficultyFieldset {
+  flex-direction: row;
+  justify-content: space-between;
   margin-top: 1.25rem;
 }
 

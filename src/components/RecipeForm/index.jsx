@@ -21,47 +21,48 @@ export default function RecipeForm({ recipe }) {
     trigger,
     setValue,
   } = useForm({ mode: 'onChange' });
-  const {
-    fields: ingredientFields,
-    append: ingredientAppend,
-    remove: ingredientRemove,
-  } = useFieldArray({
-    control,
-    name: 'ingredients',
-    rules: { required: { value: true, message: 'At least one ingredient is required' } },
-  });
-  const {
-    fields: directionFields,
-    append: directionAppend,
-    remove: directionRemove,
-  } = useFieldArray({
-    control,
-    name: 'directions',
-    rules: { required: { value: true, message: 'At least one direction is required' } },
-  });
+  // const {
+  //   fields: ingredientFields,
+  //   append: ingredientAppend,
+  //   remove: ingredientRemove,
+  // } = useFieldArray({
+  //   control,
+  //   name: 'ingredients',
+  //   rules: { required: { value: true, message: 'At least one ingredient is required' } },
+  // });
+  // const {
+  //   fields: directionFields,
+  //   append: directionAppend,
+  //   remove: directionRemove,
+  // } = useFieldArray({
+  //   control,
+  //   name: 'directions',
+  //   rules: { required: { value: true, message: 'At least one direction is required' } },
+  // });
 
-  const onSubmit = async (data) => {
-    trigger();
-    const formData = new FormData();
+  const handleFormSubmit = async (data) => {
+    // trigger();
+    console.table(data);
+    // const formData = new FormData();
 
-    formData.append('recipe', JSON.stringify(data));
-    formData.append('image', file);
+    // formData.append('recipe', JSON.stringify(data));
+    // formData.append('image', file);
 
-    // eslint-disable-next-line no-underscore-dangle
-    const url = `http://localhost:8000/api/recipes/${editingRecipe ? editingRecipe._id : ''}`;
-    const requestOptions = {
-      method: editingRecipe ? 'PUT' : 'POST',
-      body: formData,
-      credentials: 'include',
-    };
+    // // eslint-disable-next-line no-underscore-dangle
+    // const url = `http://localhost:8000/api/recipes/${editingRecipe ? editingRecipe._id : ''}`;
+    // const requestOptions = {
+    //   method: editingRecipe ? 'PUT' : 'POST',
+    //   body: formData,
+    //   credentials: 'include',
+    // };
 
-    try {
-      await fetch(url, requestOptions);
-      navigate('/dashboard');
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.log(error);
-    }
+    // try {
+    //   await fetch(url, requestOptions);
+    //   navigate('/dashboard');
+    // } catch (error) {
+    //   // eslint-disable-next-line no-console
+    //   console.log(error);
+    // }
   };
 
   useEffect(() => {
@@ -72,12 +73,12 @@ export default function RecipeForm({ recipe }) {
       setValue('directions', editingRecipe.directions);
     } else {
       // ingredientAppend('');
-      directionAppend({ title: '', description: '' });
+      // directionAppend({ title: '', description: '' });
     }
   }, []);
 
   return (
-    <form noValidate className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+    <form noValidate className={styles.form} onSubmit={handleSubmit(handleFormSubmit)}>
       {/* NAME */}
       <div>
         <label className={styles.label} htmlFor="recipe-name">
@@ -89,7 +90,6 @@ export default function RecipeForm({ recipe }) {
             className={cx(styles.input, errors.recipeName && styles.error)}
             id="recipe-name"
             type="text"
-            name="recipeName"
           />
         </label>
         <span role="alert" className={styles.errorMessage}>
@@ -108,7 +108,6 @@ export default function RecipeForm({ recipe }) {
             className={cx(styles.input, errors.recipeDescription && styles.error)}
             id="recipe-description"
             type="text"
-            name="recipeDescription"
           />
         </label>
         <span role="alert" className={styles.errorMessage}>
@@ -117,23 +116,93 @@ export default function RecipeForm({ recipe }) {
       </div>
 
       {/* DISH TYPE */}
-      <div className={styles.group}>
+      <div>
         <label className={styles.label} htmlFor="dish-type">
           Dish type
-          <select defaultValue="" {...register('dishType')} className={styles.input} id="dish-type">
+          <select
+            defaultValue=""
+            {...register('dishType', {
+              required: { value: true, message: 'Dish type is required' },
+            })}
+            className={styles.input}
+            id="dish-type"
+          >
             <option disabled value="">
               -- Select one --
             </option>
-            <option value="Main dish">Main dish</option>
-            <option value="Side dish">Side dish</option>
-            <option value="Appetizer">Appetizer</option>
-            <option value="Soup">Soup</option>
-            <option value="Salad">Salad</option>
-            <option value="Dessert">Dessert</option>
-            <option value="Drink">Drink</option>
+            <option value="main dish">Main dish</option>
+            <option value="side dish">Side dish</option>
+            <option value="appetizer">Appetizer</option>
+            <option value="soup">Soup</option>
+            <option value="salad">Salad</option>
+            <option value="dessert">Dessert</option>
+            <option value="drink">Drink</option>
           </select>
         </label>
+        <span role="alert" className={styles.errorMessage}>
+          {errors?.dishType?.message}
+        </span>
       </div>
+
+      {/* SERVINGS */}
+      <div>
+        <label className={styles.label} htmlFor="servings">
+          No. of servings
+          <input
+            {...register('servings', {
+              required: { value: true, message: 'No. of servings is required' },
+            })}
+            className={cx(styles.input, errors.servings && styles.error)}
+            id="servings"
+            type="number"
+          />
+        </label>
+        <span role="alert" className={styles.errorMessage}>
+          {errors?.servings?.message}
+        </span>
+      </div>
+
+      {/* DIFFICULTY */}
+      <fieldset className={cx(styles.fieldset, styles.difficultyFieldset)}>
+        <legend className={styles.legend}>Difficulty</legend>
+        <div>
+          <label className={cx(styles.label, styles.radioLabel)} htmlFor="easy">
+            <input
+              {...register('difficulty')}
+              className={styles.radioInput}
+              type="radio"
+              id="easy"
+              value="easy"
+            />
+            <span className={styles.radioSpan}>Easy</span>
+          </label>
+        </div>
+        <div>
+          <label className={cx(styles.label, styles.radioLabel)} htmlFor="moderate">
+            <input
+              {...register('difficulty')}
+              defaultChecked
+              className={styles.radioInput}
+              type="radio"
+              id="moderate"
+              value="moderate"
+            />
+            <span className={styles.radioSpan}>Moderate</span>
+          </label>
+        </div>
+        <div>
+          <label className={cx(styles.label, styles.radioLabel)} htmlFor="hard">
+            <input
+              {...register('difficulty')}
+              className={styles.radioInput}
+              type="radio"
+              id="hard"
+              value="hard"
+            />
+            <span className={styles.radioSpan}>Hard</span>
+          </label>
+        </div>
+      </fieldset>
 
       {/* PREPARATION TIME */}
       <fieldset className={styles.fieldset}>
@@ -144,11 +213,9 @@ export default function RecipeForm({ recipe }) {
             <input
               {...register('preparationTime', {
                 required: { value: true, message: 'Preparation time is required' },
-                pattern: { value: /^[0-9]*$/gi, message: 'Invalid format' },
               })}
               className={cx(styles.input, errors.preparationTime && styles.error)}
               type="number"
-              name="preparationTime"
               id="preparation-time"
             />
           </label>
@@ -163,7 +230,6 @@ export default function RecipeForm({ recipe }) {
               defaultValue="minutes"
               {...register('preparationTimeUnit')}
               className={styles.input}
-              name="preparationTimeUnit"
               id="preparation-unit"
             >
               <option value="minutes">minutes</option>
@@ -186,7 +252,6 @@ export default function RecipeForm({ recipe }) {
               className={cx(styles.input, errors.cookingTime && styles.error)}
               type="number"
               id="cooking-time"
-              name="cookingTime"
               title="Cooking time"
             />
           </label>
@@ -198,12 +263,11 @@ export default function RecipeForm({ recipe }) {
           <label className={styles.label} htmlFor="cooking-unit">
             Unit
             <select
-              value
+              defaultValue="minutes"
               {...register('cookingTimeUnit')}
               className={styles.input}
               id="cooking-unit"
               title="Cooking time unit"
-              name="cookingTimeUnit"
             >
               <option value="minutes">minutes</option>
               <option value="hours">hours</option>
@@ -211,27 +275,6 @@ export default function RecipeForm({ recipe }) {
           </label>
         </div>
       </fieldset>
-
-      {/* SERVINGS */}
-      <div className={styles.servings}>
-        <label className={styles.label} htmlFor="servings">
-          No. of servings
-          <input
-            {...register('servings', {
-              required: { value: true, message: 'No. of servings is required' },
-            })}
-            className={cx(styles.input, errors.servings && styles.error)}
-            id="servings"
-            type="number"
-            name="recipeDescription"
-          />
-        </label>
-        <span role="alert" className={styles.errorMessage}>
-          {errors?.servings?.message}
-        </span>
-      </div>
-
-      {/* DIFFICULTY */}
 
       {/* INGREDIENTS */}
       {/* <section className={styles.ingredients}>
@@ -314,6 +357,7 @@ export default function RecipeForm({ recipe }) {
       />
       <Button type="submit" text={editingRecipe ? 'Save' : 'Add Recipe'} />
       <Button onClick={() => navigate(-1)} text={editingRecipe ? 'Cancel' : 'Go back'} /> */}
+      <button onClick={() => console.log(errors)} className="test-button-to-delete" type="submit">Submit?</button>
     </form>
   );
 }
