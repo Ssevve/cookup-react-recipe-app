@@ -7,6 +7,8 @@ import Layout from './components/Layout';
 import Landing from './pages/Landing';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import PrivateRoutes from './utils/PrivateRoutes';
+import AddRecipe from './pages/AddRecipe';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -36,6 +38,9 @@ function App() {
           <Route path="/login" element={<Login setUser={setUser} />} />
           <Route path="/signup" element={<Signup />} />
           {/* Private Routes */}
+          <Route element={<PrivateRoutes />}>
+            <Route path="/addRecipe" element={<AddRecipe />} />
+          </Route>
         </Routes>
       </Layout>
     </Router>

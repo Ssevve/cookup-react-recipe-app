@@ -35,8 +35,6 @@ export default function Login({ setUser }) {
       else if (res.status === 404) setResponseError('Something went wrong.');
       else if (res.status === 500) setResponseError('Server error.');
 
-      console.log(resData);
-
       if (resData.user) {
         setUser(resData.user);
         navigate('/dashboard');

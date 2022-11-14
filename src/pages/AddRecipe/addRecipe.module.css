@@ -1,0 +1,21 @@
+.container {
+  width: 90%;
+  max-width: 1600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100%;
+  padding-block: 2rem;
+}
+
+.title {
+  font-size: clamp(3rem, 12vw, 4rem);
+  line-height: 1.1;
+}
+
+@media screen and (min-width: 45em) {
+  .title {
+    font-size: clamp(3rem, 3vw, 4rem);
+  }
+}
