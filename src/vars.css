@@ -1,5 +1,6 @@
 :root {
   --ff-body: 'Poppins', sans-serif;
+  --font-weight-bold: 600;
 
   --clr-font-body: #000000;
   --clr-light-primary: #ffffff;

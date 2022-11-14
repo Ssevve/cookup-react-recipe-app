@@ -74,6 +74,7 @@
   font-family: inherit;
   width: 0;
   min-width: 100%;
+  font-size: 1rem;
 }
 
 .btn {
@@ -85,9 +86,10 @@
   background: var(--clr-accent);
   color: var(--clr-light-primary);
   border: 1px solid var(--clr-accent);
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
   margin-top: 1rem;
   transition: background 0.1s ease-in-out;
+  font-size: 1rem;
 }
 
 .btn:hover {
@@ -101,7 +103,7 @@
 }
 
 .title {
-  font-size: clamp(3rem, 6vw, 4rem);
+  font-size: clamp(3rem, 3vw, 4rem);
 }
 
 .newUser {

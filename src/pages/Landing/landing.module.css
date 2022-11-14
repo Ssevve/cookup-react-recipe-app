@@ -51,7 +51,7 @@
   background: var(--clr-accent);
   color: var(--clr-light-primary);
   border: 1px solid var(--clr-accent);
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
 }
 
 .cta:hover {
