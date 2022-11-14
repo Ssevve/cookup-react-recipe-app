@@ -5,6 +5,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import cx from 'classnames';
+import { BsTrash2 } from 'react-icons/bs';
 import { useForm, useFieldArray } from 'react-hook-form';
 
 import styles from './recipeForm.module.css';
@@ -21,15 +22,15 @@ export default function RecipeForm({ recipe }) {
     trigger,
     setValue,
   } = useForm({ mode: 'onChange' });
-  // const {
-  //   fields: ingredientFields,
-  //   append: ingredientAppend,
-  //   remove: ingredientRemove,
-  // } = useFieldArray({
-  //   control,
-  //   name: 'ingredients',
-  //   rules: { required: { value: true, message: 'At least one ingredient is required' } },
-  // });
+  const {
+    fields: ingredientFields,
+    append: ingredientAppend,
+    remove: ingredientRemove,
+  } = useFieldArray({
+    control,
+    name: 'ingredients',
+    rules: { required: { value: true, message: 'At least one ingredient is required' } },
+  });
   // const {
   //   fields: directionFields,
   //   append: directionAppend,
@@ -72,7 +73,7 @@ export default function RecipeForm({ recipe }) {
       setValue('ingredients', editingRecipe.ingredients);
       setValue('directions', editingRecipe.directions);
     } else {
-      // ingredientAppend('');
+      ingredientAppend('');
       // directionAppend({ title: '', description: '' });
     }
   }, []);
@@ -87,6 +88,7 @@ export default function RecipeForm({ recipe }) {
             {...register('recipeName', {
               required: { value: true, message: 'Recipe name is required' },
             })}
+            aria-invalid={errors.recipeName ? 'true' : 'false'}
             className={cx(styles.input, errors.recipeName && styles.error)}
             id="recipe-name"
             type="text"
@@ -105,6 +107,7 @@ export default function RecipeForm({ recipe }) {
             {...register('recipeDescription', {
               required: { value: true, message: 'Recipe description is required' },
             })}
+            aria-invalid={errors.recipeDescription ? 'true' : 'false'}
             className={cx(styles.input, errors.recipeDescription && styles.error)}
             id="recipe-description"
             type="text"
@@ -124,7 +127,8 @@ export default function RecipeForm({ recipe }) {
             {...register('dishType', {
               required: { value: true, message: 'Dish type is required' },
             })}
-            className={styles.input}
+            aria-invalid={errors.dishType ? 'true' : 'false'}
+            className={cx(styles.input, errors.dishType && styles.error)}
             id="dish-type"
           >
             <option disabled value="">
@@ -152,6 +156,7 @@ export default function RecipeForm({ recipe }) {
             {...register('servings', {
               required: { value: true, message: 'No. of servings is required' },
             })}
+            aria-invalid={errors.servings ? 'true' : 'false'}
             className={cx(styles.input, errors.servings && styles.error)}
             id="servings"
             type="number"
@@ -214,6 +219,7 @@ export default function RecipeForm({ recipe }) {
               {...register('preparationTime', {
                 required: { value: true, message: 'Preparation time is required' },
               })}
+              aria-invalid={errors.preparationTime ? 'true' : 'false'}
               className={cx(styles.input, errors.preparationTime && styles.error)}
               type="number"
               id="preparation-time"
@@ -249,6 +255,7 @@ export default function RecipeForm({ recipe }) {
               {...register('cookingTime', {
                 required: { value: true, message: 'Cooking time is required' },
               })}
+              aria-invalid={errors.cookingTime ? 'true' : 'false'}
               className={cx(styles.input, errors.cookingTime && styles.error)}
               type="number"
               id="cooking-time"
@@ -277,8 +284,8 @@ export default function RecipeForm({ recipe }) {
       </fieldset>
 
       {/* INGREDIENTS */}
-      {/* <section className={styles.ingredients}>
-        <h2 className={styles.sectionHeading}>Ingredients</h2>
+      <fieldset className={styles.fieldset}>
+        <legend className={styles.legend}>Ingredients</legend>
         {errors?.ingredients?.root && (
           <span role="alert" className={styles.errorMessage}>
             {errors?.ingredients?.root.message}
@@ -286,28 +293,42 @@ export default function RecipeForm({ recipe }) {
         )}
         <ul>
           {ingredientFields.map((ingredient, index) => (
-            <li key={ingredient.id}>
-              <Input
-                label={`Ingredient ${index + 1}`}
-                name={`ingredients[${index}]`}
-                register={register}
-                validationRules={requiredField}
-                error={errors.ingredients?.[index]}
-              />
-              <Button
-                className={styles.btnDelete}
+            <li className={styles.listItem} key={ingredient.id}>
+              <div className={styles.listGroup}>
+                <label className={styles.label} htmlFor={`ingredients${index}`}>
+                  {`Ingredient ${index + 1}`}
+                  <input
+                    {...register(`ingredients.${index}.name`, {
+                      required: { value: true, message: 'Ingredient is required' },
+                    })}
+                    aria-invalid={errors?.ingredients?.[index]?.name ? 'true' : 'false'}
+                    className={cx(styles.input, errors?.ingredients?.[index]?.name && styles.error)}
+                    type="text"
+                    id={`ingredients${index}`}
+                  />
+                </label>
+                <span role="alert" className={styles.errorMessage}>
+                  {errors?.ingredients?.[index]?.name.message}
+                </span>
+              </div>
+              <button
+                type="button"
+                className={cx(styles.btn, styles.btnDelete)}
                 onClick={() => ingredientRemove(index)}
-                text="&#8722;"
-              />
+              >
+                <BsTrash2 />
+              </button>
             </li>
           ))}
         </ul>
-        <Button
-          className={styles.btnAdd}
-          onClick={() => ingredientAppend('')}
-          text="Add ingredient"
-        />
-      </section> */}
+        <button
+          type="button"
+          className={cx(styles.btn, styles.btnAdd)}
+          onClick={() => ingredientAppend({ name: '' })}
+        >
+          Add ingredient
+        </button>
+      </fieldset>
 
       {/* DIRECTIONS */}
       {/* <section className={styles.directions}>
@@ -357,7 +378,9 @@ export default function RecipeForm({ recipe }) {
       />
       <Button type="submit" text={editingRecipe ? 'Save' : 'Add Recipe'} />
       <Button onClick={() => navigate(-1)} text={editingRecipe ? 'Cancel' : 'Go back'} /> */}
-      <button onClick={() => console.log(errors)} className="test-button-to-delete" type="submit">Submit?</button>
+      <button onClick={() => console.log(errors)} className="test-button-to-delete" type="submit">
+        Submit
+      </button>
     </form>
   );
 }
