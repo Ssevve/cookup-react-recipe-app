@@ -405,7 +405,7 @@ export default function RecipeForm({ recipe }) {
           </section>
         )}
       </Dropzone> */}
-      <h2 className={styles.sectionHeading}>Image</h2>
+      <h2 className={styles.sectionHeading}>Images</h2>
       <ImageDropzone />
 
       <button onClick={() => console.log(errors)} className="test-button-to-delete" type="submit">
