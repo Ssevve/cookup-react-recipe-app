@@ -102,7 +102,8 @@
   margin-top: 1.25rem;
 }
 
-.legend {
+.legend,
+h2 {
   font-size: 1.25rem;
   font-weight: var(--font-weight-bold);
   margin-bottom: 1rem;
@@ -160,12 +161,8 @@
   background: var(--clr-btn-outline-hover);
 }
 
-.errorMessage {
-  font-size: 0.875rem;
-  height: 1.25rem;
-  display: block;
-  margin-top: 0.1rem;
-  color: var(--clr-error);
+.sectionHeading {
+  margin-top: 2rem;
 }
 
 .error {

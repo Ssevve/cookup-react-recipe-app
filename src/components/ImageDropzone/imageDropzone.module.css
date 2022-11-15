@@ -1,0 +1,25 @@
+.dropzone {
+  color: gray;
+  border: 2px dashed currentColor;
+  padding: 3rem 2rem;
+  /* display: flex; */
+  text-align: center;
+  user-select: none;
+  cursor: pointer;
+  transition: background 0.1s ease-in-out;
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  font-weight: var(--font-weight-bold);
+}
+
+.dropzone:hover {
+  background: rgb(240, 240, 240);
+}
+
+.errorMessage {
+  font-size: 0.875rem;
+  height: 1.25rem;
+  display: block;
+  margin-top: 0.1rem;
+  color: var(--clr-error);
+}

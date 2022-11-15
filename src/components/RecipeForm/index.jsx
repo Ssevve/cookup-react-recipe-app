@@ -6,9 +6,13 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import cx from 'classnames';
 import { BsTrash2 } from 'react-icons/bs';
+// import { AiOutlineCloudUpload } from 'react-icons/ai';
+// import Dropzone from 'react-dropzone';
 import { useForm, useFieldArray } from 'react-hook-form';
 
 import styles from './recipeForm.module.css';
+
+import ImageDropzone from '../ImageDropzone';
 
 export default function RecipeForm({ recipe }) {
   const [editingRecipe] = useState(recipe);
@@ -305,7 +309,11 @@ export default function RecipeForm({ recipe }) {
                       required: { value: true, message: 'Ingredient is required' },
                     })}
                     aria-invalid={errors?.ingredients?.[index]?.name ? 'true' : 'false'}
-                    className={cx(styles.input, styles.listGroupInput, errors?.ingredients?.[index]?.name && styles.error)}
+                    className={cx(
+                      styles.input,
+                      styles.listGroupInput,
+                      errors?.ingredients?.[index]?.name && styles.error,
+                    )}
                     type="text"
                     id={`ingredients${index}`}
                   />
@@ -352,7 +360,11 @@ export default function RecipeForm({ recipe }) {
                       required: { value: true, message: 'Description is required' },
                     })}
                     aria-invalid={errors?.directions?.[index]?.description ? 'true' : 'false'}
-                    className={cx(styles.input, styles.listGroupInput, errors?.directions?.[index]?.description && styles.error)}
+                    className={cx(
+                      styles.input,
+                      styles.listGroupInput,
+                      errors?.directions?.[index]?.description && styles.error,
+                    )}
                     type="text"
                     id={`directions${index}`}
                   />
@@ -379,12 +391,23 @@ export default function RecipeForm({ recipe }) {
           Add direction
         </button>
       </fieldset>
-      {/* <ImageUpload
-        onChange={(e) => setFile(() => e.target?.files[0])}
-        src={file ? URL.createObjectURL(file) : editingRecipe?.imageUrl}
-      />
-      <Button type="submit" text={editingRecipe ? 'Save' : 'Add Recipe'} />
-      <Button onClick={() => navigate(-1)} text={editingRecipe ? 'Cancel' : 'Go back'} /> */}
+
+      {/* IMAGE */}
+      {/* <Dropzone maxFiles={1} onDrop={(acceptedFiles) => console.log(acceptedFiles)}>
+        {({ getRootProps, getInputProps }) => (
+          <section>
+            <h2 className={styles.sectionHeading}>Image</h2>
+            <div {...getRootProps({ className: styles.dropzone })}>
+              <input {...getInputProps()} />
+              <AiOutlineCloudUpload size={56} color="gray" />
+              <p>Drag and drop some files here, or click to select files</p>
+            </div>
+          </section>
+        )}
+      </Dropzone> */}
+      <h2 className={styles.sectionHeading}>Image</h2>
+      <ImageDropzone />
+
       <button onClick={() => console.log(errors)} className="test-button-to-delete" type="submit">
         Submit
       </button>
