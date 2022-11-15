@@ -1,13 +1,13 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useState } from 'react';
+import React from 'react';
 import { AiOutlineCloudUpload } from 'react-icons/ai';
 import { BsTrash2 } from 'react-icons/bs';
 import { useDropzone } from 'react-dropzone';
 
 import styles from './imageDropzone.module.css';
 
-export default function ImageDropzone() {
-  const [images, setImages] = useState([]);
+export default function ImageDropzone({ images, setImages }) {
   const {
     getRootProps, getInputProps, isDragActive, isDragAccept, isDragReject,
   } = useDropzone({
@@ -55,7 +55,7 @@ export default function ImageDropzone() {
   return (
     <section>
       <div {...getRootProps({ className: styles.dropzone })}>
-        <input {...getInputProps()} />
+        <input {...getInputProps()} multiple />
         <AiOutlineCloudUpload size={56} color="gray" />
         {isDragAccept && <p>Drop to upload</p>}
         {isDragReject && <p>Unsupported file format</p>}

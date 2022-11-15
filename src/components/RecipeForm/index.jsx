@@ -15,8 +15,8 @@ import styles from './recipeForm.module.css';
 import ImageDropzone from '../ImageDropzone';
 
 export default function RecipeForm({ recipe }) {
+  const [images, setImages] = useState([]);
   const [editingRecipe] = useState(recipe);
-  const [file, setFile] = useState(undefined);
   const navigate = useNavigate();
   const {
     register,
@@ -48,27 +48,29 @@ export default function RecipeForm({ recipe }) {
 
   const handleFormSubmit = async (data) => {
     // trigger();
-    console.table(data);
-    // const formData = new FormData();
+    console.table(`data: ${data}`);
+    console.log(`images: ${images}`);
+    const formData = new FormData();
 
-    // formData.append('recipe', JSON.stringify(data));
-    // formData.append('image', file);
+    formData.append('recipe', JSON.stringify(data));
+    images.forEach((image) => {
+      formData.append('images', image);
+    });
+    // eslint-disable-next-line no-underscore-dangle
+    const url = `http://localhost:8000/api/recipes/${editingRecipe ? editingRecipe._id : ''}`;
+    const requestOptions = {
+      method: editingRecipe ? 'PUT' : 'POST',
+      body: formData,
+      credentials: 'include',
+    };
 
-    // // eslint-disable-next-line no-underscore-dangle
-    // const url = `http://localhost:8000/api/recipes/${editingRecipe ? editingRecipe._id : ''}`;
-    // const requestOptions = {
-    //   method: editingRecipe ? 'PUT' : 'POST',
-    //   body: formData,
-    //   credentials: 'include',
-    // };
-
-    // try {
-    //   await fetch(url, requestOptions);
-    //   navigate('/dashboard');
-    // } catch (error) {
-    //   // eslint-disable-next-line no-console
-    //   console.log(error);
-    // }
+    try {
+      await fetch(url, requestOptions);
+      // navigate('/dashboard');
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -82,7 +84,7 @@ export default function RecipeForm({ recipe }) {
       directionAppend({ description: '' }, { shouldFocus: false });
     }
 
-    setFocus('recipeName');
+    setFocus('name');
   }, []);
 
   return (
@@ -92,17 +94,17 @@ export default function RecipeForm({ recipe }) {
         <label className={styles.label} htmlFor="recipe-name">
           Recipe name
           <input
-            {...register('recipeName', {
+            {...register('name', {
               required: { value: true, message: 'Recipe name is required' },
             })}
-            aria-invalid={errors.recipeName ? 'true' : 'false'}
-            className={cx(styles.input, errors.recipeName && styles.error)}
+            aria-invalid={errors.name ? 'true' : 'false'}
+            className={cx(styles.input, errors.name && styles.error)}
             id="recipe-name"
             type="text"
           />
         </label>
         <span role="alert" className={styles.errorMessage}>
-          {errors?.recipeName?.message}
+          {errors?.name?.message}
         </span>
       </div>
 
@@ -111,17 +113,17 @@ export default function RecipeForm({ recipe }) {
         <label className={styles.label} htmlFor="recipe-description">
           Recipe description
           <textarea
-            {...register('recipeDescription', {
+            {...register('description', {
               required: { value: true, message: 'Recipe description is required' },
             })}
-            aria-invalid={errors.recipeDescription ? 'true' : 'false'}
-            className={cx(styles.input, errors.recipeDescription && styles.error)}
+            aria-invalid={errors.description ? 'true' : 'false'}
+            className={cx(styles.input, errors.description && styles.error)}
             id="recipe-description"
             type="text"
           />
         </label>
         <span role="alert" className={styles.errorMessage}>
-          {errors?.recipeDescription?.message}
+          {errors?.description?.message}
         </span>
       </div>
 
@@ -223,17 +225,17 @@ export default function RecipeForm({ recipe }) {
           <label className={styles.label} htmlFor="preparation-time">
             Time
             <input
-              {...register('preparationTime', {
+              {...register('prepTime.time', {
                 required: { value: true, message: 'Preparation time is required' },
               })}
-              aria-invalid={errors.preparationTime ? 'true' : 'false'}
-              className={cx(styles.input, errors.preparationTime && styles.error)}
+              aria-invalid={errors?.prepTime?.time ? 'true' : 'false'}
+              className={cx(styles.input, errors?.prepTime?.time && styles.error)}
               type="number"
               id="preparation-time"
             />
           </label>
           <span role="alert" className={styles.errorMessage}>
-            {errors?.preparationTime?.message}
+            {errors?.prepTime?.time?.message}
           </span>
         </div>
         <div>
@@ -241,7 +243,7 @@ export default function RecipeForm({ recipe }) {
             Unit
             <select
               defaultValue="minutes"
-              {...register('preparationTimeUnit')}
+              {...register('prepTime.unit')}
               className={styles.input}
               id="preparation-unit"
             >
@@ -259,18 +261,18 @@ export default function RecipeForm({ recipe }) {
           <label className={styles.label} htmlFor="cooking-time">
             Time
             <input
-              {...register('cookingTime', {
+              {...register('cookTime.time', {
                 required: { value: true, message: 'Cooking time is required' },
               })}
-              aria-invalid={errors.cookingTime ? 'true' : 'false'}
-              className={cx(styles.input, errors.cookingTime && styles.error)}
+              aria-invalid={errors?.cookTime?.time ? 'true' : 'false'}
+              className={cx(styles.input, errors?.cookTime?.time && styles.error)}
               type="number"
               id="cooking-time"
               title="Cooking time"
             />
           </label>
           <span role="alert" className={styles.errorMessage}>
-            {errors?.cookingTime?.message}
+            {errors?.cookTime?.time?.message}
           </span>
         </div>
         <div>
@@ -278,7 +280,7 @@ export default function RecipeForm({ recipe }) {
             Unit
             <select
               defaultValue="minutes"
-              {...register('cookingTimeUnit')}
+              {...register('cookTime.unit')}
               className={styles.input}
               id="cooking-unit"
               title="Cooking time unit"
@@ -406,7 +408,7 @@ export default function RecipeForm({ recipe }) {
         )}
       </Dropzone> */}
       <h2 className={styles.sectionHeading}>Images</h2>
-      <ImageDropzone />
+      <ImageDropzone images={images} setImages={setImages} />
 
       <button onClick={() => console.log(errors)} className="test-button-to-delete" type="submit">
         Submit
