@@ -7,6 +7,10 @@
 }
 
 /* GLOBAL */
+html {
+  overflow: hidden;
+}
+
 body {
   font-family: var(--ff-body);
   color: var(--clr-font-body);

@@ -15,6 +15,7 @@
   flex-direction: column;
   gap: 0.1rem;
   font-size: 0.875rem;
+  flex: 1;
 }
 
 .radioLabel {
@@ -109,8 +110,7 @@
 
 .listItem {
   display: flex;
-  gap: 0.5rem;
-  align-items: center;
+  flex-direction: column;
 }
 
 .listItem + .listItem {
@@ -118,7 +118,13 @@
 }
 
 .listGroup {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.listGroupInput {
   flex: 1;
+  min-width: unset;
 }
 
 .btn {
@@ -132,7 +138,7 @@
 }
 
 .btnDelete {
-  padding: 0.531rem 1rem;
+  padding-inline: 1rem;
   color: var(--clr-error);
   border: 1px solid currentColor;
   font-size: 1.5rem;

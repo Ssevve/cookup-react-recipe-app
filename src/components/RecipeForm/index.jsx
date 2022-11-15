@@ -20,6 +20,7 @@ export default function RecipeForm({ recipe }) {
     control,
     formState: { errors },
     trigger,
+    setFocus,
     setValue,
   } = useForm({ mode: 'onChange' });
   const {
@@ -31,15 +32,15 @@ export default function RecipeForm({ recipe }) {
     name: 'ingredients',
     rules: { required: { value: true, message: 'At least one ingredient is required' } },
   });
-  // const {
-  //   fields: directionFields,
-  //   append: directionAppend,
-  //   remove: directionRemove,
-  // } = useFieldArray({
-  //   control,
-  //   name: 'directions',
-  //   rules: { required: { value: true, message: 'At least one direction is required' } },
-  // });
+  const {
+    fields: directionFields,
+    append: directionAppend,
+    remove: directionRemove,
+  } = useFieldArray({
+    control,
+    name: 'directions',
+    rules: { required: { value: true, message: 'At least one direction is required' } },
+  });
 
   const handleFormSubmit = async (data) => {
     // trigger();
@@ -73,9 +74,11 @@ export default function RecipeForm({ recipe }) {
       setValue('ingredients', editingRecipe.ingredients);
       setValue('directions', editingRecipe.directions);
     } else {
-      ingredientAppend('');
-      // directionAppend({ title: '', description: '' });
+      ingredientAppend({ name: '' }, { shouldFocus: false });
+      directionAppend({ description: '' }, { shouldFocus: false });
     }
+
+    setFocus('recipeName');
   }, []);
 
   return (
@@ -294,30 +297,30 @@ export default function RecipeForm({ recipe }) {
         <ul>
           {ingredientFields.map((ingredient, index) => (
             <li className={styles.listItem} key={ingredient.id}>
-              <div className={styles.listGroup}>
-                <label className={styles.label} htmlFor={`ingredients${index}`}>
-                  {`Ingredient ${index + 1}`}
+              <label className={styles.label} htmlFor={`ingredients${index}`}>
+                {`Ingredient ${index + 1}`}
+                <div className={styles.listGroup}>
                   <input
                     {...register(`ingredients.${index}.name`, {
                       required: { value: true, message: 'Ingredient is required' },
                     })}
                     aria-invalid={errors?.ingredients?.[index]?.name ? 'true' : 'false'}
-                    className={cx(styles.input, errors?.ingredients?.[index]?.name && styles.error)}
+                    className={cx(styles.input, styles.listGroupInput, errors?.ingredients?.[index]?.name && styles.error)}
                     type="text"
                     id={`ingredients${index}`}
                   />
-                </label>
-                <span role="alert" className={styles.errorMessage}>
-                  {errors?.ingredients?.[index]?.name.message}
-                </span>
-              </div>
-              <button
-                type="button"
-                className={cx(styles.btn, styles.btnDelete)}
-                onClick={() => ingredientRemove(index)}
-              >
-                <BsTrash2 />
-              </button>
+                  <button
+                    type="button"
+                    className={cx(styles.btn, styles.btnDelete)}
+                    onClick={() => ingredientRemove(index)}
+                  >
+                    <BsTrash2 />
+                  </button>
+                </div>
+              </label>
+              <span role="alert" className={styles.errorMessage}>
+                {errors?.ingredients?.[index]?.name.message}
+              </span>
             </li>
           ))}
         </ul>
@@ -331,8 +334,8 @@ export default function RecipeForm({ recipe }) {
       </fieldset>
 
       {/* DIRECTIONS */}
-      {/* <section className={styles.directions}>
-        <h2 className={styles.sectionHeading}>Directions</h2>
+      <fieldset className={styles.fieldset}>
+        <legend className={styles.legend}>Directions</legend>
         {errors?.directions?.root && (
           <span role="alert" className={styles.errorMessage}>
             {errors?.directions?.root.message}
@@ -340,38 +343,42 @@ export default function RecipeForm({ recipe }) {
         )}
         <ul>
           {directionFields.map((direction, index) => (
-            <li key={direction.id}>
-              <fieldset className={styles.fieldset}>
-                <legend className={styles.legend}>{`Direction ${index + 1}`}</legend>
-                <Input
-                  label="Title"
-                  name={`directions[${index}].title`}
-                  register={register}
-                  validationRules={requiredField}
-                  error={errors?.directions?.[index]?.title}
-                />
-                <Textarea
-                  label="Description"
-                  name={`directions[${index}].description`}
-                  register={register}
-                  validationRules={requiredField}
-                  error={errors?.directions?.[index]?.description}
-                />
-                <Button
-                  className={styles.btnDelete}
-                  onClick={() => directionRemove(index)}
-                  text="&#8722;"
-                />
-              </fieldset>
+            <li className={styles.listItem} key={direction.id}>
+              <label className={styles.label} htmlFor={`directions${index}`}>
+                {`Step ${index + 1}`}
+                <div className={styles.listGroup}>
+                  <textarea
+                    {...register(`directions.${index}.description`, {
+                      required: { value: true, message: 'Description is required' },
+                    })}
+                    aria-invalid={errors?.directions?.[index]?.description ? 'true' : 'false'}
+                    className={cx(styles.input, styles.listGroupInput, errors?.directions?.[index]?.description && styles.error)}
+                    type="text"
+                    id={`directions${index}`}
+                  />
+                  <button
+                    type="button"
+                    className={cx(styles.btn, styles.btnDelete)}
+                    onClick={() => directionRemove(index)}
+                  >
+                    <BsTrash2 />
+                  </button>
+                </div>
+              </label>
+              <span role="alert" className={styles.errorMessage}>
+                {errors?.directions?.[index]?.description.message}
+              </span>
             </li>
           ))}
         </ul>
-        <Button
-          className={styles.btnAdd}
-          onClick={() => directionAppend({ title: '', description: '' })}
-          text="Add direction"
-        />
-      </section> */}
+        <button
+          type="button"
+          className={cx(styles.btn, styles.btnAdd)}
+          onClick={() => directionAppend({ description: '' })}
+        >
+          Add direction
+        </button>
+      </fieldset>
       {/* <ImageUpload
         onChange={(e) => setFile(() => e.target?.files[0])}
         src={file ? URL.createObjectURL(file) : editingRecipe?.imageUrl}
