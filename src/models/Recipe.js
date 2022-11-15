@@ -9,69 +9,61 @@ const requiredString = {
 
 const recipeSchema = new Schema(
   {
-    title: requiredString,
+    name: requiredString,
     description: requiredString,
+    dishType: {
+      ...requiredString,
+      enum: ['main dish', 'side dish', 'appetizer', 'soup', 'salad', 'dessert', 'drink'],
+    },
+    servings: {
+      type: Number,
+      required: true,
+    },
+    difficulty: {
+      ...requiredString,
+      enum: ['easy', 'moderate', 'hard'],
+    },
+    prepTime: {
+      time: {
+        type: Number,
+        required: true,
+      },
+      unit: {
+        ...requiredString,
+        enum: ['minutes', 'hours'],
+      },
+    },
+    cookTime: {
+      time: {
+        type: Number,
+        required: true,
+      },
+      unit: {
+        ...requiredString,
+        enum: ['minutes', 'hours'],
+      },
+    },
+    ingredients: {
+      type: [String],
+      validate: [(value) => value.length > 0, 'You must provide at least one ingredient.'],
+    },
+    directions: {
+      type: [String],
+      validate: [(value) => value.length > 0, 'You must provide at least one direction.'],
+    },
+    images: {
+      type: [
+        {
+          url: requiredString,
+          id: requiredString,
+          _id: false,
+        },
+      ],
+      default: [],
+    },
     createdBy: {
       type: Schema.Types.ObjectId,
       ref: 'User',
-    },
-    ingredients: {
-      type: [
-        {
-          name: requiredString,
-          unit: {
-            ...requiredString,
-            enum: [
-              'kilogram',
-              'gram',
-              'milligram',
-              'liter',
-              'milliliter',
-              'cup',
-              'tablespoon',
-              'teaspoon',
-              'piece',
-            ],
-          },
-          unitShort: {
-            ...requiredString,
-            enum: [
-              'kg',
-              'g',
-              'mgm',
-              'l',
-              'ml',
-              'c',
-              'T',
-              't',
-              'pcs',
-            ],
-          },
-          amount: {
-            type: Number,
-            required: true,
-          },
-        },
-      ],
-      validate: [(value) => value.length > 0, 'You must provide at least one ingredient.'],
-    },
-    instructions: {
-      type: [
-        {
-          instructionIndex: Number,
-          title: requiredString,
-          description: requiredString,
-        },
-      ],
-      validate: [(value) => value.length > 0, 'You must provide at least one instruction.'],
-    },
-    imageUrl: {
-      type: String,
-      default: null,
-    },
-    cloudinaryId: {
-      type: String,
-      default: null,
     },
   },
   { timestamps: true },
