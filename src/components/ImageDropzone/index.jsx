@@ -43,10 +43,7 @@ export default function ImageDropzone({ images, setImages }) {
         }}
         alt=""
       />
-      <div className={styles.imageInfo}>
-        <span>{image.name}</span>
-        <span className={styles.imageSize}>{`${image.size} b`}</span>
-      </div>
+      <span className={styles.imageName}>{image.name}</span>
       <button onClick={() => deleteImage(image)} className={styles.btn} type="button">
         <BsTrash2 />
       </button>
