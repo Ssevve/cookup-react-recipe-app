@@ -395,23 +395,11 @@ export default function RecipeForm({ recipe }) {
       </fieldset>
 
       {/* IMAGE */}
-      {/* <Dropzone maxFiles={1} onDrop={(acceptedFiles) => console.log(acceptedFiles)}>
-        {({ getRootProps, getInputProps }) => (
-          <section>
-            <h2 className={styles.sectionHeading}>Image</h2>
-            <div {...getRootProps({ className: styles.dropzone })}>
-              <input {...getInputProps()} />
-              <AiOutlineCloudUpload size={56} color="gray" />
-              <p>Drag and drop some files here, or click to select files</p>
-            </div>
-          </section>
-        )}
-      </Dropzone> */}
       <h2 className={styles.sectionHeading}>Images</h2>
       <ImageDropzone images={images} setImages={setImages} />
 
-      <button onClick={() => console.log(errors)} className="test-button-to-delete" type="submit">
-        Submit
+      <button onClick={() => console.log(errors)} className={cx(styles.btn, styles.btnSubmit)} type="submit">
+        {editingRecipe ? 'Save' : 'Add recipe'}
       </button>
     </form>
   );
