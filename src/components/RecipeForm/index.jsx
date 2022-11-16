@@ -87,6 +87,11 @@ export default function RecipeForm({ recipe }) {
     setFocus('name');
   }, []);
 
+  const stringPattern = {
+    value: /^[^\s]+(?:$|.*[^\s]+$)/,
+    message: 'Trailing white space no allowed',
+  };
+
   return (
     <form noValidate className={styles.form} onSubmit={handleSubmit(handleFormSubmit)}>
       {/* NAME */}
@@ -96,6 +101,7 @@ export default function RecipeForm({ recipe }) {
           <input
             {...register('name', {
               required: { value: true, message: 'Recipe name is required' },
+              pattern: stringPattern,
             })}
             aria-invalid={errors.name ? 'true' : 'false'}
             className={cx(styles.input, errors.name && styles.error)}
@@ -115,6 +121,7 @@ export default function RecipeForm({ recipe }) {
           <textarea
             {...register('description', {
               required: { value: true, message: 'Recipe description is required' },
+              pattern: stringPattern,
             })}
             aria-invalid={errors.description ? 'true' : 'false'}
             className={cx(styles.input, errors.description && styles.error)}
@@ -164,6 +171,10 @@ export default function RecipeForm({ recipe }) {
           <input
             {...register('servings', {
               required: { value: true, message: 'No. of servings is required' },
+              min: { value: 1, message: 'Minimum value is 1' },
+              step: 1,
+              valueAsNumber: true,
+              validate: (value) => (!Number.isInteger(value) ? 'Decimals not allowed' : null),
             })}
             aria-invalid={errors.servings ? 'true' : 'false'}
             className={cx(styles.input, errors.servings && styles.error)}
@@ -227,6 +238,11 @@ export default function RecipeForm({ recipe }) {
             <input
               {...register('prepTime.time', {
                 required: { value: true, message: 'Preparation time is required' },
+                min: { value: 1, message: 'Minimum value is 1' },
+                max: { value: 59, message: 'Maximum value is 59' },
+                step: 1,
+                valueAsNumber: true,
+                validate: (value) => (!Number.isInteger(value) ? 'Decimals not allowed' : null),
               })}
               aria-invalid={errors?.prepTime?.time ? 'true' : 'false'}
               className={cx(styles.input, errors?.prepTime?.time && styles.error)}
@@ -263,6 +279,11 @@ export default function RecipeForm({ recipe }) {
             <input
               {...register('cookTime.time', {
                 required: { value: true, message: 'Cooking time is required' },
+                min: { value: 1, message: 'Minimum value is 1' },
+                max: { value: 59, message: 'Maximum value is 59' },
+                step: 1,
+                valueAsNumber: true,
+                validate: (value) => (!Number.isInteger(value) ? 'Decimals not allowed' : null),
               })}
               aria-invalid={errors?.cookTime?.time ? 'true' : 'false'}
               className={cx(styles.input, errors?.cookTime?.time && styles.error)}
@@ -309,6 +330,7 @@ export default function RecipeForm({ recipe }) {
                   <input
                     {...register(`ingredients.${index}.name`, {
                       required: { value: true, message: 'Ingredient is required' },
+                      pattern: stringPattern,
                     })}
                     aria-invalid={errors?.ingredients?.[index]?.name ? 'true' : 'false'}
                     className={cx(
@@ -360,6 +382,7 @@ export default function RecipeForm({ recipe }) {
                   <textarea
                     {...register(`directions.${index}.description`, {
                       required: { value: true, message: 'Description is required' },
+                      pattern: stringPattern,
                     })}
                     aria-invalid={errors?.directions?.[index]?.description ? 'true' : 'false'}
                     className={cx(
