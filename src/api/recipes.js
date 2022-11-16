@@ -1,9 +1,7 @@
 /* eslint-disable max-len */
 /* eslint-disable no-underscore-dangle */
 const router = require('express').Router();
-const multer = require('multer');
-
-const upload = multer({ storage: multer.diskStorage({}) });
+const upload = require('../middleware/multer');
 
 const Recipe = require('../models/Recipe');
 const cloudinary = require('../config/cloudinary');
