@@ -18,6 +18,10 @@ const recipeSchema = new Schema(
     servings: {
       type: Number,
       required: true,
+      validate: {
+        validator: Number.isInteger,
+        message: '{VALUE} is not an integer value',
+      },
     },
     difficulty: {
       ...requiredString,
@@ -27,6 +31,10 @@ const recipeSchema = new Schema(
       time: {
         type: Number,
         required: true,
+        validate: {
+          validator: Number.isInteger,
+          message: '{VALUE} is not an integer value',
+        },
       },
       unit: {
         ...requiredString,
@@ -37,6 +45,10 @@ const recipeSchema = new Schema(
       time: {
         type: Number,
         required: true,
+        validate: {
+          validator: Number.isInteger,
+          message: '{VALUE} is not an integer value',
+        },
       },
       unit: {
         ...requiredString,

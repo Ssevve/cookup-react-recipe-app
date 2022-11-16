@@ -40,8 +40,8 @@ router.get('/user/:userId', ensureAuth, async (req, res, next) => {
     next(error);
   }
 });
-
-router.post('/', ensureAuth, upload.array('images'), async (req, res, next) => {
+// , ensureAuth
+router.post('/', upload.array('images'), async (req, res, next) => {
   try {
     const images = [];
     if (req.files) {
@@ -64,7 +64,7 @@ router.post('/', ensureAuth, upload.array('images'), async (req, res, next) => {
       ingredients,
       directions,
       images,
-      createdBy: req.user._id,
+      // createdBy: req.user._id,
     });
 
     return res.status(201).json(createdRecipe);
