@@ -12,7 +12,8 @@ export default function ImageDropzone({ images, setImages }) {
     getRootProps, getInputProps, isDragActive, isDragAccept, isDragReject,
   } = useDropzone({
     accept: {
-      'image/*': '*',
+      'image/jpeg': [],
+      'image/png': [],
     },
     onDrop: (acceptedFiles) => {
       setImages([
@@ -36,7 +37,7 @@ export default function ImageDropzone({ images, setImages }) {
       <img
         className={styles.image}
         src={image.preview}
-        // Revoke data uri after image is loaded
+        // Revoke data uri after image is loaded to prevent memory leaks
         onLoad={() => {
           URL.revokeObjectURL(image.preview);
         }}
@@ -58,7 +59,7 @@ export default function ImageDropzone({ images, setImages }) {
         <input {...getInputProps()} multiple />
         <AiOutlineCloudUpload size={56} color="gray" />
         {isDragAccept && <p>Drop to upload</p>}
-        {isDragReject && <p>Unsupported file format</p>}
+        {isDragReject && <p>Unsupported file type</p>}
         {!isDragActive && <p>Drag and drop images here, or click to select images</p>}
       </div>
       <div className={styles.preview}>{thumbs}</div>
