@@ -40,8 +40,8 @@ router.get('/user/:userId', ensureAuth, async (req, res, next) => {
     next(error);
   }
 });
-// , ensureAuth
-router.post('/', upload.array('images'), async (req, res, next) => {
+
+router.post('/', ensureAuth, upload.array('images'), async (req, res, next) => {
   try {
     const images = [];
     if (req.files) {
@@ -56,8 +56,19 @@ router.post('/', upload.array('images'), async (req, res, next) => {
     const recipe = JSON.parse(req.body.recipe);
     if (!recipe) return res.status(400).json({ message: 'Could not create recipe.' });
 
-    const ingredients = recipe.ingredients.map((ingredient) => ingredient.name);
-    const directions = recipe.directions.map((direction) => direction.description);
+    const ingredients = recipe.ingredients.map((ingredient) => {
+      if (ingredient.name && ingredient.name.trim().length) {
+        return ingredient.name;
+      }
+      return res.status(400).json({ message: 'Could not create recipe.' });
+    });
+
+    const directions = recipe.directions.map((direction) => {
+      if (direction.description && direction.description.trim().length) {
+        return direction.description;
+      }
+      return res.status(400).json({ message: 'Could not create recipe.' });
+    });
 
     const createdRecipe = await Recipe.create({
       ...recipe,

@@ -9,8 +9,14 @@ const requiredString = {
 
 const recipeSchema = new Schema(
   {
-    name: requiredString,
-    description: requiredString,
+    name: {
+      ...requiredString,
+      trim: true,
+    },
+    description: {
+      ...requiredString,
+      trim: true,
+    },
     dishType: {
       ...requiredString,
       enum: ['main dish', 'side dish', 'appetizer', 'soup', 'salad', 'dessert', 'drink'],
@@ -56,18 +62,34 @@ const recipeSchema = new Schema(
       },
     },
     ingredients: {
-      type: [String],
+      type: [
+        {
+          type: String,
+          trim: true,
+        },
+      ],
       validate: [(value) => value.length > 0, 'You must provide at least one ingredient.'],
     },
     directions: {
-      type: [String],
+      type: [
+        {
+          type: String,
+          trim: true,
+        },
+      ],
       validate: [(value) => value.length > 0, 'You must provide at least one direction.'],
     },
     images: {
       type: [
         {
-          url: requiredString,
-          id: requiredString,
+          url: {
+            ...requiredString,
+            trim: true,
+          },
+          id: {
+            ...requiredString,
+            trim: true,
+          },
           _id: false,
         },
       ],
