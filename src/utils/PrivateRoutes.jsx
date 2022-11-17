@@ -7,7 +7,7 @@ export default function PrivateRoutes() {
 
   const fetchUser = async () => {
     try {
-      const res = await fetch('http://localhost:8000/api/auth', {
+      const res = await fetch('http://localhost:8000/auth', {
         credentials: 'include',
       });
       const data = await res.json();

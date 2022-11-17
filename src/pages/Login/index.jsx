@@ -17,7 +17,7 @@ export default function Login({ setUser }) {
   } = useForm({ reValidateMode: 'onSubmit' });
 
   async function handleFormSubmit(data) {
-    const url = 'http://localhost:8000/api/auth/login';
+    const url = 'http://localhost:8000/auth/login';
     const requestOptions = {
       method: 'POST',
       credentials: 'include',

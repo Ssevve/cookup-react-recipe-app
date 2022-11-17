@@ -9,13 +9,14 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import PrivateRoutes from './utils/PrivateRoutes';
 import AddRecipe from './pages/AddRecipe';
+import BrowseRecipes from './pages/BrowseRecipes';
 
 function App() {
   const [user, setUser] = useState(null);
 
   const fetchUser = async () => {
     try {
-      const res = await fetch('http://localhost:8000/api/auth', {
+      const res = await fetch('http://localhost:8000/auth', {
         credentials: 'include',
       });
       const data = await res.json();
@@ -37,9 +38,10 @@ function App() {
           <Route path="/" element={<Landing />} />
           <Route path="/login" element={<Login setUser={setUser} />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/recipes/browse" element={<BrowseRecipes user={user} />} />
           {/* Private Routes */}
           <Route element={<PrivateRoutes />}>
-            <Route path="/addRecipe" element={<AddRecipe />} />
+            <Route path="/recipes/add" element={<AddRecipe />} />
           </Route>
         </Routes>
       </Layout>

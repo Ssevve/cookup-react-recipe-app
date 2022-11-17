@@ -57,7 +57,7 @@ export default function RecipeForm({ recipe }) {
       formData.append('images', image);
     });
     // eslint-disable-next-line no-underscore-dangle
-    const url = `http://localhost:8000/api/recipes/${editingRecipe ? editingRecipe._id : ''}`;
+    const url = `http://localhost:8000/recipes/${editingRecipe ? editingRecipe._id : ''}`;
     const requestOptions = {
       method: editingRecipe ? 'PUT' : 'POST',
       body: formData,

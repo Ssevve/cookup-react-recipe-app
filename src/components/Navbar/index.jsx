@@ -14,7 +14,7 @@ export default function Navbar({ user, setUser }) {
     e.preventDefault();
 
     try {
-      const res = await fetch('http://localhost:8000/api/auth/logout', {
+      const res = await fetch('http://localhost:8000/auth/logout', {
         method: 'POST',
         credentials: 'include',
       });
@@ -69,7 +69,7 @@ export default function Navbar({ user, setUser }) {
                 <NavLink
                   onClick={() => setShowMenu(false)}
                   className={({ isActive }) => (isActive ? cx(styles.navLink, styles.active) : styles.navLink)}
-                  to="/recipes"
+                  to="/recipes/browse"
                 >
                   Browse Recipes
                 </NavLink>
@@ -109,7 +109,7 @@ export default function Navbar({ user, setUser }) {
                 <NavLink
                   onClick={() => setShowMenu(false)}
                   className={({ isActive }) => (isActive ? cx(styles.navLink, styles.active) : styles.navLink)}
-                  to="/recipes"
+                  to="/recipes/browse"
                 >
                   Browse recipes
                 </NavLink>
@@ -118,7 +118,7 @@ export default function Navbar({ user, setUser }) {
                 <NavLink
                   onClick={() => setShowMenu(false)}
                   className={({ isActive }) => (isActive ? cx(styles.navLink, styles.active) : styles.navLink)}
-                  to="/addRecipe"
+                  to="/recipes/add"
                 >
                   Add recipe
                 </NavLink>

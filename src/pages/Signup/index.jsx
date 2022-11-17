@@ -19,7 +19,7 @@ export default function Signup() {
   async function handleFormSubmit(data) {
     console.log(data);
 
-    const url = 'http://localhost:8000/api/auth/signup';
+    const url = 'http://localhost:8000/auth/signup';
     const requestOptions = {
       method: 'POST',
       headers: {
