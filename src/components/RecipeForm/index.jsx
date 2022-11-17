@@ -87,11 +87,6 @@ export default function RecipeForm({ recipe }) {
     setFocus('name');
   }, []);
 
-  const stringPattern = {
-    value: /^[^\s]+(?:$|.*[^\s]+$)/,
-    message: 'Trailing white space no allowed',
-  };
-
   return (
     <form noValidate className={styles.form} onSubmit={handleSubmit(handleFormSubmit)}>
       {/* NAME */}
@@ -101,7 +96,8 @@ export default function RecipeForm({ recipe }) {
           <input
             {...register('name', {
               required: { value: true, message: 'Recipe name is required' },
-              pattern: stringPattern,
+              maxLength: { value: 70, message: 'Maximum length is 70' },
+              validate: (value) => (value.trim() === '' ? 'Recipe name is required' : null),
             })}
             aria-invalid={errors.name ? 'true' : 'false'}
             className={cx(styles.input, errors.name && styles.error)}
@@ -121,7 +117,7 @@ export default function RecipeForm({ recipe }) {
           <textarea
             {...register('description', {
               required: { value: true, message: 'Recipe description is required' },
-              pattern: stringPattern,
+              validate: (value) => (value.trim() === '' ? 'Recipe description is required' : null),
             })}
             aria-invalid={errors.description ? 'true' : 'false'}
             className={cx(styles.input, errors.description && styles.error)}
@@ -330,7 +326,8 @@ export default function RecipeForm({ recipe }) {
                   <input
                     {...register(`ingredients.${index}.name`, {
                       required: { value: true, message: 'Ingredient is required' },
-                      pattern: stringPattern,
+                      maxLength: { value: 100, message: 'Maximum length is 100' },
+                      validate: (value) => (value.trim() === '' ? 'Ingredient is required' : null),
                     })}
                     aria-invalid={errors?.ingredients?.[index]?.name ? 'true' : 'false'}
                     className={cx(
@@ -381,8 +378,8 @@ export default function RecipeForm({ recipe }) {
                 <div className={styles.listGroup}>
                   <textarea
                     {...register(`directions.${index}.description`, {
-                      required: { value: true, message: 'Description is required' },
-                      pattern: stringPattern,
+                      required: { value: true, message: 'Direction is required' },
+                      validate: (value) => (value.trim() === '' ? 'Direction is required' : null),
                     })}
                     aria-invalid={errors?.directions?.[index]?.description ? 'true' : 'false'}
                     className={cx(
@@ -421,7 +418,11 @@ export default function RecipeForm({ recipe }) {
       <h2 className={styles.sectionHeading}>Images</h2>
       <ImageDropzone images={images} setImages={setImages} />
 
-      <button onClick={() => console.log(errors)} className={cx(styles.btn, styles.btnSubmit)} type="submit">
+      <button
+        onClick={() => console.log(errors)}
+        className={cx(styles.btn, styles.btnSubmit)}
+        type="submit"
+      >
         {editingRecipe ? 'Save' : 'Add recipe'}
       </button>
     </form>

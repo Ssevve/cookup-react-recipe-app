@@ -1,8 +1,8 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable max-len */
 import React, { useState, useEffect } from 'react';
 import cx from 'classnames';
 import { GoThreeBars } from 'react-icons/go';
-import PropTypes from 'prop-types';
 import { useNavigate, NavLink, Link } from 'react-router-dom';
 
 import styles from './navbar.module.css';
@@ -139,12 +139,3 @@ export default function Navbar({ user, setUser }) {
     </header>
   );
 }
-
-Navbar.propTypes = {
-  user: PropTypes.objectOf(PropTypes.string),
-  setUser: PropTypes.func.isRequired,
-};
-
-Navbar.defaultProps = {
-  user: null,
-};
