@@ -12,6 +12,7 @@ const recipeSchema = new Schema(
     name: {
       ...requiredString,
       trim: true,
+      maxLength: 70,
     },
     description: {
       ...requiredString,
@@ -66,6 +67,7 @@ const recipeSchema = new Schema(
         {
           type: String,
           trim: true,
+          maxLength: 100,
         },
       ],
       validate: [(value) => value.length > 0, 'You must provide at least one ingredient.'],
@@ -78,6 +80,13 @@ const recipeSchema = new Schema(
         },
       ],
       validate: [(value) => value.length > 0, 'You must provide at least one direction.'],
+    },
+    likes: {
+      type: [{
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+      }],
+      default: [],
     },
     images: {
       type: [

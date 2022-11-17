@@ -23,10 +23,16 @@ const userSchema = new Schema(
     },
     password: requiredString,
     avatar: {
-      type: String,
-      trim: true,
-      default:
-        'https://res.cloudinary.com/dj50j2x97/image/upload/v1665922005/150_whwxod.jpg',
+      url: {
+        type: String,
+        trim: true,
+        default:
+          'https://res.cloudinary.com/dj50j2x97/image/upload/v1665922005/150_whwxod.jpg',
+      },
+      id: {
+        type: String,
+        default: null,
+      } 
     },
   },
   { timestamps: true },
