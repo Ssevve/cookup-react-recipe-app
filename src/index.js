@@ -51,8 +51,8 @@ app.get('/', (req, res) => {
   });
 });
 
-app.use('/api/recipes', recipesRouter);
-app.use('/api/auth', authRouter);
+app.use('/recipes', recipesRouter);
+app.use('/auth', authRouter);
 
 app.use(notFound);
 app.use(errorHandler);
