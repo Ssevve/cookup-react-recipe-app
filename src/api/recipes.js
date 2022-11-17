@@ -22,7 +22,7 @@ router.get('/', async (req, res, next) => {
   try {
     const recipes = await Recipe.find()
       .populate('createdBy', '_id firstName lastName avatar')
-      .select('_id title description imageUrl createdBy');
+      .select('_id name description images likes dishType');
     res.status(200).json(recipes);
   } catch (error) {
     next(error);
@@ -54,20 +54,22 @@ router.post('/', ensureAuth, upload.array('images'), async (req, res, next) => {
     }
 
     const recipe = JSON.parse(req.body.recipe);
-    if (!recipe) return res.status(400).json({ message: 'Could not create recipe.' });
+    if (!recipe) return res.status(400).json({ message: 'No recipe was provided.' });
+
+    if (recipe.name.trim().length < 1 || recipe.name.trim().length > 70) return res.status(400).json({ message: 'Invalid recipe name.' });
 
     const ingredients = recipe.ingredients.map((ingredient) => {
-      if (ingredient.name && ingredient.name.trim().length) {
+      if (ingredient.name && ingredient.name.trim().length > 0 && ingredient.name.trim().length <= 70) {
         return ingredient.name;
       }
-      return res.status(400).json({ message: 'Could not create recipe.' });
+      return res.status(400).json({ message: 'Invalid ingredient value.' });
     });
 
     const directions = recipe.directions.map((direction) => {
       if (direction.description && direction.description.trim().length) {
         return direction.description;
       }
-      return res.status(400).json({ message: 'Could not create recipe.' });
+      return res.status(400).json({ message: 'Invalid direction value.' });
     });
 
     const createdRecipe = await Recipe.create({
@@ -79,6 +81,39 @@ router.post('/', ensureAuth, upload.array('images'), async (req, res, next) => {
     });
 
     return res.status(201).json(createdRecipe);
+  } catch (error) {
+    return next(error);
+  }
+});
+
+router.put('/like/:recipeId', ensureAuth, async (req, res, next) => {
+  try {
+    const recipe = await Recipe.findById(req.params.recipeId);
+
+    let updatedRecipe;
+    if (recipe.likes.includes(req.user._id)) {
+      updatedRecipe = await Recipe.findOneAndUpdate(
+        { _id: req.params.recipeId },
+        {
+          $pull: { likes: req.user._id },
+        },
+        {
+          new: true,
+        },
+      );
+    } else {
+      updatedRecipe = await Recipe.findOneAndUpdate(
+        { _id: req.params.recipeId },
+        {
+          $push: { likes: req.user._id },
+        },
+        {
+          new: true,
+        },
+      );
+    }
+
+    return res.status(200).json(updatedRecipe);
   } catch (error) {
     return next(error);
   }
