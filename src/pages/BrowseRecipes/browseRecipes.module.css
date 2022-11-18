@@ -20,9 +20,7 @@
   justify-content: center;
   gap: 1rem;
   grid-template-columns: repeat(auto-fit, minmax(200px, 307px));
-
   grid-auto-rows: 1fr;
-  /* align-self: center; */
 }
 
 .card {
