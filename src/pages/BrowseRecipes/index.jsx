@@ -46,6 +46,7 @@ export default function BrowseRecipes({ user }) {
 
   return (
     <div className={styles.container}>
+      <h1 className={styles.title}>Browse recipes</h1>
       {recipes.length ? (
         <ul className={styles.recipes}>
           {recipes.map((recipe) => (

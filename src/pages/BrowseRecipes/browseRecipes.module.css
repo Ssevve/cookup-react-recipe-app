@@ -3,9 +3,15 @@
   max-width: 1600px;
   margin: 0 auto;
   display: flex;
-  /* align-items: center; */
+  flex-direction: column;
+  align-items: center;
+  gap: 4rem;
   min-height: 100%;
   padding-block: 4rem;
+}
+
+.title {
+  font-size: clamp(2.5rem, 3vw, 4rem);
 }
 
 .recipes {
@@ -14,8 +20,9 @@
   justify-content: center;
   gap: 1rem;
   grid-template-columns: repeat(auto-fit, minmax(200px, 307px));
+
   grid-auto-rows: 1fr;
-  align-self: center;
+  /* align-self: center; */
 }
 
 .card {
@@ -128,4 +135,15 @@
 
 .authorLink:hover {
   text-decoration: underline;
+}
+
+@media screen and (min-width: 45em) {
+  .container {
+    align-items: stretch;
+  }
+
+  .recipes {
+    justify-content: start;
+    grid-template-columns: repeat(auto-fit, minmax(307px, 1fr));
+  }
 }
