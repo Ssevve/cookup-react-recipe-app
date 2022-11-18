@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable max-len */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-underscore-dangle */
@@ -22,6 +23,9 @@ export default function BrowseRecipes({ user }) {
 
   const handleLikeClick = async (e, recipeId) => {
     e.preventDefault();
+
+    if (!user) return;
+
     try {
       const res = await fetch(`http://localhost:8000/recipes/like/${recipeId}`, {
         method: 'PUT',
@@ -42,9 +46,9 @@ export default function BrowseRecipes({ user }) {
 
   return (
     <div className={styles.container}>
-      <ul className={styles.recipes}>
-        {recipes.length ? (
-          recipes.map((recipe) => (
+      {recipes.length ? (
+        <ul className={styles.recipes}>
+          {recipes.map((recipe) => (
             <li key={recipe._id}>
               <Link className={styles.recipeLink} to={`/recipes/${recipe._id}`}>
                 <div className={styles.card}>
@@ -85,11 +89,11 @@ export default function BrowseRecipes({ user }) {
                 </div>
               </Link>
             </li>
-          ))
-        ) : (
-          <p>No recipes to show!</p>
-        )}
-      </ul>
+          ))}
+        </ul>
+      ) : (
+        <p>No recipes to show!</p>
+      )}
     </div>
   );
 }
