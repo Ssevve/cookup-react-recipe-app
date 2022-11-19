@@ -100,15 +100,6 @@ export default function Navbar({ user, setUser }) {
                 <NavLink
                   onClick={() => setShowMenu(false)}
                   className={({ isActive }) => (isActive ? cx(styles.navLink, styles.active) : styles.navLink)}
-                  to="/dashboard"
-                >
-                  Dashboard
-                </NavLink>
-              </li>
-              <li className={styles.navItem}>
-                <NavLink
-                  onClick={() => setShowMenu(false)}
-                  className={({ isActive }) => (isActive ? cx(styles.navLink, styles.active) : styles.navLink)}
                   to="/recipes/browse"
                 >
                   Browse recipes
@@ -121,6 +112,15 @@ export default function Navbar({ user, setUser }) {
                   to="/recipes/add"
                 >
                   Add recipe
+                </NavLink>
+              </li>
+              <li className={styles.navItem}>
+                <NavLink
+                  onClick={() => setShowMenu(false)}
+                  className={({ isActive }) => (isActive ? cx(styles.navLink, styles.active) : styles.navLink)}
+                  to="/dashboard"
+                >
+                  Dashboard
                 </NavLink>
               </li>
               <li className={styles.navItem}>
