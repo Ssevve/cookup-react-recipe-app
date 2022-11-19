@@ -88,7 +88,6 @@
  gap: 0.25rem;
  font-size: 1.1rem;
  margin-left: 0.75rem;
- /* margin-top: 0.5rem; */
 }
 
 .details {
@@ -108,31 +107,6 @@
 
 .name {
   margin: 0;
-}
-
-.authorLink {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.875rem;
-  /* background:rgba(0, 0, 0, 0.1); */
-  /* border-radius: 100rem; */
-  z-index: 1;
-  margin-top: 1rem;
-  width: max-content;
-  align-self: flex-end;
-}
-
-.avatar {
-  --size: 2.25rem;
-  height: var(--size);
-  width: var(--size);
-
-  border-radius: 50%;
-}
-
-.authorLink:hover {
-  text-decoration: underline;
 }
 
 @media screen and (min-width: 45em) {
