@@ -62,6 +62,20 @@
   padding-block: 0.4rem;
 }
 
+.avatar {
+  --size: 7rem;
+  height: var(--size);
+  width: var(--size);
+  border-radius: 50%;
+}
+
+.userName {
+  font-size: 1.25rem;
+  display: block;
+  text-align: center;
+  margin-top: 0.5rem;
+}
+
 .navLink {
   width: 100%;
   cursor: pointer;
@@ -187,6 +201,7 @@
 
   .userName {
     font-size: 1rem;
+    margin: 0;
   }
 
   .profileDropdownMenu {

@@ -97,6 +97,12 @@ export default function Navbar({ user, setUser }) {
           {user && (
             <>
               <li className={styles.navItem}>
+                <Link to={`/profile/${user.id}`}>
+                  <img className={styles.avatar} src={user.avatar.url} alt={`${user.firstName} ${user.lastName}`} />
+                  <span className={styles.userName}>{`${user.firstName} ${user.lastName}`}</span>
+                </Link>
+              </li>
+              <li className={styles.navItem}>
                 <NavLink
                   onClick={() => setShowMenu(false)}
                   className={({ isActive }) => (isActive ? cx(styles.navLink, styles.active) : styles.navLink)}
@@ -112,15 +118,6 @@ export default function Navbar({ user, setUser }) {
                   to="/recipes/add"
                 >
                   Add recipe
-                </NavLink>
-              </li>
-              <li className={styles.navItem}>
-                <NavLink
-                  onClick={() => setShowMenu(false)}
-                  className={({ isActive }) => (isActive ? cx(styles.navLink, styles.active) : styles.navLink)}
-                  to="/dashboard"
-                >
-                  Dashboard
                 </NavLink>
               </li>
               <li className={styles.navItem}>
