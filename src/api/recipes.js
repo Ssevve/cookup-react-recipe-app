@@ -89,6 +89,7 @@ router.post('/', ensureAuth, upload.array('images'), async (req, res, next) => {
 router.put('/like/:recipeId', ensureAuth, async (req, res, next) => {
   try {
     const recipe = await Recipe.findById(req.params.recipeId);
+    if (recipe.createdBy.toString() === req.user._id.toString()) return res.status(400).json({ message: 'Users cannot like their own recipes.' });
 
     let updatedRecipe;
     if (recipe.likes.includes(req.user._id)) {
