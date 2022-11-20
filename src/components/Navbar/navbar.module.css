@@ -172,12 +172,9 @@
     cursor: pointer;
     border-radius: 100px;
     padding: 0 1rem 0 0;
-    /* border: 1px solid transparent; */
-    /* transition: background 0.1s ease-in-out; */
   }
 
   .profileDropdownButton:hover {
-    border-color: #000;
     background: var(--clr-btn-outline-hover);
   }
 
@@ -194,12 +191,11 @@
 
   .profileDropdownMenu {
     position: absolute;
-    width: 8rem;
+    width: 100%;
     right: 0;
-    top: 95%;
+    top: 100%; 
     gap: 0.5rem;
     background: var(--clr-light-primary);
-    /* border: 3px solid var(--clr-accent); */
     box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.2);
     border-radius: var(--border-radius);
     padding: 0.25rem;

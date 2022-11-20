@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import cx from 'classnames';
 import { GoThreeBars } from 'react-icons/go';
+import { BiChevronDown } from 'react-icons/bi';
 import { useNavigate, NavLink, Link } from 'react-router-dom';
 
 import styles from './navbar.module.css';
@@ -193,6 +194,7 @@ export default function Navbar({ user, setUser }) {
                 <button className={styles.profileDropdownButton} onClick={() => setShowProfileDropdown((prev) => !prev)} type="button">
                   <img className={styles.avatar} src={user.avatar.url} alt={`${user.firstName} ${user.lastName}`} />
                   <span className={styles.userName}>{`${user.firstName} ${user.lastName}`}</span>
+                  <BiChevronDown size={20} />
                 </button>
                 {showProfileDropdown && (
                   <ul className={styles.profileDropdownMenu}>
