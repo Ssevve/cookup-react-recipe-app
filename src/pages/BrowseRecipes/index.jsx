@@ -26,6 +26,9 @@ export default function BrowseRecipes({ user }) {
 
     if (!user) return;
 
+    const targetRecipe = recipes.find((recipe) => recipe._id === recipeId);
+    if (user.id === targetRecipe.createdBy._id) return;
+
     try {
       const res = await fetch(`http://localhost:8000/recipes/like/${recipeId}`, {
         method: 'PUT',
