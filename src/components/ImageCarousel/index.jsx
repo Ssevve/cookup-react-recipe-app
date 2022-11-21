@@ -61,18 +61,11 @@ export default function ImageCarousel({ images, recipeName }) {
           {images.map((image, index) => (
             <li className={styles.listItem} key={image.id}>
               <button
-                className={styles.imageBtn}
+                className={cx(styles.imageBtn, activeImageIndex === index && styles.activeImageBtn)}
                 type="button"
                 onClick={() => setActiveImageIndex(index)}
               >
-                <img
-                  className={cx(
-                    styles.imageSmall,
-                    activeImageIndex === index && styles.activeSmallImage,
-                  )}
-                  src={image.url}
-                  alt={recipeName}
-                />
+                <img className={styles.imageSmall} src={image.url} alt={recipeName} />
               </button>
             </li>
           ))}

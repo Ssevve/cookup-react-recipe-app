@@ -69,15 +69,23 @@
   border: none;
   background: inherit;
   cursor: pointer;
+  border: 1px solid transparent;
+  border-radius: var(--border-radius);
+  opacity: 0.7;
+}
+
+.imageBtn:hover,
+.activeImageBtn {
+  border: 1px solid #000;
 }
 
 .imageSmall {
   object-fit: contain;
   width: 100%;
   height: 100%;
-  opacity: 0.7;
 }
 
-.activeSmallImage {
+.activeImageBtn {
   opacity: 1;
+
 }
