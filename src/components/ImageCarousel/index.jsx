@@ -55,9 +55,7 @@ export default function ImageCarousel({ images, recipeName }) {
 
   return (
     <div className={styles.container}>
-      <div className={styles.activeImageContainer}>
-        <img className={styles.activeImage} src={images[activeImageIndex].url} alt={recipeName} />
-      </div>
+      <img className={styles.activeImage} src={images[activeImageIndex].url} alt={recipeName} />
       <div className={styles.carouselContainer}>
         <ul ref={carousel} className={styles.carousel}>
           {images.map((image, index) => (
