@@ -37,7 +37,7 @@ export default function Login({ setUser }) {
 
       if (resData.user) {
         setUser(resData.user);
-        navigate('/dashboard');
+        navigate(`/profile/${resData.user.id}`);
       }
     } catch (err) {
       console.log(err);
