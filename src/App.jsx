@@ -11,6 +11,7 @@ import PrivateRoutes from './utils/PrivateRoutes';
 import AddRecipe from './pages/AddRecipe';
 import BrowseRecipes from './pages/BrowseRecipes';
 import Profile from './pages/Profile';
+import Recipe from './pages/Recipe';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -41,6 +42,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/recipes/browse" element={<BrowseRecipes user={user} />} />
           <Route path="/profile/:userId" element={<Profile user={user} />} />
+          <Route path="/recipes/:recipeId" element={<Recipe />} />
           {/* Private Routes */}
           <Route element={<PrivateRoutes />}>
             <Route path="/recipes/add" element={<AddRecipe />} />

@@ -1,57 +1,38 @@
-/* eslint-disable max-len */
-// import React, { useState, useEffect } from 'react';
-// import { useParams } from 'react-router-dom';
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable react/prop-types */
+import React, { useState, useEffect } from 'react';
+import { useParams, Link } from 'react-router-dom';
 
-// import styles from './recipe.module.css';
+import styles from './recipe.module.css';
 
-// import IngredientList from '../../components/IngredientList';
-// import InstructionList from '../../components/InstructionList';
+import ImageCarousel from '../../components/ImageCarousel';
 
-// export default function Recipe() {
-//   const { recipeId } = useParams();
-//   const [recipe, setRecipe] = useState({});
-//   const [fetching, setFetching] = useState(true);
+export default function Recipe() {
+  const { recipeId } = useParams();
+  const [recipe, setRecipe] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-//   const fetchRecipe = async () => {
-//     try {
-//       const res = await fetch(`http://localhost:8000/api/recipes/${recipeId}`);
-//       const recipeData = await res.json();
-//       setRecipe({ ...recipeData });
-//       setFetching(false);
-//     } catch (error) {
-//       console.error(error);
-//     }
-//   };
+  useEffect(() => {
+    async function fetchRecipe() {
+      try {
+        const res = await fetch(`http://localhost:8000/recipes/${recipeId}`);
+        const recipeData = await res.json();
+        setRecipe(recipeData);
+        setIsLoading(false);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    fetchRecipe();
+  }, []);
 
-//   useEffect(() => {
-//     fetchRecipe();
-//   }, []);
-
-//   return (
-//     <section className="recipe page">
-//       <div className="container flex">
-//         {!fetching && (
-//           <>
-//             <section className="recipe__image">
-//               <img src={recipe.imageUrl || '../../images/placeholder-recipe-image.jpg'} alt={recipe.title} />
-//             </section>
-//             <section className="recipe__details flex flex-column">
-//               <div>
-//                 <h1 className="recipe__title">{recipe?.title}</h1>
-//                 <p className="recipe__description">{recipe.description}</p>
-//               </div>
-//               <section className="recipe__ingredients">
-//                 <h2 className="section-heading">Ingredients</h2>
-//                 <IngredientList ingredients={recipe.ingredients} />
-//               </section>
-//               <section className="recipe__instructions">
-//                 <h2 className="section-heading">Instructions</h2>
-//                 <InstructionList instructions={recipe.instructions} />
-//               </section>
-//             </section>
-//           </>
-//         )}
-//       </div>
-//     </section>
-//   );
-// }
+  return (
+    !isLoading && (
+      <div className={styles.container}>
+        <h1 className={styles.title}>{recipe.name}</h1>
+        <ImageCarousel images={recipe.images} recipeName={recipe.name} />
+      </div>
+    )
+  );
+}
