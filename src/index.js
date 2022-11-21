@@ -17,6 +17,7 @@ const notFound = require('./middleware/notFound');
 const errorHandler = require('./middleware/errorHandler');
 const recipesRouter = require('./api/recipes');
 const authRouter = require('./api/auth');
+const usersRouter = require('./api/users');
 
 const app = express();
 
@@ -53,6 +54,7 @@ app.get('/', (req, res) => {
 
 app.use('/recipes', recipesRouter);
 app.use('/auth', authRouter);
+app.use('/users', usersRouter);
 
 app.use(notFound);
 app.use(errorHandler);
