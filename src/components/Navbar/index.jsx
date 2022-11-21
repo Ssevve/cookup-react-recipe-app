@@ -97,7 +97,7 @@ export default function Navbar({ user, setUser }) {
           {user && (
             <>
               <li className={styles.navItem}>
-                <Link to={`/profile/${user.id}`}>
+                <Link onClick={() => setShowMenu(false)} to={`/profile/${user.id}`}>
                   <img className={styles.avatar} src={user.avatar.url} alt={`${user.firstName} ${user.lastName}`} />
                   <span className={styles.userName}>{`${user.firstName} ${user.lastName}`}</span>
                 </Link>
@@ -199,7 +199,7 @@ export default function Navbar({ user, setUser }) {
                       <Link
                         onClick={() => setShowProfileDropdown(false)}
                         className={styles.dropdownLink}
-                        to="/dashboard"
+                        to={`/profile/${user.id}`}
                       >
                         Profile
                       </Link>

@@ -67,13 +67,15 @@
   height: var(--size);
   width: var(--size);
   border-radius: 50%;
+  margin: 0 auto;
 }
 
 .userName {
   font-size: 1.25rem;
   display: block;
   text-align: center;
-  margin-top: 0.5rem;
+  margin-top: 1rem;
+  font-weight: var(--font-weight-bold);
 }
 
 .navLink {
@@ -202,6 +204,7 @@
   .userName {
     font-size: 1rem;
     margin: 0;
+    font-weight: normal;
   }
 
   .profileDropdownMenu {

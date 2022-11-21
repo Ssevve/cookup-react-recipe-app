@@ -27,7 +27,7 @@ export default function BrowseRecipes({ user }) {
     if (!user) return;
 
     const targetRecipe = recipes.find((recipe) => recipe._id === recipeId);
-    if (user.id === targetRecipe.createdBy._id) return;
+    if (user.id === targetRecipe.createdBy) return;
 
     try {
       const res = await fetch(`http://localhost:8000/recipes/like/${recipeId}`, {
@@ -82,14 +82,6 @@ export default function BrowseRecipes({ user }) {
                     <span className={styles.dishType}>{recipe.dishType}</span>
                     <h2 className={styles.name}>{recipe.name}</h2>
                   </div>
-                  {/* <Link className={styles.authorLink} to="/">
-                  <img
-                    className={styles.avatar}
-                    src={recipe.createdBy.avatar.url}
-                    alt={`${recipe.createdBy.firstName} ${recipe.createdBy.lastName}`}
-                  />
-                  <span className={styles.authorName}>{`${recipe.createdBy.firstName} ${recipe.createdBy.lastName}`}</span>
-                </Link> */}
                 </div>
               </Link>
             </li>
