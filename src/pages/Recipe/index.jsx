@@ -19,17 +19,37 @@ export default function Recipe() {
   const [isLoading, setIsLoading] = useState(true);
   const [loggedInUser, isLoadingLoggedInUser] = useLoggedInUser();
 
-  useEffect(() => {
-    async function fetchRecipe() {
-      try {
-        const res = await fetch(`http://localhost:8000/recipes/${recipeId}`);
-        const recipeData = await res.json();
-        setRecipe(recipeData);
-        setIsLoading(false);
-      } catch (error) {
-        console.log(error);
-      }
+  const fetchRecipe = async () => {
+    try {
+      const res = await fetch(`http://localhost:8000/recipes/${recipeId}`);
+      const recipeData = await res.json();
+      setRecipe(recipeData);
+      setIsLoading(false);
+    } catch (error) {
+      console.log(error);
     }
+  };
+
+  const handleLikeClick = async () => {
+    if (!loggedInUser) return;
+
+    if (loggedInUser.id === recipe.createdBy) return;
+
+    try {
+      const res = await fetch(`http://localhost:8000/recipes/like/${recipeId}`, {
+        method: 'PUT',
+        credentials: 'include',
+      });
+
+      if (res.ok) {
+        fetchRecipe();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
     fetchRecipe();
   }, []);
 
@@ -47,7 +67,7 @@ export default function Recipe() {
           {loggedInUser && (
             <div className={styles.actionButtons}>
               {recipe.createdBy !== loggedInUser.id && (
-                <button type="button" className={cx(styles.actionBtn, styles.likeBtn)}>
+                <button onClick={handleLikeClick} type="button" className={cx(styles.actionBtn, styles.likeBtn)}>
                   {recipe.likes.includes(loggedInUser.id) ? (
                     <>
                       <span>Liked</span>
