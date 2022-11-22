@@ -126,6 +126,13 @@
   margin-top: 0.5rem;
 }
 
+.detail,
+.description,
+.direction,
+.ingredient {
+  color: rgba(0, 0, 0, 0.7);
+}
+
 .detail {
   margin-top: 0.1rem;
   display: block;

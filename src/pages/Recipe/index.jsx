@@ -102,8 +102,7 @@ export default function Recipe() {
           images={recipe.images}
           recipeName={recipe.name}
         />
-        <section className={cx(styles.section, styles.detailSection)}>
-          <h2 className={styles.sectionHeading}>Details</h2>
+        <div className={cx(styles.section, styles.detailSection)}>
           <div className={styles.details}>
             <div>
               <span className={styles.detailsLabel}>Prep time:</span>
@@ -122,10 +121,10 @@ export default function Recipe() {
               <span className={styles.detail}>{recipe.difficulty}</span>
             </div>
           </div>
-        </section>
+        </div>
         <section className={cx(styles.section, styles.descriptionSection)}>
           <h2 className={styles.sectionHeading}>Description</h2>
-          <p>{recipe.description}</p>
+          <p className={styles.description}>{recipe.description}</p>
         </section>
         <section className={cx(styles.section, styles.ingredientSection)}>
           <h2 className={styles.sectionHeading}>Ingredients</h2>
