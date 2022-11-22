@@ -11,7 +11,8 @@ const units = require('../lib/units.json');
 router.get('/:recipeId', async (req, res, next) => {
   const { recipeId } = req.params;
   try {
-    const recipe = await Recipe.findById(recipeId);
+    const recipe = await Recipe.findById(recipeId)
+      .populate('createdBy', '_id firstName lastName avatar');
     res.status(200).json(recipe);
   } catch (error) {
     next(error);
