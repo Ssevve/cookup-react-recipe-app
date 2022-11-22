@@ -44,40 +44,44 @@ export default function Recipe() {
             <AiOutlineHeart size={20} />
             {recipe.likes.length}
           </span>
-        </div>
-        {loggedInUser && (
-          <div className={styles.actionButtons}>
-            {recipe.createdBy !== loggedInUser.id && (
-              <button type="button" className={cx(styles.actionBtn, styles.likeBtn)}>
-                {recipe.likes.includes(loggedInUser.id) ? (
-                  <>
-                    <span>Liked</span>
-                    <AiFillHeart size={20} />
-                  </>
-                ) : (
-                  <>
-                    <span>Like</span>
-                    <AiOutlineHeart size={20} />
-                  </>
-                )}
-              </button>
-            )}
-            {recipe.createdBy === loggedInUser.id && (
-              <>
-                <Link
-                  to={`/recipes/edit/${recipe._id}`}
-                  className={cx(styles.actionBtn, styles.editBtn)}
-                >
-                  Edit
-                </Link>
-                <button type="button" className={cx(styles.actionBtn, styles.deleteBtn)}>
-                  Delete
+          {loggedInUser && (
+            <div className={styles.actionButtons}>
+              {recipe.createdBy !== loggedInUser.id && (
+                <button type="button" className={cx(styles.actionBtn, styles.likeBtn)}>
+                  {recipe.likes.includes(loggedInUser.id) ? (
+                    <>
+                      <span>Liked</span>
+                      <AiFillHeart size={20} />
+                    </>
+                  ) : (
+                    <>
+                      <span>Like</span>
+                      <AiOutlineHeart size={20} />
+                    </>
+                  )}
                 </button>
-              </>
-            )}
-          </div>
-        )}
-        <ImageCarousel images={recipe.images} recipeName={recipe.name} />
+              )}
+              {recipe.createdBy === loggedInUser.id && (
+                <>
+                  <Link
+                    to={`/recipes/edit/${recipe._id}`}
+                    className={cx(styles.actionBtn, styles.editBtn)}
+                  >
+                    Edit
+                  </Link>
+                  <button type="button" className={cx(styles.actionBtn, styles.deleteBtn)}>
+                    Delete
+                  </button>
+                </>
+              )}
+            </div>
+          )}
+        </div>
+        <ImageCarousel
+          className={styles.imageCarousel}
+          images={recipe.images}
+          recipeName={recipe.name}
+        />
         <section className={cx(styles.section, styles.detailSection)}>
           <h2 className={styles.sectionHeading}>Details</h2>
           <div className={styles.details}>
@@ -99,19 +103,21 @@ export default function Recipe() {
             </div>
           </div>
         </section>
-        <section className={styles.section}>
+        <section className={cx(styles.section, styles.descriptionSection)}>
           <h2 className={styles.sectionHeading}>Description</h2>
           <p>{recipe.description}</p>
         </section>
-        <section className={styles.section}>
+        <section className={cx(styles.section, styles.ingredientSection)}>
           <h2 className={styles.sectionHeading}>Ingredients</h2>
           <ul className={styles.ingredients}>
             {recipe.ingredients.map((ingredient) => (
-              <li key={ingredient} className={styles.ingredient}>{ingredient}</li>
+              <li key={ingredient} className={styles.ingredient}>
+                {ingredient}
+              </li>
             ))}
           </ul>
         </section>
-        <section className={styles.section}>
+        <section className={cx(styles.section, styles.directionSection)}>
           <h2 className={styles.sectionHeading}>Directions</h2>
           <div className={styles.directions}>
             {recipe.directions.map((direction, index) => (

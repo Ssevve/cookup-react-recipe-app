@@ -5,7 +5,7 @@ import cx from 'classnames';
 
 import styles from './imageCarousel.module.css';
 
-export default function ImageCarousel({ images, recipeName }) {
+export default function ImageCarousel({ images, recipeName, className }) {
   const maxScrollWidth = useRef(0);
   const carousel = useRef(null);
   const [currentScrollIndex, setCurrentScrollIndex] = useState(0);
@@ -54,7 +54,7 @@ export default function ImageCarousel({ images, recipeName }) {
   }, []);
 
   return (
-    <div className={styles.container}>
+    <div className={cx(styles.container, className)}>
       <img className={styles.activeImage} src={images[activeImageIndex].url} alt={recipeName} />
       <div className={styles.carouselContainer}>
         <ul ref={carousel} className={styles.carousel}>
