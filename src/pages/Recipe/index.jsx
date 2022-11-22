@@ -37,9 +37,13 @@ export default function Recipe() {
     !isLoading
     && !isLoadingLoggedInUser && (
       <div className={styles.container}>
-        <div>
+        <div className={styles.header}>
           <h1 className={styles.title}>{recipe.name}</h1>
           <span className={styles.dishType}>{recipe.dishType}</span>
+          <span className={styles.likes}>
+            <AiOutlineHeart size={20} />
+            {recipe.likes.length}
+          </span>
         </div>
         <div className={styles.actionButtons}>
           {loggedInUser && recipe.createdBy !== loggedInUser.id && (

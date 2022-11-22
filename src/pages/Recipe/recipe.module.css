@@ -10,18 +10,24 @@
   gap: 4rem;
 }
 
-.title {
-  text-align: center;
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
 }
 
 .dishType {
-  width: 100%;
-  display: block;
-  text-align: center;
   text-transform: uppercase;
   color: gray;
   font-weight: var(--font-weight-bold);
-  margin-top: 1.5rem;
+}
+
+.likes {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
 }
 
 .actionButtons {
