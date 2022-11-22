@@ -64,9 +64,13 @@ export default function Recipe() {
             <AiOutlineHeart size={20} />
             {recipe.likes.length}
           </span>
+          <Link to={`/profile/${recipe.createdBy._id}`} className={styles.author}>
+            <span>Recipe by </span>
+            <span className={styles.authorName}>{`${recipe.createdBy.firstName} ${recipe.createdBy.lastName}`}</span>
+          </Link>
           {loggedInUser && (
             <div className={styles.actionButtons}>
-              {recipe.createdBy !== loggedInUser.id && (
+              {recipe.createdBy._id !== loggedInUser.id && (
                 <button onClick={handleLikeClick} type="button" className={cx(styles.actionBtn, styles.likeBtn)}>
                   {recipe.likes.includes(loggedInUser.id) ? (
                     <>
@@ -81,7 +85,7 @@ export default function Recipe() {
                   )}
                 </button>
               )}
-              {recipe.createdBy === loggedInUser.id && (
+              {recipe.createdBy._id === loggedInUser.id && (
                 <>
                   <Link
                     to={`/recipes/edit/${recipe._id}`}
@@ -129,8 +133,8 @@ export default function Recipe() {
         <section className={cx(styles.section, styles.ingredientSection)}>
           <h2 className={styles.sectionHeading}>Ingredients</h2>
           <ul className={styles.ingredients}>
-            {recipe.ingredients.map((ingredient) => (
-              <li key={ingredient} className={styles.ingredient}>
+            {recipe.ingredients.map((ingredient, index) => (
+              <li key={`${ingredient + index}`} className={styles.ingredient}>
                 {ingredient}
               </li>
             ))}
@@ -140,7 +144,7 @@ export default function Recipe() {
           <h2 className={styles.sectionHeading}>Directions</h2>
           <div className={styles.directions}>
             {recipe.directions.map((direction, index) => (
-              <div key={direction}>
+              <div key={`${direction + index}`}>
                 <h3 className={styles.step}>{`Step ${index + 1}`}</h3>
                 <p className={styles.direction}>{direction}</p>
               </div>
