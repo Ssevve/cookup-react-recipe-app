@@ -6,16 +6,19 @@
   gap: 1rem;
 }
 
+.activeImage,
+.carouselContainer {
+  max-width: 600px;
+}
+
 .activeImage {
   height: 18rem;
   width: 100%;
-  max-width: 510px;
   object-fit: contain;
 }
 
 .carouselContainer {
   display: flex;
-  max-width: 510px;
   width: 100%;
   gap: 0.5rem;
   position: relative;

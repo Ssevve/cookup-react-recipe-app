@@ -17,6 +17,10 @@
   gap: 1.5rem;
 }
 
+.title {
+  text-align: center;
+}
+
 .dishType {
   text-transform: uppercase;
   color: gray;
@@ -34,7 +38,7 @@
   display: flex;
   gap: 1rem;
   width: 100%;
-  max-width: 600px;
+  max-width: 200px;
 }
 
 .actionBtn {
@@ -82,17 +86,28 @@
   background: var(--clr-error-light);
 }
 
-.details {
+.detailSection {
   background: rgba(128, 128, 128, 0.3);
-  width: 100%;
   padding: 2rem;
+  width: 100%;
+  max-width: 600px;
+  border-radius: var(--border-radius);
+  display: grid;
+  row-gap: 2rem;
+}
+
+.sectionHeading {
+  font-size: 1.75rem;
+  display: block;
+  text-align: center;
+}
+
+.details {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
   place-items: center;
   row-gap: 1rem;
   column-gap: 2rem;
-  border-radius: var(--border-radius);
-  max-width: 600px;
 }
 
 .detailsLabel {
@@ -106,4 +121,42 @@
   margin-top: 0.1rem;
   display: block;
   text-align: center;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.ingredients {
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  list-style: disc;
+  list-style-position: inside;
+  flex: 1;
+  max-width: 600px;
+}
+
+.ingredient::marker {
+  color: var(--clr-accent);
+
+}
+
+.directions {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  margin-top: 2rem;
+  max-width: 600px;
+}
+
+.step {
+  font-size: 0.875rem;
+}
+
+.direction {
+  font-size: 1rem;
 }
