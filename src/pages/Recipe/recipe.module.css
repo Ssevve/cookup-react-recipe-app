@@ -7,5 +7,95 @@
   align-items: center;
   min-height: 100%;
   padding-block: 4rem;
-  gap: 2rem;
+  gap: 4rem;
+}
+
+.title {
+  text-align: center;
+}
+
+.dishType {
+  width: 100%;
+  display: block;
+  text-align: center;
+  text-transform: uppercase;
+  color: gray;
+  font-weight: var(--font-weight-bold);
+  margin-top: 1.5rem;
+}
+
+.actionButtons {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+  max-width: 600px;
+}
+
+.actionBtn {
+  background: none;
+  border: none;
+  padding: 0.75rem 1rem;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: background 0.1s ease-in-out;
+  flex: 1;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.likeBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: var(--clr-accent);
+  color: var(--clr-light-primary);
+  font-weight: var(--font-weight-bold);
+}
+
+.likeBtn:hover {
+  background: var(--clr-accent-hover);
+}
+
+.editBtn {
+  color: var(--clr-accent);
+  border: 1px solid currentColor;
+}
+
+.editBtn:hover {
+  background: var(--clr-btn-outline-hover);
+}
+
+.deleteBtn {
+  color: var(--clr-error);
+  border: 1px solid currentColor;
+}
+
+.deleteBtn:hover {
+  background: var(--clr-error-light);
+}
+
+.details {
+  background: rgba(128, 128, 128, 0.3);
+  width: 100%;
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+  place-items: center;
+  row-gap: 1rem;
+  column-gap: 2rem;
+  border-radius: var(--border-radius);
+  max-width: 600px;
+}
+
+.detailsLabel {
+  display: block;
+  font-weight: var(--font-weight-bold);
+  text-align: center;
+}
+
+.detail {
+  display: block;
+  text-align: center;
 }
