@@ -19,6 +19,8 @@
 
 .title {
   text-align: center;
+  width: 100%;
+  max-width: 600px;
 }
 
 .dishType {
@@ -86,11 +88,18 @@
   background: var(--clr-error-light);
 }
 
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 600px;
+}
+
 .detailSection {
   background: rgba(128, 128, 128, 0.3);
   padding: 2rem;
-  width: 100%;
-  max-width: 600px;
   border-radius: var(--border-radius);
   display: grid;
   row-gap: 2rem;
@@ -123,21 +132,12 @@
   text-align: center;
 }
 
-.section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.5rem;
-}
-
 .ingredients {
   display: flex;
   flex-direction: column;
   align-items: baseline;
   list-style: disc;
   list-style-position: inside;
-  flex: 1;
-  max-width: 600px;
 }
 
 .ingredient::marker {
@@ -150,7 +150,6 @@
   flex-direction: column;
   gap: 2.5rem;
   margin-top: 2rem;
-  max-width: 600px;
 }
 
 .step {

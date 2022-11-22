@@ -78,7 +78,7 @@ export default function Recipe() {
           </div>
         )}
         <ImageCarousel images={recipe.images} recipeName={recipe.name} />
-        <section className={styles.detailSection}>
+        <section className={cx(styles.section, styles.detailSection)}>
           <h2 className={styles.sectionHeading}>Details</h2>
           <div className={styles.details}>
             <div>
@@ -100,6 +100,10 @@ export default function Recipe() {
           </div>
         </section>
         <section className={styles.section}>
+          <h2 className={styles.sectionHeading}>Description</h2>
+          <p>{recipe.description}</p>
+        </section>
+        <section className={styles.section}>
           <h2 className={styles.sectionHeading}>Ingredients</h2>
           <ul className={styles.ingredients}>
             {recipe.ingredients.map((ingredient) => (
@@ -107,7 +111,7 @@ export default function Recipe() {
             ))}
           </ul>
         </section>
-        <section>
+        <section className={styles.section}>
           <h2 className={styles.sectionHeading}>Directions</h2>
           <div className={styles.directions}>
             {recipe.directions.map((direction, index) => (
