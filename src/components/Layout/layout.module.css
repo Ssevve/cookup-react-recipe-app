@@ -3,7 +3,8 @@
   overflow: auto;
   height: calc(100% - 3.5rem);
   width: 100%;
-  z-index: -1; 
+  z-index: -1;
+  scrollbar-gutter: stable both-edges;
 }
 
 @media screen and (min-width: 45em) {
