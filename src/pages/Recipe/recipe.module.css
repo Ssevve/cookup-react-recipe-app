@@ -93,9 +93,11 @@
   display: block;
   font-weight: var(--font-weight-bold);
   text-align: center;
+  margin-top: 0.5rem;
 }
 
 .detail {
+  margin-top: 0.1rem;
   display: block;
   text-align: center;
 }
