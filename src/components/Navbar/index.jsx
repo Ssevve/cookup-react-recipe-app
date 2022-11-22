@@ -44,9 +44,16 @@ export default function Navbar({ user, setUser }) {
     <header className={styles.navbar}>
       <nav className={styles.nav}>
         <div className={cx(styles.nav, styles.left)}>
-          <Link className={styles.logo} onClick={() => setShowMenu(false)} to="/">
-            Cookup
-          </Link>
+          {user && (
+            <Link className={styles.logo} onClick={() => setShowMenu(false)} to={`/profile/${user.id}`}>
+              Cookup
+            </Link>
+          )}
+          {!user && (
+            <Link className={styles.logo} onClick={() => setShowMenu(false)} to="/">
+              Cookup
+            </Link>
+          )}
           <button
             className={styles.hamburger}
             type="button"
