@@ -64,10 +64,12 @@ export default function Recipe() {
             <AiOutlineHeart size={20} />
             {recipe.likes.length}
           </span>
-          <Link to={`/profile/${recipe.createdBy._id}`} className={styles.author}>
+          <p className={styles.author}>
             <span>Recipe by </span>
-            <span className={styles.authorName}>{`${recipe.createdBy.firstName} ${recipe.createdBy.lastName}`}</span>
-          </Link>
+            <Link to={`/profile/${recipe.createdBy._id}`} className={styles.authorName}>
+              <span className={styles.authorName}>{`${recipe.createdBy.firstName} ${recipe.createdBy.lastName}`}</span>
+            </Link>
+          </p>
           {loggedInUser && (
             <div className={styles.actionButtons}>
               {recipe.createdBy._id !== loggedInUser.id && (
