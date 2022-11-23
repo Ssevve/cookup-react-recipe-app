@@ -11,6 +11,7 @@ import cx from 'classnames';
 import useLoggedInUser from '../../hooks/useLoggedInUser';
 
 import styles from './profile.module.css';
+import RecipeCard from '../../components/RecipeCard';
 
 export default function Profile() {
   const { userId: profileUserId } = useParams();
@@ -44,30 +45,33 @@ export default function Profile() {
 
   useEffect(() => {
     Promise.all([fetchProfileUser(), fetchRecipes()])
-      .then(() => setIsLoading(false));
+      .then(() => {
+        setIsLoading(false);
+        console.log(loggedInUser);
+      });
   }, []);
 
-  const handleLikeClick = async (e, recipeId) => {
-    e.preventDefault();
+  // const handleLikeClick = async (e, recipeId) => {
+  //   e.preventDefault();
 
-    if (!loggedInUser) return;
+  //   if (!loggedInUser) return;
 
-    const targetRecipe = userRecipes.find((recipe) => recipe._id === recipeId);
-    if (loggedInUser.id === targetRecipe.createdBy) return;
+  //   const targetRecipe = userRecipes.find((recipe) => recipe._id === recipeId);
+  //   if (loggedInUser.id === targetRecipe.createdBy) return;
 
-    try {
-      const res = await fetch(`http://localhost:8000/recipes/like/${recipeId}`, {
-        method: 'PUT',
-        credentials: 'include',
-      });
+  //   try {
+  //     const res = await fetch(`http://localhost:8000/recipes/like/${recipeId}`, {
+  //       method: 'PUT',
+  //       credentials: 'include',
+  //     });
 
-      if (res.ok) {
-        fetchRecipes();
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //     if (res.ok) {
+  //       fetchRecipes();
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   return (
     <div className={styles.container}>
@@ -96,74 +100,12 @@ export default function Profile() {
             <ul className={styles.recipes}>
               {activeTab === 'userRecipes' && userRecipes.map((recipe) => (
                 <li key={recipe._id}>
-                  <Link className={styles.recipeLink} to={`/recipes/${recipe._id}`}>
-                    <div className={styles.card}>
-                      <div className={styles.cardHeader}>
-                        <img
-                          className={styles.image}
-                          src={
-                            recipe.images[0]?.url || 'public/images/placeholder-recipe-image.jpg'
-                          }
-                          alt={recipe.name}
-                        />
-                        <button
-                          onClick={(e) => handleLikeClick(e, recipe._id)}
-                          className={styles.likeButton}
-                          type="button"
-                        >
-                          {loggedInUser && recipe?.likes?.includes(loggedInUser.id) ? (
-                            <AiFillHeart />
-                          ) : (
-                            <AiOutlineHeart />
-                          )}
-                        </button>
-                        <span className={styles.likes}>
-                          <AiOutlineHeart />
-                          {recipe.likes.length}
-                        </span>
-                      </div>
-                      <div className={styles.details}>
-                        <span className={styles.dishType}>{recipe.dishType}</span>
-                        <h2 className={styles.name}>{recipe.name}</h2>
-                      </div>
-                    </div>
-                  </Link>
+                  <RecipeCard setRecipes={setUserRecipes} recipes={userRecipes} recipe={recipe} user={loggedInUser} />
                 </li>
               ))}
               {activeTab === 'likedRecipes' && likedRecipes.map((recipe) => (
                 <li key={recipe._id}>
-                  <Link className={styles.recipeLink} to={`/recipes/${recipe._id}`}>
-                    <div className={styles.card}>
-                      <div className={styles.cardHeader}>
-                        <img
-                          className={styles.image}
-                          src={
-                            recipe.images[0]?.url || 'public/images/placeholder-recipe-image.jpg'
-                          }
-                          alt={recipe.name}
-                        />
-                        <button
-                          onClick={(e) => handleLikeClick(e, recipe._id)}
-                          className={styles.likeButton}
-                          type="button"
-                        >
-                          {loggedInUser && recipe?.likes?.includes(loggedInUser.id) ? (
-                            <AiFillHeart />
-                          ) : (
-                            <AiOutlineHeart />
-                          )}
-                        </button>
-                        <span className={styles.likes}>
-                          <AiOutlineHeart />
-                          {recipe.likes.length}
-                        </span>
-                      </div>
-                      <div className={styles.details}>
-                        <span className={styles.dishType}>{recipe.dishType}</span>
-                        <h2 className={styles.name}>{recipe.name}</h2>
-                      </div>
-                    </div>
-                  </Link>
+                  <RecipeCard setRecipes={setLikedRecipes} recipes={likedRecipes} recipe={recipe} user={loggedInUser} />
                 </li>
               ))}
             </ul>
