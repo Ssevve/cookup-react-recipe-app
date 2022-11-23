@@ -1,18 +1,20 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useState } from 'react';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 
-import styles from './recipeCardLikeButton.module.css';
+import styles from './likeButton.module.css';
 
-export default function RecipeCardLikeButton({
+export default function LikeButton({
   setRecipes, recipes, recipe, user,
 }) {
-  const handleClick = async (e, recipeId) => {
+  const [authorId] = useState(recipe.createdBy._id || recipe.createdBy);
+
+  const handleClick = async (e) => {
     e.preventDefault();
 
     if (!user) return;
-    if (user.id === recipe.createdBy) return;
+    if (user.id === authorId) return;
 
     const newRecipes = [...recipes];
     if (recipe.likes.includes(user.id)) {
@@ -22,12 +24,12 @@ export default function RecipeCardLikeButton({
       recipe.likes.push(user.id);
     }
 
-    const recipeIndex = recipes.findIndex((rec) => rec._id === recipeId);
+    const recipeIndex = recipes.findIndex((rec) => rec._id === recipe._id);
     newRecipes.splice(recipeIndex, 1, recipe);
     setRecipes(newRecipes);
 
     try {
-      await fetch(`http://localhost:8000/recipes/like/${recipeId}`, {
+      await fetch(`http://localhost:8000/recipes/like/${recipe._id}`, {
         method: 'PUT',
         credentials: 'include',
       });
@@ -37,10 +39,10 @@ export default function RecipeCardLikeButton({
   };
 
   return (
-    user && (user.id !== recipe.createdBy)
+    user && (user.id !== authorId)
       && (
       <button
-        onClick={(e) => handleClick(e, recipe._id)}
+        onClick={handleClick}
         className={styles.likeButton}
         type="button"
       >

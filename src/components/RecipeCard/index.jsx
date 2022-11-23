@@ -9,7 +9,7 @@ import { AiOutlineHeart } from 'react-icons/ai';
 
 import styles from './recipeCard.module.css';
 
-import RecipeCardLikeButton from '../RecipeCardLikeButton';
+import LikeButton from '../LikeButton';
 
 export default function RecipeCard({
   setRecipes, recipes, recipe, user,
@@ -23,7 +23,7 @@ export default function RecipeCard({
             src={recipe.images[0]?.url || 'public/images/placeholder-recipe-image.jpg'}
             alt={recipe.name}
           />
-          <RecipeCardLikeButton setRecipes={setRecipes} recipes={recipes} recipe={recipe} user={user} />
+          <LikeButton setRecipes={setRecipes} recipes={recipes} recipe={recipe} user={user} />
           <span className={styles.likes}>
             <AiOutlineHeart />
             {recipe.likes.length}
