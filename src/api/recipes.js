@@ -32,8 +32,7 @@ router.get('/', async (req, res, next) => {
 router.get('/user/:userId', async (req, res, next) => {
   try {
     const recipes = await Recipe.find()
-      .populate('createdBy', '_id firstName lastName avatar')
-      .select('_id name description images likes dishType createdBy');
+      .select('_id name images likes dishType createdBy');
 
     const userRecipes = recipes.filter((recipe) => recipe.createdBy._id.toString() === req.params.userId.toString());
     const likedRecipes = recipes.filter((recipe) => recipe.likes.includes(req.params.userId));
