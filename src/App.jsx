@@ -12,6 +12,7 @@ import AddRecipe from './pages/AddRecipe';
 import BrowseRecipes from './pages/BrowseRecipes';
 import Profile from './pages/Profile';
 import Recipe from './pages/Recipe';
+import EditRecipe from './pages/EditRecipe';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -46,6 +47,7 @@ function App() {
           {/* Private Routes */}
           <Route element={<PrivateRoutes />}>
             <Route path="/recipes/add" element={<AddRecipe />} />
+            <Route path="/recipes/edit/:recipeId" element={<EditRecipe />} />
           </Route>
         </Routes>
       </Layout>
