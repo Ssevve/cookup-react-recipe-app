@@ -34,6 +34,12 @@
   object-fit: cover;
 }
 
+.likeBtn {
+  position: absolute;
+  bottom: 2.75rem;
+  right: 0.5rem;
+}
+
 .likes {
  display: flex;
  align-items: center;

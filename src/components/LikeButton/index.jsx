@@ -2,11 +2,12 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
+import cx from 'classnames';
 
 import styles from './likeButton.module.css';
 
 export default function LikeButton({
-  setRecipes, recipes, recipe, user,
+  setRecipes, recipes, recipe, setRecipe, user, round, className,
 }) {
   const [authorId] = useState(recipe.createdBy._id || recipe.createdBy);
 
@@ -16,7 +17,6 @@ export default function LikeButton({
     if (!user) return;
     if (user.id === authorId) return;
 
-    const newRecipes = [...recipes];
     if (recipe.likes.includes(user.id)) {
       const idIndex = recipe.likes.findIndex((id) => id === user.id);
       recipe.likes.splice(idIndex, 1);
@@ -24,9 +24,14 @@ export default function LikeButton({
       recipe.likes.push(user.id);
     }
 
-    const recipeIndex = recipes.findIndex((rec) => rec._id === recipe._id);
-    newRecipes.splice(recipeIndex, 1, recipe);
-    setRecipes(newRecipes);
+    if (recipes && setRecipes) {
+      const newRecipes = [...recipes];
+      const recipeIndex = recipes.findIndex((rec) => rec._id === recipe._id);
+      newRecipes.splice(recipeIndex, 1, recipe);
+      setRecipes(newRecipes);
+    } else {
+      setRecipe({ ...recipe });
+    }
 
     try {
       await fetch(`http://localhost:8000/recipes/like/${recipe._id}`, {
@@ -43,10 +48,12 @@ export default function LikeButton({
       && (
       <button
         onClick={handleClick}
-        className={styles.likeButton}
+        className={cx(styles.likeButton, round && styles.round, className)}
         type="button"
       >
-        {user && recipe.likes.includes(user.id) ? <AiFillHeart /> : <AiOutlineHeart />}
+        {user && recipe.likes.includes(user.id) && !round && 'Liked'}
+        {user && !recipe.likes.includes(user.id) && !round && 'Like'}
+        {user && recipe.likes.includes(user.id) ? <AiFillHeart size={!round ? 20 : ''} /> : <AiOutlineHeart size={!round ? 20 : ''} />}
       </button>
       )
   );

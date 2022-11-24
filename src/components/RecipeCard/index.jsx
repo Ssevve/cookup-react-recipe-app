@@ -23,7 +23,7 @@ export default function RecipeCard({
             src={recipe.images[0]?.url || 'public/images/placeholder-recipe-image.jpg'}
             alt={recipe.name}
           />
-          <LikeButton setRecipes={setRecipes} recipes={recipes} recipe={recipe} user={user} />
+          <LikeButton className={styles.likeBtn} setRecipes={setRecipes} recipes={recipes} recipe={recipe} user={user} round />
           <span className={styles.likes}>
             <AiOutlineHeart />
             {recipe.likes.length}

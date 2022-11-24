@@ -10,6 +10,7 @@ import cx from 'classnames';
 import styles from './recipe.module.css';
 
 import ImageCarousel from '../../components/ImageCarousel';
+import LikeButton from '../../components/LikeButton';
 
 import useLoggedInUser from '../../hooks/useLoggedInUser';
 
@@ -73,19 +74,7 @@ export default function Recipe() {
           {loggedInUser && (
             <div className={styles.actionButtons}>
               {recipe.createdBy._id !== loggedInUser.id && (
-                <button onClick={handleLikeClick} type="button" className={cx(styles.actionBtn, styles.likeBtn)}>
-                  {recipe.likes.includes(loggedInUser.id) ? (
-                    <>
-                      <span>Liked</span>
-                      <AiFillHeart size={20} />
-                    </>
-                  ) : (
-                    <>
-                      <span>Like</span>
-                      <AiOutlineHeart size={20} />
-                    </>
-                  )}
-                </button>
+                <LikeButton recipe={recipe} setRecipe={setRecipe} user={loggedInUser} />
               )}
               {recipe.createdBy._id === loggedInUser.id && (
                 <>
