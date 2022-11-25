@@ -49,7 +49,6 @@
   gap: 0.5rem;
   overflow: hidden;
   scroll-behavior: smooth;
-  
 }
 
 .listItem {
@@ -57,7 +56,6 @@
   width: 5rem;
   flex-shrink: 0;
   z-index: 1;
-  
 }
 
 .imageBtn {
@@ -85,5 +83,14 @@
 
 .activeImageBtn {
   opacity: 1;
+}
 
+@media screen and (min-width: 45em) {
+  .container {
+    align-items: flex-start;
+  }
+
+  .activeImage {
+    width: auto;
+  }
 }
