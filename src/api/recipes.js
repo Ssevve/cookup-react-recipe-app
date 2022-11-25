@@ -49,8 +49,9 @@ router.post('/', ensureAuth, upload.array('images'), async (req, res, next) => {
       const imagePromises = req.files.map((file) => cloudinary.uploader.upload(file.path));
       const imageResponses = await Promise.all(imagePromises);
 
-      imageResponses.forEach((image) => {
-        images.push({ url: image.secure_url, id: image.public_id });
+
+      imageResponses.forEach((image, imageIndex) => {
+        images.push({ url: image.secure_url, cloudinaryId: image.public_id, name: req.files[imageIndex].originalname });
       });
     }
 

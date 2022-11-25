@@ -95,7 +95,11 @@ const recipeSchema = new Schema(
             ...requiredString,
             trim: true,
           },
-          id: {
+          cloudinaryId: {
+            ...requiredString,
+            trim: true,
+          },
+          name: {
             ...requiredString,
             trim: true,
           },
