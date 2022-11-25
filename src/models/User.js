@@ -32,7 +32,7 @@ const userSchema = new Schema(
       id: {
         type: String,
         default: null,
-      } 
+      },
     },
   },
   { timestamps: true },

@@ -5,8 +5,8 @@ const upload = require('../middleware/multer');
 
 const Recipe = require('../models/Recipe');
 const cloudinary = require('../config/cloudinary');
+const uploadImages = require('../lib/uploadImages');
 const ensureAuth = require('../middleware/ensureAuth');
-const units = require('../lib/units.json');
 
 router.get('/:recipeId', async (req, res, next) => {
   const { recipeId } = req.params;
@@ -42,18 +42,10 @@ router.get('/user/:userId', async (req, res, next) => {
   }
 });
 
-router.post('/', ensureAuth, upload.array('images'), async (req, res, next) => {
+router.post('/', ensureAuth, upload.array('files'), async (req, res, next) => {
   try {
-    const images = [];
-    if (req.files) {
-      const imagePromises = req.files.map((file) => cloudinary.uploader.upload(file.path));
-      const imageResponses = await Promise.all(imagePromises);
-
-
-      imageResponses.forEach((image, imageIndex) => {
-        images.push({ url: image.secure_url, cloudinaryId: image.public_id, name: req.files[imageIndex].originalname });
-      });
-    }
+    let images = [];
+    if (req.files) images = await uploadImages(req.files);
 
     const recipe = JSON.parse(req.body.recipe);
     if (!recipe) return res.status(400).json({ message: 'No recipe was provided.' });
@@ -122,33 +114,59 @@ router.put('/like/:recipeId', ensureAuth, async (req, res, next) => {
   }
 });
 
-router.put('/:recipeId', ensureAuth, upload.single('image'), async (req, res, next) => {
+router.put('/:recipeId', ensureAuth, upload.array('files'), async (req, res, next) => {
+  const recipe = JSON.parse(req.body.recipe);
+  const newImages = JSON.parse(req.body.images);
   try {
-    let cloudinaryResult;
-    if (req.file) cloudinaryResult = await cloudinary.uploader.upload(req.file.path);
+    let uploadedImages = [];
+    if (req.files) uploadedImages = await uploadImages(req.files);
 
-    const recipe = JSON.parse(req.body.recipe);
-    if (!recipe) return res.status(400).json({ message: 'Invalid input' });
+    const oldRecipe = await Recipe.findById(req.params.recipeId);
+    let oldImageIds = [];
+    if (oldRecipe) oldImageIds = oldRecipe.images.map((image) => image.cloudinaryId);
+    const newImageIds = newImages.map((image) => image.cloudinaryId);
+    const missingImages = oldImageIds.filter((id) => !newImageIds.includes(id));
+    if (missingImages) missingImages.forEach((id) => cloudinary.uploader.destroy(id));
+    const updatedImages = [...newImages, ...uploadedImages];
 
-    const ingredientsWithShortUnits = recipe.ingredients.map((ingredient) => {
-      const shortUnit = units[ingredient.unit];
-      if (!shortUnit) return res.status(400).json({ message: 'Invalid ingredient unit.' });
-      return { ...ingredient, unitShort: shortUnit };
+    if (!recipe) return res.status(400).json({ message: 'No recipe was provided.' });
+    if (
+      recipe.name.trim().length < 1
+      || recipe.name.trim().length > 70
+    ) {
+      return res.status(400).json({ message: 'Invalid recipe name.' });
+    }
+
+    const ingredients = recipe.ingredients.map((ingredient) => {
+      if (
+        ingredient.name
+        && ingredient.name.trim().length > 0
+        && ingredient.name.trim().length <= 70
+      ) {
+        return ingredient.name;
+      }
+      return res.status(400).json({ message: 'Invalid ingredient value.' });
+    });
+
+    const directions = recipe.directions.map((direction) => {
+      if (direction.description && direction.description.trim().length) {
+        return direction.description;
+      }
+      return res.status(400).json({ message: 'Invalid direction value.' });
     });
 
     const updatedRecipe = await Recipe.findOneAndUpdate(
       { _id: req.params.recipeId, createdBy: req.user._id },
       {
         $set: {
-          title: recipe.title,
-          description: recipe.description,
-          ingredients: ingredientsWithShortUnits,
-          instructions: recipe.instructions,
-          imagesUrls: cloudinaryResult ? cloudinaryResult.secure_url : recipe.imageUrl,
-          cloudinaryId: cloudinaryResult ? cloudinaryResult.public_id : recipe.cloudinaryId,
+          ...recipe,
+          ingredients,
+          directions,
+          images: updatedImages,
         },
       },
     );
+
     return res.status(200).json(updatedRecipe);
   } catch (error) {
     return next(error);
