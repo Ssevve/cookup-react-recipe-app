@@ -15,7 +15,8 @@ import styles from './recipeForm.module.css';
 import ImageDropzone from '../ImageDropzone';
 
 export default function RecipeForm({ recipe }) {
-  const [images, setImages] = useState([]);
+  const [files, setFiles] = useState([]);
+  const [images, setImages] = useState(recipe?.images || []);
   const [editingRecipe] = useState(recipe);
   const navigate = useNavigate();
   const {
@@ -48,12 +49,14 @@ export default function RecipeForm({ recipe }) {
   const handleFormSubmit = async (data) => {
     // trigger();
     console.table(`data: ${data}`);
-    console.log(`images: ${images}`);
+    console.log({ files });
     const formData = new FormData();
-
+    // formData.append('images', images);
     formData.append('recipe', JSON.stringify(data));
-    images.forEach((image) => {
-      formData.append('images', image);
+    formData.append('images', JSON.stringify(images));
+
+    files.forEach((file) => {
+      formData.append('files', file);
     });
     // eslint-disable-next-line no-underscore-dangle
     const url = `http://localhost:8000/recipes/${editingRecipe ? editingRecipe._id : ''}`;
@@ -420,7 +423,7 @@ export default function RecipeForm({ recipe }) {
 
       {/* IMAGE */}
       <h2 className={styles.sectionHeading}>Images</h2>
-      <ImageDropzone images={editingRecipe?.images || images} setImages={setImages} />
+      <ImageDropzone images={images} setImages={setImages} files={files} setFiles={setFiles} />
 
       <button
         onClick={() => console.log(errors)}

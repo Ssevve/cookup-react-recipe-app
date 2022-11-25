@@ -7,7 +7,9 @@ import { useDropzone } from 'react-dropzone';
 
 import styles from './imageDropzone.module.css';
 
-export default function ImageDropzone({ images, setImages }) {
+export default function ImageDropzone({
+  images, setImages, files, setFiles,
+}) {
   const {
     getRootProps, getInputProps, isDragActive, isDragAccept, isDragReject,
   } = useDropzone({
@@ -16,23 +18,32 @@ export default function ImageDropzone({ images, setImages }) {
       'image/png': [],
     },
     onDrop: (acceptedFiles) => {
-      setImages([
-        ...images,
+      setFiles([
+        ...files,
         ...acceptedFiles.map((file) => Object.assign(file, {
           preview: URL.createObjectURL(file),
         })),
       ]);
-      console.log(images);
+      console.log(files);
     },
   });
 
-  const deleteImage = (image) => {
-    const newImages = [...images];
-    newImages.splice(newImages.indexOf(image), 1);
-    setImages(newImages);
+  const deleteImage = (target) => {
+    if (files.includes(target)) {
+      const newFiles = [...files];
+      newFiles.splice(newFiles.indexOf(target), 1);
+      setFiles(newFiles);
+    }
+
+    if (images.includes(target)) {
+      const changedOldImages = [...images];
+      changedOldImages.splice(changedOldImages.indexOf(target), 1);
+      setImages(changedOldImages);
+    }
   };
 
-  const thumbs = images.map((image) => (
+  const allImages = [...images, ...files];
+  const thumbs = allImages.map((image) => (
     <div className={styles.thumb} key={image.name}>
       <img
         className={styles.image}

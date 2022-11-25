@@ -45,50 +45,57 @@ export default function ImageCarousel({ images, recipeName, className }) {
 
   useEffect(() => {
     calcNewMaxScrollWidth();
-    const carouselObserver = new ResizeObserver(calcNewMaxScrollWidth);
-    carouselObserver.observe(carousel.current);
+    let carouselObserver;
+    if (carousel.current) {
+      carouselObserver = new ResizeObserver(calcNewMaxScrollWidth);
+      carouselObserver.observe(carousel.current);
+    }
 
     return () => {
-      carouselObserver.disconnect();
+      if (carouselObserver) carouselObserver.disconnect();
     };
   }, []);
 
   return (
     <div className={cx(styles.container, className)}>
-      <img className={styles.activeImage} src={images[activeImageIndex].url} alt={recipeName} />
-      <div className={styles.carouselContainer}>
-        <ul ref={carousel} className={styles.carousel}>
-          {images.map((image, index) => (
-            <li className={styles.listItem} key={image.id}>
-              <button
-                className={cx(styles.imageBtn, activeImageIndex === index && styles.activeImageBtn)}
-                type="button"
-                onClick={() => setActiveImageIndex(index)}
-              >
-                <img className={styles.imageSmall} src={image.url} alt={recipeName} />
-              </button>
-            </li>
-          ))}
-        </ul>
-        <div className={styles.controls}>
-          <button
-            className={cx(styles.arrow, styles.arrowPrev)}
-            onClick={movePrev}
-            disabled={isDisabled('prev')}
-            type="button"
-          >
-            <BiChevronLeft />
-          </button>
-          <button
-            className={cx(styles.arrow, styles.arrowNext)}
-            onClick={moveNext}
-            disabled={isDisabled('next')}
-            type="button"
-          >
-            <BiChevronRight />
-          </button>
+      <img className={styles.activeImage} src={images[activeImageIndex]?.url || '/images/placeholder-recipe-image.jpg'} alt={recipeName} />
+      {images?.length > 1 && (
+        <div className={styles.carouselContainer}>
+          <ul ref={carousel} className={styles.carousel}>
+            {images.map((image, index) => (
+              <li className={styles.listItem} key={image.cloudinaryId}>
+                <button
+                  className={
+                    cx(styles.imageBtn, activeImageIndex === index && styles.activeImageBtn)
+                  }
+                  type="button"
+                  onClick={() => setActiveImageIndex(index)}
+                >
+                  <img className={styles.imageSmall} src={image.url} alt={recipeName} />
+                </button>
+              </li>
+            ))}
+          </ul>
+          <div className={styles.controls}>
+            <button
+              className={cx(styles.arrow, styles.arrowPrev)}
+              onClick={movePrev}
+              disabled={isDisabled('prev')}
+              type="button"
+            >
+              <BiChevronLeft />
+            </button>
+            <button
+              className={cx(styles.arrow, styles.arrowNext)}
+              onClick={moveNext}
+              disabled={isDisabled('next')}
+              type="button"
+            >
+              <BiChevronRight />
+            </button>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
