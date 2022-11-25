@@ -20,7 +20,7 @@ export default function RecipeCard({
         <div className={styles.cardHeader}>
           <img
             className={styles.image}
-            src={recipe.images[0]?.url || 'public/images/placeholder-recipe-image.jpg'}
+            src={recipe.images[0]?.url || '/images/placeholder-recipe-image.jpg'}
             alt={recipe.name}
           />
           <LikeButton className={styles.likeBtn} setRecipes={setRecipes} recipes={recipes} recipe={recipe} user={user} round />
