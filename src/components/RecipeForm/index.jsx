@@ -23,7 +23,6 @@ export default function RecipeForm({ recipe }) {
     handleSubmit,
     control,
     formState: { errors },
-    trigger,
     setFocus,
     setValue,
   } = useForm({ mode: 'onChange' });
@@ -75,10 +74,15 @@ export default function RecipeForm({ recipe }) {
 
   useEffect(() => {
     if (editingRecipe) {
-      setValue('title', editingRecipe.title);
+      setValue('name', editingRecipe.name);
       setValue('description', editingRecipe.description);
-      setValue('ingredients', editingRecipe.ingredients);
-      setValue('directions', editingRecipe.directions);
+      setValue('dishType', editingRecipe.dishType);
+      setValue('servings', editingRecipe.servings);
+      setValue('difficulty', editingRecipe.difficulty);
+      setValue('prepTime', editingRecipe.prepTime);
+      setValue('cookTime', editingRecipe.cookTime);
+      editingRecipe.ingredients.forEach((ingredient) => ingredientAppend({ name: ingredient }, { shouldFocus: false }));
+      editingRecipe.directions.forEach((direction) => directionAppend({ description: direction }, { shouldFocus: false }));
     } else {
       ingredientAppend({ name: '' }, { shouldFocus: false });
       directionAppend({ description: '' }, { shouldFocus: false });
@@ -416,7 +420,7 @@ export default function RecipeForm({ recipe }) {
 
       {/* IMAGE */}
       <h2 className={styles.sectionHeading}>Images</h2>
-      <ImageDropzone images={images} setImages={setImages} />
+      <ImageDropzone images={editingRecipe?.images || images} setImages={setImages} />
 
       <button
         onClick={() => console.log(errors)}
