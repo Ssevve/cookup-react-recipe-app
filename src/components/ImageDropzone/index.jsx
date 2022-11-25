@@ -36,7 +36,7 @@ export default function ImageDropzone({ images, setImages }) {
     <div className={styles.thumb} key={image.name}>
       <img
         className={styles.image}
-        src={image.preview}
+        src={image.url || image.preview}
         // Revoke data uri after image is loaded to prevent memory leaks
         onLoad={() => {
           URL.revokeObjectURL(image.preview);
