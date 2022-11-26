@@ -118,15 +118,18 @@ router.put('/:recipeId', ensureAuth, upload.array('files'), async (req, res, nex
   const recipe = JSON.parse(req.body.recipe);
   const newImages = JSON.parse(req.body.images);
   try {
-    let uploadedImages = [];
-    if (req.files) uploadedImages = await uploadImages(req.files);
-
     const oldRecipe = await Recipe.findById(req.params.recipeId);
-    let oldImageIds = [];
-    if (oldRecipe) oldImageIds = oldRecipe.images.map((image) => image.cloudinaryId);
+    if (!oldRecipe) return res.status(404).json({ message: 'Recipe not found.' });
+    if (oldRecipe.createdBy.toString() !== req.user._id.toString()) return res.status(401).json({ message: 'Unauthorized' });
+
+    const oldImageIds = oldRecipe.images.map((image) => image.cloudinaryId);
     const newImageIds = newImages.map((image) => image.cloudinaryId);
     const missingImages = oldImageIds.filter((id) => !newImageIds.includes(id));
     if (missingImages) missingImages.forEach((id) => cloudinary.uploader.destroy(id));
+
+    let uploadedImages = [];
+    if (req.files) uploadedImages = await uploadImages(req.files);
+
     const updatedImages = [...newImages, ...uploadedImages];
 
     if (!recipe) return res.status(400).json({ message: 'No recipe was provided.' });
