@@ -47,11 +47,9 @@ export default function RecipeForm({ recipe }) {
   });
 
   const handleFormSubmit = async (data) => {
-    // trigger();
     console.table(`data: ${data}`);
     console.log({ files });
     const formData = new FormData();
-    // formData.append('images', images);
     formData.append('recipe', JSON.stringify(data));
     formData.append('images', JSON.stringify(images));
 
