@@ -50,11 +50,13 @@
   display: flex;
   gap: 1rem;
   width: 100%;
-  max-width: 200px;
   margin-top: 1rem;
 }
 
 .actionBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: none;
   border: none;
   padding: 0.75rem 1rem;
@@ -80,12 +82,7 @@
 }
 
 .deleteBtn {
-  color: var(--clr-error);
-  border: 1px solid currentColor;
-}
-
-.deleteBtn:hover {
-  background: var(--clr-error-light);
+  flex: 1;
 }
 
 .section {
@@ -173,5 +170,9 @@
   .header,
   .section {
     align-items: flex-start;
+  }
+
+  .actionButtons {
+    max-width: 400px;
   }
 }

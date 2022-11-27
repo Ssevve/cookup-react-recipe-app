@@ -11,6 +11,7 @@ import styles from './recipe.module.css';
 
 import ImageCarousel from '../../components/ImageCarousel';
 import LikeButton from '../../components/LikeButton';
+import ConfirmationButton from '../../components/ConfirmationButton';
 
 import useLoggedInUser from '../../hooks/useLoggedInUser';
 
@@ -77,11 +78,14 @@ export default function Recipe() {
                     to={`/recipes/edit/${recipe._id}`}
                     className={cx(styles.actionBtn, styles.editBtn)}
                   >
-                    Edit
+                    Edit Recipe
                   </Link>
-                  <button onClick={handleDelete} type="button" className={cx(styles.actionBtn, styles.deleteBtn)}>
-                    Delete
-                  </button>
+                  <ConfirmationButton
+                    text="Delete Recipe"
+                    confirmText="Really delete?"
+                    callback={handleDelete}
+                    className={styles.deleteBtn}
+                  />
                 </>
               )}
             </div>

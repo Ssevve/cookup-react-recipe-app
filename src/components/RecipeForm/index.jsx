@@ -13,11 +13,12 @@ import { useForm, useFieldArray } from 'react-hook-form';
 import styles from './recipeForm.module.css';
 
 import ImageDropzone from '../ImageDropzone';
+import ConfirmationButton from '../ConfirmationButton';
 
 export default function RecipeForm({ recipe }) {
   const [files, setFiles] = useState([]);
   const [images, setImages] = useState(recipe?.images || []);
-  const [editingRecipe] = useState(recipe);
+  const [isEditingRecipe] = useState(!!recipe);
   const navigate = useNavigate();
   const {
     register,
@@ -47,8 +48,6 @@ export default function RecipeForm({ recipe }) {
   });
 
   const handleFormSubmit = async (data) => {
-    console.table(`data: ${data}`);
-    console.log({ files });
     const formData = new FormData();
     formData.append('recipe', JSON.stringify(data));
     formData.append('images', JSON.stringify(images));
@@ -57,9 +56,9 @@ export default function RecipeForm({ recipe }) {
       formData.append('files', file);
     });
     // eslint-disable-next-line no-underscore-dangle
-    const url = `http://localhost:8000/recipes/${editingRecipe ? editingRecipe._id : ''}`;
+    const url = `http://localhost:8000/recipes/${isEditingRecipe ? recipe._id : ''}`;
     const requestOptions = {
-      method: editingRecipe ? 'PUT' : 'POST',
+      method: isEditingRecipe ? 'PUT' : 'POST',
       body: formData,
       credentials: 'include',
     };
@@ -74,16 +73,16 @@ export default function RecipeForm({ recipe }) {
   };
 
   useEffect(() => {
-    if (editingRecipe) {
-      setValue('name', editingRecipe.name);
-      setValue('description', editingRecipe.description);
-      setValue('dishType', editingRecipe.dishType);
-      setValue('servings', editingRecipe.servings);
-      setValue('difficulty', editingRecipe.difficulty);
-      setValue('prepTime', editingRecipe.prepTime);
-      setValue('cookTime', editingRecipe.cookTime);
-      editingRecipe.ingredients.forEach((ingredient) => ingredientAppend({ name: ingredient }, { shouldFocus: false }));
-      editingRecipe.directions.forEach((direction) => directionAppend({ description: direction }, { shouldFocus: false }));
+    if (isEditingRecipe) {
+      setValue('name', recipe.name);
+      setValue('description', recipe.description);
+      setValue('dishType', recipe.dishType);
+      setValue('servings', recipe.servings);
+      setValue('difficulty', recipe.difficulty);
+      setValue('prepTime', recipe.prepTime);
+      setValue('cookTime', recipe.cookTime);
+      recipe.ingredients.forEach((ingredient) => ingredientAppend({ name: ingredient }, { shouldFocus: false }));
+      recipe.directions.forEach((direction) => directionAppend({ description: direction }, { shouldFocus: false }));
     } else {
       ingredientAppend({ name: '' }, { shouldFocus: false });
       directionAppend({ description: '' }, { shouldFocus: false });
@@ -424,12 +423,18 @@ export default function RecipeForm({ recipe }) {
       <ImageDropzone images={images} setImages={setImages} files={files} setFiles={setFiles} />
 
       <button
-        onClick={() => console.log(errors)}
         className={cx(styles.btn, styles.btnSubmit)}
         type="submit"
       >
-        {editingRecipe ? 'Save' : 'Add recipe'}
+        {isEditingRecipe ? 'Save' : 'Add recipe'}
       </button>
+      {isEditingRecipe && (
+        <ConfirmationButton
+          text="Cancel"
+          confirmText="Discard changes?"
+          callback={() => navigate(-1)}
+        />
+      )}
     </form>
   );
 }
