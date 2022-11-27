@@ -37,21 +37,22 @@
 .navMenu {
   display: flex;
   gap: 3rem;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
+  background: var(--clr-light-primary);
+
+}
+
+.mobileMenu {
+  flex-direction: column;
+  overflow: hidden;
   position: absolute;
   height: calc(100vh - 3.5rem);
   max-height: 0;
   top: 3.5rem;
   left: 0;
   right: 0;
-  background: var(--clr-light-primary);
   transition: max-height 0.2s ease-in-out;
-}
-
-.mobileMenu {
-    overflow: hidden;
 }
 
 .desktopMenu {
