@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable react/prop-types */
 /* eslint-disable max-len */
 /* eslint-disable no-unused-vars */
@@ -18,16 +19,31 @@ import ConfirmationButton from '../ConfirmationButton';
 export default function RecipeForm({ recipe }) {
   const [files, setFiles] = useState([]);
   const [images, setImages] = useState(recipe?.images || []);
+  const [isFormClean, setIsFormClean] = useState(true);
   const [isEditingRecipe] = useState(!!recipe);
   const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     control,
-    formState: { errors },
-    setFocus,
-    setValue,
-  } = useForm({ mode: 'onChange' });
+    formState: { errors, isDirty },
+    watch,
+  } = useForm(
+    {
+      mode: 'onChange',
+      defaultValues: {
+        name: recipe?.name || '',
+        description: recipe?.description || '',
+        dishType: recipe?.dishType || '',
+        servings: recipe?.servings || '',
+        difficulty: recipe?.difficulty || 'moderate',
+        prepTime: recipe?.prepTime || { time: '', unit: 'minutes' },
+        cookTime: recipe?.cookTime || { time: '', unit: 'minutes' },
+        ingredients: recipe?.ingredients.map((ingredient) => ({ name: ingredient })) || [{ name: '' }],
+        directions: recipe?.directions.map((direction) => ({ description: direction })) || [{ description: '' }],
+      },
+    },
+  );
   const {
     fields: ingredientFields,
     append: ingredientAppend,
@@ -55,7 +71,6 @@ export default function RecipeForm({ recipe }) {
     files.forEach((file) => {
       formData.append('files', file);
     });
-    // eslint-disable-next-line no-underscore-dangle
     const url = `http://localhost:8000/recipes/${isEditingRecipe ? recipe._id : ''}`;
     const requestOptions = {
       method: isEditingRecipe ? 'PUT' : 'POST',
@@ -64,32 +79,22 @@ export default function RecipeForm({ recipe }) {
     };
 
     try {
-      await fetch(url, requestOptions);
-      // navigate('/dashboard');
+      const res = await fetch(url, requestOptions);
+      const resData = await res.json();
+      navigate(`/recipes/${resData._id}`);
     } catch (error) {
       // eslint-disable-next-line no-console
       console.log(error);
     }
   };
 
-  useEffect(() => {
-    if (isEditingRecipe) {
-      setValue('name', recipe.name);
-      setValue('description', recipe.description);
-      setValue('dishType', recipe.dishType);
-      setValue('servings', recipe.servings);
-      setValue('difficulty', recipe.difficulty);
-      setValue('prepTime', recipe.prepTime);
-      setValue('cookTime', recipe.cookTime);
-      recipe.ingredients.forEach((ingredient) => ingredientAppend({ name: ingredient }, { shouldFocus: false }));
-      recipe.directions.forEach((direction) => directionAppend({ description: direction }, { shouldFocus: false }));
-    } else {
-      ingredientAppend({ name: '' }, { shouldFocus: false });
-      directionAppend({ description: '' }, { shouldFocus: false });
-    }
+  const checkIsFormClean = () => {
+    setIsFormClean(!isDirty && !files.length && images.length === recipe?.images.length);
+  };
 
-    setFocus('name');
-  }, []);
+  useEffect(() => {
+    checkIsFormClean();
+  }, [files, images, watch()]);
 
   return (
     <form noValidate className={styles.form} onSubmit={handleSubmit(handleFormSubmit)}>
@@ -433,6 +438,7 @@ export default function RecipeForm({ recipe }) {
           text="Cancel"
           confirmText="Discard changes?"
           callback={() => navigate(-1)}
+          bypassConfirmation={isFormClean}
         />
       )}
     </form>
