@@ -3,8 +3,8 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
+import { useParams, Link, useNavigate } from 'react-router-dom';
+import { AiOutlineHeart } from 'react-icons/ai';
 import cx from 'classnames';
 
 import styles from './recipe.module.css';
@@ -15,6 +15,7 @@ import LikeButton from '../../components/LikeButton';
 import useLoggedInUser from '../../hooks/useLoggedInUser';
 
 export default function Recipe() {
+  const navigate = useNavigate();
   const { recipeId } = useParams();
   const [recipe, setRecipe] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -31,20 +32,14 @@ export default function Recipe() {
     }
   };
 
-  const handleLikeClick = async () => {
-    if (!loggedInUser) return;
-
-    if (loggedInUser.id === recipe.createdBy) return;
-
+  const handleDelete = async () => {
     try {
-      const res = await fetch(`http://localhost:8000/recipes/like/${recipeId}`, {
-        method: 'PUT',
+      const res = await fetch(`http://localhost:8000/recipes/${recipeId}`, {
+        method: 'DELETE',
         credentials: 'include',
       });
 
-      if (res.ok) {
-        fetchRecipe();
-      }
+      if (res.ok) navigate(-1);
     } catch (error) {
       console.log(error);
     }
@@ -84,7 +79,7 @@ export default function Recipe() {
                   >
                     Edit
                   </Link>
-                  <button type="button" className={cx(styles.actionBtn, styles.deleteBtn)}>
+                  <button onClick={handleDelete} type="button" className={cx(styles.actionBtn, styles.deleteBtn)}>
                     Delete
                   </button>
                 </>
