@@ -47,31 +47,8 @@ export default function Profile() {
     Promise.all([fetchProfileUser(), fetchRecipes()])
       .then(() => {
         setIsLoading(false);
-        console.log(loggedInUser);
       });
   }, []);
-
-  // const handleLikeClick = async (e, recipeId) => {
-  //   e.preventDefault();
-
-  //   if (!loggedInUser) return;
-
-  //   const targetRecipe = userRecipes.find((recipe) => recipe._id === recipeId);
-  //   if (loggedInUser.id === targetRecipe.createdBy) return;
-
-  //   try {
-  //     const res = await fetch(`http://localhost:8000/recipes/like/${recipeId}`, {
-  //       method: 'PUT',
-  //       credentials: 'include',
-  //     });
-
-  //     if (res.ok) {
-  //       fetchRecipes();
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
 
   return (
     <div className={styles.container}>
