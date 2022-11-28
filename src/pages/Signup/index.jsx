@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form';
 
 import styles from './signup.module.css';
 
+import PageContainer from '../../components/PageContainer';
 import PageTitle from '../../components/PageTitle';
 
 export default function Signup() {
@@ -44,7 +45,7 @@ export default function Signup() {
   }
 
   return (
-    <div className={styles.container}>
+    <PageContainer>
       <section className={styles.formSection}>
         <PageTitle>Sign up</PageTitle>
         <p className={styles.existingUser}>
@@ -181,6 +182,6 @@ export default function Signup() {
         </form>
       </section>
       <section className={styles.signupImage} />
-    </div>
+    </PageContainer>
   );
 }
