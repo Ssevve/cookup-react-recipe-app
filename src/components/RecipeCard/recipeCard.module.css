@@ -1,4 +1,3 @@
-
 .card {
   display: grid;
   align-content: start;
@@ -6,6 +5,10 @@
   height: 100%;
   border-radius: var(--border-radius);
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2);
+}
+
+.name {
+  word-break: break-all;
 }
 
 .card:hover .name {

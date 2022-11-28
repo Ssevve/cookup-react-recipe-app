@@ -4,13 +4,12 @@
 }
 
 .recipes {
-  flex: 1;
+  width: 100%;
   display: grid;
   justify-content: center;
   gap: 1rem;
   grid-template-columns: repeat(auto-fit, minmax(200px, 307px));
 }
-
 
 @media screen and (min-width: 45em) {
   .title {
@@ -20,6 +19,6 @@
 
   .recipes {
     justify-content: start;
-    grid-template-columns: repeat(auto-fit, minmax(307px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 286px));
   }
 }
