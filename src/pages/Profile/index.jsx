@@ -10,6 +10,8 @@ import cx from 'classnames';
 import useLoggedInUser from '../../hooks/useLoggedInUser';
 
 import styles from './profile.module.css';
+
+import PageContainer from '../../components/PageContainer';
 import RecipeCard from '../../components/RecipeCard';
 
 export default function Profile() {
@@ -50,7 +52,7 @@ export default function Profile() {
   }, []);
 
   return (
-    <div className={styles.container}>
+    <PageContainer column>
       {!isLoading && !isLoadingLoggedInUser && (
         <>
           <section className={styles.userInfo}>
@@ -88,6 +90,6 @@ export default function Profile() {
           </section>
         </>
       )}
-    </div>
+    </PageContainer>
   );
 }

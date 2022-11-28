@@ -7,6 +7,8 @@ import { useForm } from 'react-hook-form';
 
 import styles from './login.module.css';
 
+import PageContainer from '../../components/PageContainer';
+
 export default function Login({ setUser }) {
   const [responseError, setResponseError] = useState('');
   const navigate = useNavigate();
@@ -45,7 +47,7 @@ export default function Login({ setUser }) {
   }
 
   return (
-    <div className={styles.container}>
+    <PageContainer>
       <section className={styles.formSection}>
         <h1 className={styles.title}>Log in</h1>
         <p className={styles.newUser}>
@@ -95,6 +97,6 @@ export default function Login({ setUser }) {
         </form>
       </section>
       <section className={styles.loginImage} />
-    </div>
+    </PageContainer>
   );
 }

@@ -14,6 +14,7 @@ import LikeButton from '../../components/LikeButton';
 import ConfirmationButton from '../../components/ConfirmationButton';
 
 import useLoggedInUser from '../../hooks/useLoggedInUser';
+import PageContainer from '../../components/PageContainer';
 
 export default function Recipe() {
   const navigate = useNavigate();
@@ -53,7 +54,7 @@ export default function Recipe() {
   return (
     !isLoading
     && !isLoadingLoggedInUser && (
-      <div className={styles.container}>
+      <PageContainer column small>
         <div className={styles.header}>
           <h1 className={styles.title}>{recipe.name}</h1>
           <span className={styles.dishType}>{recipe.dishType}</span>
@@ -141,7 +142,7 @@ export default function Recipe() {
             ))}
           </div>
         </section>
-      </div>
+      </PageContainer>
     )
   );
 }

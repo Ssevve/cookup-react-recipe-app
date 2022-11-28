@@ -6,6 +6,7 @@ import React, { useState, useEffect } from 'react';
 
 import styles from './browseRecipes.module.css';
 
+import PageContainer from '../../components/PageContainer';
 import RecipeCard from '../../components/RecipeCard';
 
 export default function BrowseRecipes({ user }) {
@@ -26,7 +27,7 @@ export default function BrowseRecipes({ user }) {
   }, []);
 
   return (
-    <div className={styles.container}>
+    <PageContainer column alignStretch>
       <h1 className={styles.title}>Browse recipes</h1>
       {recipes.length ? (
         <ul className={styles.recipes}>
@@ -39,6 +40,6 @@ export default function BrowseRecipes({ user }) {
       ) : (
         <p>No recipes to show!</p>
       )}
-    </div>
+    </PageContainer>
   );
 }

@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import styles from './editRecipe.module.css';
 
+import PageContainer from '../../components/PageContainer';
 import RecipeForm from '../../components/RecipeForm';
 
 export default function EditRecipe() {
@@ -25,9 +26,9 @@ export default function EditRecipe() {
     getRecipe();
   }, []);
   return (
-    <section className={styles.container}>
+    <PageContainer column>
       <h1 className={styles.title}>Edit recipe</h1>
       {!loading && <RecipeForm recipe={recipe} />}
-    </section>
+    </PageContainer>
   );
 }

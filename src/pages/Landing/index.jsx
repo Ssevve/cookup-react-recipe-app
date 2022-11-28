@@ -4,9 +4,11 @@ import cx from 'classnames';
 
 import styles from './landing.module.css';
 
+import PageContainer from '../../components/PageContainer';
+
 export default function Landing() {
   return (
-    <div className={styles.container}>
+    <PageContainer>
       <section className={styles.content}>
         <h1 className={styles.title}>
           Cookup.
@@ -27,6 +29,6 @@ export default function Landing() {
         </div>
       </section>
       <div className={styles.heroImage} />
-    </div>
+    </PageContainer>
   );
 }
