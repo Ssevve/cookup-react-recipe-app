@@ -51,7 +51,6 @@ export default function LoginPage({ setUser }) {
     <PageContainer>
       <section className={styles.formSection}>
         <PageTitle>Log in</PageTitle>
-        {/* <h1 className={styles.title}>Log in</h1> */}
         <p className={styles.newUser}>
           New user?
           <Link className={styles.link} to="/signup">
