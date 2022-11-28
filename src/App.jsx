@@ -4,15 +4,15 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './index.css';
 
 import Layout from './components/Layout';
-import Landing from './pages/Landing';
-import Login from './pages/Login';
-import Signup from './pages/Signup';
+import LandingPage from './pages/LandingPage';
+import LoginPage from './pages/LoginPage';
+import SignupPage from './pages/SignupPage';
 import PrivateRoutes from './utils/PrivateRoutes';
-import AddRecipe from './pages/AddRecipe';
-import BrowseRecipes from './pages/BrowseRecipes';
-import Profile from './pages/Profile';
-import Recipe from './pages/Recipe';
-import EditRecipe from './pages/EditRecipe';
+import AddRecipePage from './pages/AddRecipePage';
+import BrowseRecipesPage from './pages/BrowseRecipesPage';
+import ProfilePage from './pages/ProfilePage';
+import RecipePage from './pages/RecipePage';
+import EditRecipe from './pages/EditRecipePage';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -38,15 +38,15 @@ function App() {
       <Layout user={user} setUser={setUser}>
         <Routes>
           {/* Public Routes */}
-          <Route path="/" element={<Landing />} />
-          <Route path="/login" element={<Login setUser={setUser} />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/recipes/browse" element={<BrowseRecipes user={user} />} />
-          <Route path="/profile/:userId" element={<Profile user={user} />} />
-          <Route path="/recipes/:recipeId" element={<Recipe />} />
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/login" element={<LoginPage setUser={setUser} />} />
+          <Route path="/signup" element={<SignupPage />} />
+          <Route path="/recipes/browse" element={<BrowseRecipesPage user={user} />} />
+          <Route path="/profile/:userId" element={<ProfilePage user={user} />} />
+          <Route path="/recipes/:recipeId" element={<RecipePage />} />
           {/* Private Routes */}
           <Route element={<PrivateRoutes />}>
-            <Route path="/recipes/add" element={<AddRecipe />} />
+            <Route path="/recipes/add" element={<AddRecipePage />} />
             <Route path="/recipes/edit/:recipeId" element={<EditRecipe />} />
           </Route>
         </Routes>

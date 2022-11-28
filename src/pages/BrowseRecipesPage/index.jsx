@@ -4,13 +4,13 @@
 /* eslint-disable no-underscore-dangle */
 import React, { useState, useEffect } from 'react';
 
-import styles from './browseRecipes.module.css';
+import styles from './browseRecipesPage.module.css';
 
 import PageContainer from '../../components/PageContainer';
 import PageTitle from '../../components/PageTitle';
 import RecipeCard from '../../components/RecipeCard';
 
-export default function BrowseRecipes({ user }) {
+export default function BrowseRecipesPage({ user }) {
   const [recipes, setRecipes] = useState([]);
 
   const fetchRecipes = async () => {
@@ -30,7 +30,6 @@ export default function BrowseRecipes({ user }) {
   return (
     <PageContainer column alignStretch>
       <PageTitle>Browse recipes</PageTitle>
-      {/* <h1 className={styles.title}>Browse recipes</h1> */}
       {recipes.length ? (
         <ul className={styles.recipes}>
           {recipes.map((recipe) => (

@@ -2,12 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import cx from 'classnames';
 
-import styles from './landing.module.css';
+import styles from './landingPage.module.css';
 
 import PageContainer from '../../components/PageContainer';
 import PageTitle from '../../components/PageTitle';
 
-export default function Landing() {
+export default function LandingPage() {
   return (
     <PageContainer>
       <section className={styles.content}>

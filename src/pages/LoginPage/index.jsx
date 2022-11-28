@@ -5,12 +5,12 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
-import styles from './login.module.css';
+import styles from './loginPage.module.css';
 
 import PageContainer from '../../components/PageContainer';
 import PageTitle from '../../components/PageTitle';
 
-export default function Login({ setUser }) {
+export default function LoginPage({ setUser }) {
   const [responseError, setResponseError] = useState('');
   const navigate = useNavigate();
   const {

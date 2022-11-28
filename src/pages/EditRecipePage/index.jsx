@@ -5,7 +5,7 @@ import PageContainer from '../../components/PageContainer';
 import PageTitle from '../../components/PageTitle';
 import RecipeForm from '../../components/RecipeForm';
 
-export default function EditRecipe() {
+export default function EditRecipePage() {
   const { recipeId } = useParams();
   const [recipe, setRecipe] = useState(undefined);
   const [loading, setLoading] = useState(true);
@@ -27,7 +27,6 @@ export default function EditRecipe() {
   return (
     <PageContainer column>
       <PageTitle>Edit recipe</PageTitle>
-      {/* <h1 className={styles.title}>Edit recipe</h1> */}
       {!loading && <RecipeForm recipe={recipe} />}
     </PageContainer>
   );

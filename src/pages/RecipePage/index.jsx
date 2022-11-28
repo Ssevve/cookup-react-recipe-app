@@ -7,7 +7,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import { AiOutlineHeart } from 'react-icons/ai';
 import cx from 'classnames';
 
-import styles from './recipe.module.css';
+import styles from './recipePage.module.css';
 
 import ImageCarousel from '../../components/ImageCarousel';
 import LikeButton from '../../components/LikeButton';
@@ -16,7 +16,7 @@ import ConfirmationButton from '../../components/ConfirmationButton';
 import useLoggedInUser from '../../hooks/useLoggedInUser';
 import PageContainer from '../../components/PageContainer';
 
-export default function Recipe() {
+export default function RecipePage() {
   const navigate = useNavigate();
   const { recipeId } = useParams();
   const [recipe, setRecipe] = useState(null);

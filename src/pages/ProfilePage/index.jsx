@@ -9,12 +9,12 @@ import cx from 'classnames';
 
 import useLoggedInUser from '../../hooks/useLoggedInUser';
 
-import styles from './profile.module.css';
+import styles from './profilePage.module.css';
 
 import PageContainer from '../../components/PageContainer';
 import RecipeCard from '../../components/RecipeCard';
 
-export default function Profile() {
+export default function ProfilePage() {
   const { userId: profileUserId } = useParams();
   const [userRecipes, setUserRecipes] = useState(undefined);
   const [likedRecipes, setLikedRecipes] = useState(undefined);

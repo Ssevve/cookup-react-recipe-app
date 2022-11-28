@@ -5,12 +5,12 @@ import { useNavigate, Link } from 'react-router-dom';
 import cx from 'classnames';
 import { useForm } from 'react-hook-form';
 
-import styles from './signup.module.css';
+import styles from './signupPage.module.css';
 
 import PageContainer from '../../components/PageContainer';
 import PageTitle from '../../components/PageTitle';
 
-export default function Signup() {
+export default function SignupPage() {
   const [responseErrors, setResponseErrors] = useState({});
   const navigate = useNavigate();
   const {
