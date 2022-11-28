@@ -8,6 +8,7 @@ import { useForm } from 'react-hook-form';
 import styles from './login.module.css';
 
 import PageContainer from '../../components/PageContainer';
+import PageTitle from '../../components/PageTitle';
 
 export default function Login({ setUser }) {
   const [responseError, setResponseError] = useState('');
@@ -49,7 +50,8 @@ export default function Login({ setUser }) {
   return (
     <PageContainer>
       <section className={styles.formSection}>
-        <h1 className={styles.title}>Log in</h1>
+        <PageTitle>Log in</PageTitle>
+        {/* <h1 className={styles.title}>Log in</h1> */}
         <p className={styles.newUser}>
           New user?
           <Link className={styles.link} to="/signup">

@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-import styles from './editRecipe.module.css';
-
 import PageContainer from '../../components/PageContainer';
+import PageTitle from '../../components/PageTitle';
 import RecipeForm from '../../components/RecipeForm';
 
 export default function EditRecipe() {
@@ -27,7 +26,8 @@ export default function EditRecipe() {
   }, []);
   return (
     <PageContainer column>
-      <h1 className={styles.title}>Edit recipe</h1>
+      <PageTitle>Edit recipe</PageTitle>
+      {/* <h1 className={styles.title}>Edit recipe</h1> */}
       {!loading && <RecipeForm recipe={recipe} />}
     </PageContainer>
   );

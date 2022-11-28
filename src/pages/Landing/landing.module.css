@@ -8,10 +8,10 @@
   gap: 3rem;
 }
 
-.title {
+/* .title {
   font-size: clamp(2.5rem, 9vw, 5rem);
   line-height: 1.1;
-}
+} */
 
 .highlightedText {
   color: var(--clr-accent);

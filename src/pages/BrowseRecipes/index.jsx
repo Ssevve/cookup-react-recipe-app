@@ -7,6 +7,7 @@ import React, { useState, useEffect } from 'react';
 import styles from './browseRecipes.module.css';
 
 import PageContainer from '../../components/PageContainer';
+import PageTitle from '../../components/PageTitle';
 import RecipeCard from '../../components/RecipeCard';
 
 export default function BrowseRecipes({ user }) {
@@ -28,7 +29,8 @@ export default function BrowseRecipes({ user }) {
 
   return (
     <PageContainer column alignStretch>
-      <h1 className={styles.title}>Browse recipes</h1>
+      <PageTitle>Browse recipes</PageTitle>
+      {/* <h1 className={styles.title}>Browse recipes</h1> */}
       {recipes.length ? (
         <ul className={styles.recipes}>
           {recipes.map((recipe) => (

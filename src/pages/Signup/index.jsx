@@ -7,6 +7,8 @@ import { useForm } from 'react-hook-form';
 
 import styles from './signup.module.css';
 
+import PageTitle from '../../components/PageTitle';
+
 export default function Signup() {
   const [responseErrors, setResponseErrors] = useState({});
   const navigate = useNavigate();
@@ -44,7 +46,7 @@ export default function Signup() {
   return (
     <div className={styles.container}>
       <section className={styles.formSection}>
-        <h1 className={styles.title}>Sign up</h1>
+        <PageTitle>Sign up</PageTitle>
         <p className={styles.existingUser}>
           Existing user?
           <Link className={styles.link} to="/login">
