@@ -1,45 +1,30 @@
+/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable import/prefer-default-export */
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 // /* eslint-disable react/jsx-props-no-spreading */
-// import React from 'react';
+import React from 'react';
 // import PropTypes from 'prop-types';
 
-// import styles from './formFields.module.css';
+import styles from './formFields.module.css';
 
-// export function Input({
-//   register, name, validationRules, error, label, title, ...rest
-// }) {
-//   return (
-//     <div className={styles.group}>
-//       {label ? (
-//         <label className={styles.label} htmlFor={name}>
-//           {label}
-//           <input
-//             {...register(name, validationRules)}
-//             className={styles.input}
-//             id={name}
-//             name={name}
-//             aria-invalid={error ? 'true' : 'false'}
-//             {...rest}
-//           />
-//         </label>
-//       ) : (
-//         <input
-//           {...register(name, validationRules)}
-//           className={styles.input}
-//           id={name}
-//           title={title}
-//           name={name}
-//           aria-invalid={error ? 'true' : 'false'}
-//           {...rest}
-//         />
-//       )}
-//       {error && (
-//         <span role="alert" className={styles.errorMessage}>
-//           {error.message}
-//         </span>
-//       )}
-//     </div>
-//   );
-// }
+export function Input({
+  name, label, register, validationRules, ...rest
+}) {
+  return (
+    <label className={styles.label} htmlFor={name}>
+      {label}
+      <input
+        {...register(name, validationRules)}
+        className={styles.input}
+        id={name}
+        type="text"
+        name={name}
+        {...rest}
+      />
+    </label>
+  );
+}
 
 // export function Select({
 //   register, options, name, label, title, ...rest

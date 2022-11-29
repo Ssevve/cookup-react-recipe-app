@@ -1,14 +1,18 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
+import login from '../../lib/login';
+
 import styles from './loginPage.module.css';
 
 import PageContainer from '../../components/PageContainer';
 import PageTitle from '../../components/PageTitle';
+import ErrorBox from '../../components/ErrorBox';
+import Form from '../../components/Form';
+import { Input } from '../../components/FormFields';
+import Button from '../../components/Button';
 
 export default function LoginPage({ setUser }) {
   const [responseError, setResponseError] = useState('');
@@ -20,18 +24,8 @@ export default function LoginPage({ setUser }) {
   } = useForm({ reValidateMode: 'onSubmit' });
 
   async function handleFormSubmit(data) {
-    const url = 'http://localhost:8000/auth/login';
-    const requestOptions = {
-      method: 'POST',
-      credentials: 'include',
-      headers: {
-        'content-type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    };
-
     try {
-      const res = await fetch(url, requestOptions);
+      const res = await login(data);
       const resData = await res.json();
 
       if (res.status === 400 || res.status === 401) setResponseError(resData.message);
@@ -58,44 +52,32 @@ export default function LoginPage({ setUser }) {
           </Link>
         </p>
         {(errors.email || errors.password || responseError) && (
-          <div className={styles.errorBox}>
-            <span>{responseError || 'Incorrect email or password.'}</span>
-            <span>Please try again.</span>
-          </div>
+          <ErrorBox message={responseError || 'Invalid email or password'} />
         )}
-        <form className={styles.form} onSubmit={handleSubmit(handleFormSubmit)} noValidate>
-          <div className="form-group">
-            <label className={styles.label} htmlFor="email">
-              Email
-              <input
-                {...register('email', {
-                  required: true,
-                  pattern:
-                    /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g,
-                })}
-                className={styles.input}
-                id="email"
-                type="email"
-                name="email"
-              />
-            </label>
-          </div>
-          <div className="form-group">
-            <label className={styles.label} htmlFor="password">
-              Password
-              <input
-                {...register('password', { required: true, minLength: 8 })}
-                className={styles.input}
-                id="password"
-                type="password"
-                name="password"
-              />
-            </label>
-          </div>
-          <button className={styles.btn} type="submit">
-            Login
-          </button>
-        </form>
+        <Form onSubmit={handleSubmit(handleFormSubmit)}>
+          <Input
+            register={register}
+            validationRules={{
+              required: true,
+              pattern:
+                /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g,
+            }}
+            name="email"
+            label="Email"
+            type="email"
+          />
+          <Input
+            register={register}
+            validationRules={{
+              required: true,
+              minLength: 8,
+            }}
+            name="password"
+            label="Password"
+            type="password"
+          />
+          <Button submit>Login</Button>
+        </Form>
       </section>
       <section className={styles.loginImage} />
     </PageContainer>

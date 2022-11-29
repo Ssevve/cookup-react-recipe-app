@@ -23,65 +23,6 @@
   color: var(--clr-accent-hover);
 }
 
-.form {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  width: 100%;
-  max-width: 400px;
-}
-
-.errorBox {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  font-size: 0.875rem;
-  border: 1px solid var(--clr-error);
-  border-radius: var(--border-radius);
-  padding-block: 1rem;
-  color: var(--clr-error);
-  background: var(--clr-error-light);
-  width: 100%;
-  max-width: 400px;
-}
-
-.label {
-  display: flex;
-  flex-direction: column;
-  gap: 0.1rem;
-  font-size: 0.875rem;
-}
-
-.input {
-  border: 1px solid #000;
-  padding: 0.5rem;
-  border-radius: var(--border-radius);
-  font-family: inherit;
-  width: 0;
-  min-width: 100%;
-  font-size: 1rem;
-}
-
-.btn {
-  cursor: pointer;
-  text-align: center;
-  flex: 1;
-  padding: 0.75rem 0.5rem;
-  border-radius: var(--border-radius);
-  background: var(--clr-accent);
-  color: var(--clr-light-primary);
-  border: 1px solid var(--clr-accent);
-  font-weight: var(--font-weight-bold);
-  margin-top: 1rem;
-  transition: background 0.1s ease-in-out;
-  font-size: 1rem;
-}
-
-.btn:hover {
-  background: var(--clr-accent-hover);
-  border-color: var(--clr-accent-hover);
-}
-
 @media screen and (min-width: 45em) {
   .formSection {
     flex: 0.4;
@@ -89,10 +30,6 @@
 
   .newUser {
     margin-bottom: 1rem;
-  }
-
-  .form {
-    gap: 2rem;
   }
 
   .loginImage {
@@ -117,5 +54,4 @@
     height: 100%;
     background: rgba(0, 0, 0, 0.4);
   }
-
 }

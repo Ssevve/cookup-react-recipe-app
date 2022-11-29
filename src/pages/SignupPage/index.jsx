@@ -61,7 +61,7 @@ export default function SignupPage() {
           </div>
         )}
         <form className={styles.form} onSubmit={handleSubmit(handleFormSubmit)} noValidate>
-          <div className="form-group">
+          <div>
             <label className={styles.label} htmlFor="first-name">
               First name
               <input
@@ -81,7 +81,7 @@ export default function SignupPage() {
               {errors?.firstName?.message}
             </span>
           </div>
-          <div className="form-group">
+          <div>
             <label className={styles.label} htmlFor="last-name">
               Last name
               <input
@@ -101,7 +101,7 @@ export default function SignupPage() {
               {errors?.lastName?.message}
             </span>
           </div>
-          <div className="form-group">
+          <div>
             <label className={styles.label} htmlFor="email">
               Email
               <input
@@ -126,7 +126,7 @@ export default function SignupPage() {
               {errors?.email?.message || responseErrors?.email}
             </span>
           </div>
-          <div className="form-group">
+          <div>
             <label className={styles.label} htmlFor="password">
               Password
               <input
@@ -150,7 +150,7 @@ export default function SignupPage() {
               {errors?.password?.message}
             </span>
           </div>
-          <div className="form-group">
+          <div>
             <label className={styles.label} htmlFor="confirm-password">
               Confirm Password
               <input

@@ -1,0 +1,16 @@
+.label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  font-size: 0.875rem;
+}
+
+.input {
+  border: 1px solid #000;
+  padding: 0.5rem;
+  border-radius: var(--border-radius);
+  font-family: inherit;
+  width: 0;
+  min-width: 100%;
+  font-size: 1rem;
+}
