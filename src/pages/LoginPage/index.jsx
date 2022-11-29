@@ -54,7 +54,7 @@ export default function LoginPage({ setUser }) {
         {(errors.email || errors.password || responseError) && (
           <ErrorBox message={responseError || 'Invalid email or password'} />
         )}
-        <Form onSubmit={handleSubmit(handleFormSubmit)}>
+        <Form highGap onSubmit={handleSubmit(handleFormSubmit)}>
           <Input
             register={register}
             validationRules={{
@@ -76,7 +76,7 @@ export default function LoginPage({ setUser }) {
             label="Password"
             type="password"
           />
-          <Button submit>Login</Button>
+          <Button submit>Log in</Button>
         </Form>
       </section>
       <section className={styles.loginImage} />

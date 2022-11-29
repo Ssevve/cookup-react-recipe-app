@@ -4,19 +4,20 @@
 /* eslint-disable react/prop-types */
 // /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
+import cx from 'classnames';
 // import PropTypes from 'prop-types';
 
 import styles from './formFields.module.css';
 
 export function Input({
-  name, label, register, validationRules, ...rest
+  name, label, register, validationRules, errors, ...rest
 }) {
   return (
     <label className={styles.label} htmlFor={name}>
       {label}
       <input
         {...register(name, validationRules)}
-        className={styles.input}
+        className={cx(styles.input, errors?.[name] && styles.error)}
         id={name}
         type="text"
         name={name}

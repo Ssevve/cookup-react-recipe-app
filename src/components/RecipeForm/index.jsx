@@ -7,8 +7,6 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import cx from 'classnames';
 import { BsTrash2 } from 'react-icons/bs';
-// import { AiOutlineCloudUpload } from 'react-icons/ai';
-// import Dropzone from 'react-dropzone';
 import { useForm, useFieldArray } from 'react-hook-form';
 
 import styles from './recipeForm.module.css';

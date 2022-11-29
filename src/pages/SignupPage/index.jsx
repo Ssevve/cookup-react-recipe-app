@@ -1,17 +1,24 @@
+/* eslint-disable consistent-return */
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import cx from 'classnames';
 import { useForm } from 'react-hook-form';
+
+import signup from '../../lib/signup';
 
 import styles from './signupPage.module.css';
 
 import PageContainer from '../../components/PageContainer';
 import PageTitle from '../../components/PageTitle';
+import ErrorBox from '../../components/ErrorBox';
+import Form from '../../components/Form';
+import { Input } from '../../components/FormFields';
+import FormInputErrorMessage from '../../components/FormInputErrorMessage';
+import Button from '../../components/Button';
 
 export default function SignupPage() {
-  const [responseErrors, setResponseErrors] = useState({});
+  const [responseErrors, setResponseErrors] = useState(undefined);
   const navigate = useNavigate();
   const {
     register,
@@ -19,25 +26,15 @@ export default function SignupPage() {
     watch,
     formState: { errors },
   } = useForm({ mode: 'onChange' });
+
   async function handleFormSubmit(data) {
-    console.log(data);
-
-    const url = 'http://localhost:8000/auth/signup';
-    const requestOptions = {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    };
-
     try {
-      const res = await fetch(url, requestOptions);
+      const res = await signup(data);
       const resData = await res.json();
 
       if (res.status === 400 || res.status === 409) setResponseErrors(resData.message);
-      else if (res.status === 404) setResponseErrors({ notFound: 'Something went wrong.' });
-      else if (res.status === 500) setResponseErrors({ serverError: 'Server error.' });
+      else if (res.status === 404) setResponseErrors({ message: 'Something went wrong.' });
+      else if (res.status === 500) setResponseErrors({ message: 'Server error.' });
       else navigate('/login');
     } catch (error) {
       console.log(error);
@@ -54,132 +51,87 @@ export default function SignupPage() {
             Log in
           </Link>
         </p>
-        {(responseErrors.notFound || responseErrors.serverError) && (
-          <div className={styles.errorBox}>
-            <span role="alert">{responseErrors.notFound || responseErrors.serverError}</span>
-            <span role="alert">Please try again.</span>
-          </div>
-        )}
-        <form className={styles.form} onSubmit={handleSubmit(handleFormSubmit)} noValidate>
+        {responseErrors && <ErrorBox message={responseErrors} />}
+        <Form onSubmit={handleSubmit(handleFormSubmit)}>
           <div>
-            <label className={styles.label} htmlFor="first-name">
-              First name
-              <input
-                {...register('firstName', {
-                  required: { value: true, message: 'First name is required' },
-                })}
-                className={cx(
-                  styles.input,
-                  errors.firstName && styles.error,
-                )}
-                id="first-name"
-                type="text"
-                name="firstName"
-              />
-            </label>
-            <span role="alert" className={styles.errorMessage}>
-              {errors?.firstName?.message}
-            </span>
+            <Input
+              register={register}
+              validationRules={{ required: { value: true, message: 'First name is required' } }}
+              name="firstName"
+              label="First name"
+              errors={errors}
+            />
+            <FormInputErrorMessage message={errors?.firstName?.message} />
           </div>
           <div>
-            <label className={styles.label} htmlFor="last-name">
-              Last name
-              <input
-                {...register('lastName', {
-                  required: { value: true, message: 'Last name is required' },
-                })}
-                className={cx(
-                  styles.input,
-                  errors.lastName && styles.error,
-                )}
-                id="last-name"
-                type="text"
-                name="lastName"
-              />
-            </label>
-            <span role="alert" className={styles.errorMessage}>
-              {errors?.lastName?.message}
-            </span>
+            <Input
+              register={register}
+              validationRules={{ required: { value: true, message: 'Last name is required' } }}
+              name="lastName"
+              label="Last name"
+              errors={errors}
+            />
+            <FormInputErrorMessage message={errors?.lastName?.message} />
           </div>
           <div>
-            <label className={styles.label} htmlFor="email">
-              Email
-              <input
-                {...register('email', {
-                  required: { value: true, message: 'Email is required' },
-                  pattern: {
-                    value:
-                      /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/,
-                    message: 'Incorrect email format',
-                  },
-                })}
-                className={cx(
-                  styles.input,
-                  (errors.email || responseErrors.email) && styles.error,
-                )}
-                id="email"
-                type="email"
-                name="email"
-              />
-            </label>
-            <span role="alert" className={styles.errorMessage}>
-              {errors?.email?.message || responseErrors?.email}
-            </span>
+            <Input
+              register={register}
+              validationRules={{
+                required: { value: true, message: 'Email is required' },
+                pattern: {
+                  value:
+                    /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/,
+                  message: 'Incorrect email format',
+                },
+              }}
+              name="email"
+              label="Email"
+              errors={errors}
+              type="email"
+            />
+            <FormInputErrorMessage message={errors?.email?.message} />
           </div>
           <div>
-            <label className={styles.label} htmlFor="password">
-              Password
-              <input
-                {...register('password', {
-                  required: { value: true, message: 'Password is required' },
-                  minLength: {
-                    value: 8,
-                    message: 'Min. 8 characters required',
-                  },
-                })}
-                className={cx(
-                  styles.input,
-                  errors.password && styles.error,
-                )}
-                id="password"
-                type="password"
-                name="password"
-              />
-            </label>
-            <span role="alert" className={styles.errorMessage}>
-              {errors?.password?.message}
-            </span>
+            <Input
+              register={register}
+              validationRules={{
+                required: { value: true, message: 'Password is required' },
+                minLength: {
+                  value: 8,
+                  message: 'Min. 8 characters required',
+                },
+              }}
+              name="password"
+              label="Password"
+              type="password"
+              errors={errors}
+            />
+            <FormInputErrorMessage message={errors?.password?.message} />
           </div>
           <div>
-            <label className={styles.label} htmlFor="confirm-password">
-              Confirm Password
-              <input
-                {...register('confirmPassword', {
-                  required: { value: true, message: 'You need to confirm the password' },
-                  // eslint-disable-next-line consistent-return
-                  validate: (value) => {
-                    if (watch('password') !== value) {
-                      return 'Passwords do not match';
-                    }
-                  },
-                })}
-                className={cx(
-                  styles.input,
-                  errors.confirmPassword && styles.error,
-                )}
-                id="confirm-password"
-                type="password"
-                name="confirmPassword"
-              />
-            </label>
-            <span role="alert" className={styles.errorMessage}>
-              {errors?.confirmPassword?.message}
-            </span>
+            <Input
+              register={register}
+              validationRules={{
+                required: { value: true, message: 'You need to confirm the password' },
+                validate: (value) => {
+                  if (watch('password') !== value) {
+                    return 'Passwords do not match';
+                  }
+                },
+                minLength: {
+                  value: 8,
+                  message: 'Min. 8 characters required',
+                },
+              }}
+              name="confirmPassword"
+              label="Confirm password"
+              type="password"
+              errors={errors}
+            />
+            <FormInputErrorMessage message={errors?.confirmPassword?.message} />
           </div>
-          <button className={styles.btn} type="submit">
-            Signup
-          </button>
-        </form>
+          <Button submit>Sign up</Button>
+        </Form>
       </section>
       <section className={styles.signupImage} />
     </PageContainer>
