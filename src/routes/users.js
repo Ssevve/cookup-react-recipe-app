@@ -2,16 +2,8 @@
 /* eslint-disable no-underscore-dangle */
 const router = require('express').Router();
 
-const User = require('../models/User');
+const usersController = require('../controllers/users');
 
-router.get('/:userId', async (req, res, next) => {
-  try {
-    const user = await User.findById({ _id: req.params.userId })
-      .select('firstName lastName _id avatar');
-    res.status(200).json(user);
-  } catch (error) {
-    next(error);
-  }
-});
+router.get('/:userId', usersController.getUserProfileInfo);
 
 module.exports = router;
