@@ -9,21 +9,26 @@ import cx from 'classnames';
 
 import styles from './formFields.module.css';
 
+import FormInputErrorMessage from '../FormInputErrorMessage';
+
 export function Input({
   name, label, register, validationRules, errors, ...rest
 }) {
   return (
-    <label className={styles.label} htmlFor={name}>
-      {label}
-      <input
-        {...register(name, validationRules)}
-        className={cx(styles.input, errors?.[name] && styles.error)}
-        id={name}
-        type="text"
-        name={name}
-        {...rest}
-      />
-    </label>
+    <div>
+      <label className={styles.label} htmlFor={name}>
+        {label}
+        <input
+          {...register(name, validationRules)}
+          className={cx(styles.input, errors?.[name] && styles.error)}
+          id={name}
+          type="text"
+          name={name}
+          {...rest}
+        />
+      </label>
+      <FormInputErrorMessage message={errors?.[name]?.message} />
+    </div>
   );
 }
 

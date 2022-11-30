@@ -53,83 +53,68 @@ export default function SignupPage() {
         </p>
         {responseErrors && <ErrorBox message={responseErrors} />}
         <Form onSubmit={handleSubmit(handleFormSubmit)}>
-          <div>
-            <Input
-              register={register}
-              validationRules={{ required: { value: true, message: 'First name is required' } }}
-              name="firstName"
-              label="First name"
-              errors={errors}
-            />
-            <FormInputErrorMessage message={errors?.firstName?.message} />
-          </div>
-          <div>
-            <Input
-              register={register}
-              validationRules={{ required: { value: true, message: 'Last name is required' } }}
-              name="lastName"
-              label="Last name"
-              errors={errors}
-            />
-            <FormInputErrorMessage message={errors?.lastName?.message} />
-          </div>
-          <div>
-            <Input
-              register={register}
-              validationRules={{
-                required: { value: true, message: 'Email is required' },
-                pattern: {
-                  value:
-                    /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/,
-                  message: 'Incorrect email format',
-                },
-              }}
-              name="email"
-              label="Email"
-              errors={errors}
-              type="email"
-            />
-            <FormInputErrorMessage message={errors?.email?.message} />
-          </div>
-          <div>
-            <Input
-              register={register}
-              validationRules={{
-                required: { value: true, message: 'Password is required' },
-                minLength: {
-                  value: 8,
-                  message: 'Min. 8 characters required',
-                },
-              }}
-              name="password"
-              label="Password"
-              type="password"
-              errors={errors}
-            />
-            <FormInputErrorMessage message={errors?.password?.message} />
-          </div>
-          <div>
-            <Input
-              register={register}
-              validationRules={{
-                required: { value: true, message: 'You need to confirm the password' },
-                validate: (value) => {
-                  if (watch('password') !== value) {
-                    return 'Passwords do not match';
-                  }
-                },
-                minLength: {
-                  value: 8,
-                  message: 'Min. 8 characters required',
-                },
-              }}
-              name="confirmPassword"
-              label="Confirm password"
-              type="password"
-              errors={errors}
-            />
-            <FormInputErrorMessage message={errors?.confirmPassword?.message} />
-          </div>
+          <Input
+            register={register}
+            validationRules={{ required: { value: true, message: 'First name is required' } }}
+            name="firstName"
+            label="First name"
+            errors={errors}
+          />
+          <Input
+            register={register}
+            validationRules={{ required: { value: true, message: 'Last name is required' } }}
+            name="lastName"
+            label="Last name"
+            errors={errors}
+          />
+          <Input
+            register={register}
+            validationRules={{
+              required: { value: true, message: 'Email is required' },
+              pattern: {
+                value:
+                  /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/,
+                message: 'Incorrect email format',
+              },
+            }}
+            name="email"
+            label="Email"
+            errors={errors}
+            type="email"
+          />
+          <Input
+            register={register}
+            validationRules={{
+              required: { value: true, message: 'Password is required' },
+              minLength: {
+                value: 8,
+                message: 'Min. 8 characters required',
+              },
+            }}
+            name="password"
+            label="Password"
+            type="password"
+            errors={errors}
+          />
+          <Input
+            register={register}
+            validationRules={{
+              required: { value: true, message: 'You need to confirm the password' },
+              validate: (value) => {
+                if (watch('password') !== value) {
+                  return 'Passwords do not match';
+                }
+              },
+              minLength: {
+                value: 8,
+                message: 'Min. 8 characters required',
+              },
+            }}
+            name="confirmPassword"
+            label="Confirm password"
+            type="password"
+            errors={errors}
+          />
           <Button submit>Sign up</Button>
         </Form>
       </section>

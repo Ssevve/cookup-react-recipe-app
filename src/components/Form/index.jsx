@@ -1,12 +1,11 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import cx from 'classnames';
 
 import styles from './form.module.css';
 
-export default function Form({ children, onSubmit, highGap }) {
+export default function Form({ children, onSubmit }) {
   return (
-    <form className={cx(styles.form, highGap && styles.highGap)} onSubmit={onSubmit}>
+    <form className={styles.form} onSubmit={onSubmit}>
       {children}
     </form>
   );
