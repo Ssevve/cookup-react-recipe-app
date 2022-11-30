@@ -1,48 +1,9 @@
-/* eslint-disable max-len */
 /* eslint-disable no-underscore-dangle */
-const router = require('express').Router();
-const upload = require('../middleware/multer');
-
 const Recipe = require('../models/Recipe');
 const cloudinary = require('../config/cloudinary');
 const uploadImages = require('../lib/uploadImages');
-const ensureAuth = require('../middleware/ensureAuth');
 
-router.get('/:recipeId', async (req, res, next) => {
-  const { recipeId } = req.params;
-  try {
-    const recipe = await Recipe.findById(recipeId)
-      .populate('createdBy', '_id firstName lastName avatar');
-    res.status(200).json(recipe);
-  } catch (error) {
-    next(error);
-  }
-});
-
-router.get('/', async (req, res, next) => {
-  try {
-    const recipes = await Recipe.find()
-      .select('_id name description images likes dishType createdBy');
-    res.status(200).json(recipes);
-  } catch (error) {
-    next(error);
-  }
-});
-
-router.get('/user/:userId', async (req, res, next) => {
-  try {
-    const recipes = await Recipe.find()
-      .select('_id name images likes dishType createdBy');
-
-    const userRecipes = recipes.filter((recipe) => recipe.createdBy._id.toString() === req.params.userId.toString());
-    const likedRecipes = recipes.filter((recipe) => recipe.likes.includes(req.params.userId));
-    res.status(200).json({ userRecipes, likedRecipes });
-  } catch (error) {
-    next(error);
-  }
-});
-
-router.post('/', ensureAuth, upload.array('files'), async (req, res, next) => {
+const createRecipe = async (req, res, next) => {
   try {
     let images = [];
     if (req.files) images = await uploadImages(req.files);
@@ -53,7 +14,8 @@ router.post('/', ensureAuth, upload.array('files'), async (req, res, next) => {
     if (recipe.name.trim().length < 1 || recipe.name.trim().length > 70) return res.status(400).json({ message: 'Invalid recipe name.' });
 
     const ingredients = recipe.ingredients.map((ingredient) => {
-      if (ingredient.name && ingredient.name.trim().length > 0 && ingredient.name.trim().length <= 70) {
+      if (ingredient.name && ingredient.name.trim().length > 0
+        && ingredient.name.trim().length <= 70) {
         return ingredient.name;
       }
       return res.status(400).json({ message: 'Invalid ingredient value.' });
@@ -78,9 +40,43 @@ router.post('/', ensureAuth, upload.array('files'), async (req, res, next) => {
   } catch (error) {
     return next(error);
   }
-});
+};
 
-router.put('/like/:recipeId', ensureAuth, async (req, res, next) => {
+const getAllRecipes = async (req, res, next) => {
+  try {
+    const recipes = await Recipe.find()
+      .select('_id name description images likes dishType createdBy');
+    res.status(200).json(recipes);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getSpecificRecipe = async (req, res, next) => {
+  const { recipeId } = req.params;
+  try {
+    const recipe = await Recipe.findById(recipeId)
+      .populate('createdBy', '_id firstName lastName avatar');
+    res.status(200).json(recipe);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getSpecificUserRecipes = async (req, res, next) => {
+  try {
+    const recipes = await Recipe.find().select('_id name images likes dishType createdBy');
+    const userRecipes = recipes.filter(
+      (recipe) => recipe.createdBy._id.toString() === req.params.userId.toString(),
+    );
+    const likedRecipes = recipes.filter((recipe) => recipe.likes.includes(req.params.userId));
+    res.status(200).json({ userRecipes, likedRecipes });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const toggleLike = async (req, res, next) => {
   try {
     const recipe = await Recipe.findById(req.params.recipeId);
     if (recipe.createdBy.toString() === req.user._id.toString()) return res.status(400).json({ message: 'Users cannot like their own recipes.' });
@@ -112,9 +108,9 @@ router.put('/like/:recipeId', ensureAuth, async (req, res, next) => {
   } catch (error) {
     return next(error);
   }
-});
+};
 
-router.put('/:recipeId', ensureAuth, upload.array('files'), async (req, res, next) => {
+const updateRecipe = async (req, res, next) => {
   const recipe = JSON.parse(req.body.recipe);
   const newImages = JSON.parse(req.body.images);
   try {
@@ -174,9 +170,9 @@ router.put('/:recipeId', ensureAuth, upload.array('files'), async (req, res, nex
   } catch (error) {
     return next(error);
   }
-});
+};
 
-router.delete('/:recipeId', ensureAuth, async (req, res, next) => {
+const deleteRecipe = async (req, res, next) => {
   try {
     const recipe = await Recipe.findOne({
       _id: req.params.recipeId,
@@ -185,13 +181,23 @@ router.delete('/:recipeId', ensureAuth, async (req, res, next) => {
 
     if (!recipe) res.status(404).json({ message: 'Recipe not found.' });
 
-    if (recipe.images.length > 0) recipe.images.forEach((image) => cloudinary.uploader.destroy(image.cloudinaryId));
+    if (recipe.images.length > 0) {
+      recipe.images.forEach((image) => cloudinary.uploader.destroy(image.cloudinaryId));
+    }
 
     await recipe.remove();
     return res.status(204).json('success');
   } catch (error) {
     return next(error);
   }
-});
+};
 
-module.exports = router;
+module.exports = {
+  getSpecificRecipe,
+  getAllRecipes,
+  getSpecificUserRecipes,
+  createRecipe,
+  toggleLike,
+  updateRecipe,
+  deleteRecipe,
+};

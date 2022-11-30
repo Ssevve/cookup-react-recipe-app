@@ -15,9 +15,9 @@ require('./config/passport')(passport);
 
 const notFound = require('./middleware/notFound');
 const errorHandler = require('./middleware/errorHandler');
-const recipesRouter = require('./api/recipes');
-const authRouter = require('./api/auth');
-const usersRouter = require('./api/users');
+const recipesRouter = require('./routes/recipes');
+const authRouter = require('./routes/auth');
+const usersRouter = require('./routes/users');
 
 const app = express();
 
