@@ -120,7 +120,9 @@ const updateRecipe = async (req, res, next) => {
     const oldImageIds = oldRecipe.images.map((image) => image.cloudinaryId);
     let newImageIds;
     if (newImages.length) newImageIds = newImages.map((image) => image.cloudinaryId);
-    const missingImages = oldImageIds.filter((id) => !newImageIds.includes(id));
+
+    let missingImages;
+    if (newImageIds) missingImages = oldImageIds.filter((id) => !newImageIds.includes(id));
     if (missingImages) missingImages.forEach((id) => cloudinary.uploader.destroy(id));
 
     let uploadedImages = [];
