@@ -2,33 +2,24 @@
 /* eslint-disable import/prefer-default-export */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-// /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import cx from 'classnames';
 // import PropTypes from 'prop-types';
 
 import styles from './formFields.module.css';
 
-import FormInputErrorMessage from '../FormInputErrorMessage';
-
 export function Input({
-  name, label, register, validationRules, errors, ...rest
+  name, register, validationRules, error, className, ...rest
 }) {
   return (
-    <div>
-      <label className={styles.label} htmlFor={name}>
-        {label}
-        <input
-          {...register(name, validationRules)}
-          className={cx(styles.input, errors?.[name] && styles.error)}
-          id={name}
-          name={name}
-          aria-invalid={errors?.[name] ? 'true' : 'false'}
-          {...rest}
-        />
-      </label>
-      <FormInputErrorMessage message={errors?.[name]?.message} />
-    </div>
+    <input
+      {...register(name, validationRules)}
+      className={cx(styles.input, className, error && styles.error)}
+      name={name}
+      aria-invalid={error ? 'true' : 'false'}
+      id={name}
+      {...rest}
+    />
   );
 }
 
@@ -39,54 +30,42 @@ export function Select({
   defaultValue = '',
   register,
   validationRules,
-  errors,
+  error,
   ...rest
 }) {
   return (
-    <div>
-      <label className={styles.label} htmlFor={name}>
-        {label}
-        <select
-          defaultValue={defaultValue}
-          {...register(name, validationRules)}
-          aria-invalid={errors?.[name] ? 'true' : 'false'}
-          className={cx(styles.input, errors?.[name] && styles.error)}
-          id={name}
-          {...rest}
-        >
-          {defaultValue === '' && (
-            <option disabled value="">
-              -- Select one --
-            </option>
-          )}
-          {options.map((option) => (
-            <option key={option} value={option.toLowerCase()}>{option}</option>
-          ))}
-        </select>
-      </label>
-      <FormInputErrorMessage message={errors?.[name]?.message} />
-    </div>
+    <select
+      defaultValue={defaultValue}
+      {...register(name, validationRules)}
+      aria-invalid={error ? 'true' : 'false'}
+      className={cx(styles.input, error && styles.error)}
+      id={name}
+      {...rest}
+    >
+      {defaultValue === '' && (
+        <option disabled value="">
+          -- Select one --
+        </option>
+      )}
+      {options.map((option) => (
+        <option key={option} value={option.toLowerCase()}>{option}</option>
+      ))}
+    </select>
   );
 }
 
 export function Textarea({
-  name, label, register, validationRules, errors, ...rest
+  name, label, register, validationRules, error, className, ...rest
 }) {
   return (
-    <div>
-      <label className={styles.label} htmlFor={name}>
-        {label}
-        <textarea
-          {...register(name, validationRules)}
-          className={cx(styles.input, errors?.[name] && styles.error)}
-          id={name}
-          name={name}
-          aria-invalid={errors?.[name] ? 'true' : 'false'}
-          {...rest}
-        />
-      </label>
-      <FormInputErrorMessage message={errors?.[name]?.message} />
-    </div>
+    <textarea
+      {...register(name, validationRules)}
+      className={cx(styles.input, className, error && styles.error)}
+      id={name}
+      name={name}
+      aria-invalid={error ? 'true' : 'false'}
+      {...rest}
+    />
   );
 }
 

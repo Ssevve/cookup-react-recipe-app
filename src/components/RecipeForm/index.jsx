@@ -1,3 +1,5 @@
+/* eslint-disable implicit-arrow-linebreak */
+/* eslint-disable no-confusing-arrow */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable react/prop-types */
 /* eslint-disable max-len */
@@ -7,12 +9,17 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import cx from 'classnames';
 import { BsTrash2 } from 'react-icons/bs';
-import { useForm, useFieldArray } from 'react-hook-form';
+import { useForm, useFieldArray, Controller } from 'react-hook-form';
 
 import styles from './recipeForm.module.css';
 
+import Form from '../Form';
+import Label from '../Label';
+import { Input, Textarea, Select } from '../FormFields';
+import { Button, SubmitButton } from '../Buttons';
 import ImageDropzone from '../ImageDropzone';
 import ConfirmationButton from '../ConfirmationButton';
+import ErrorMessage from '../ErrorMessage';
 
 export default function RecipeForm({ recipe }) {
   const [files, setFiles] = useState([]);
@@ -95,102 +102,73 @@ export default function RecipeForm({ recipe }) {
   }, [files, images, watch()]);
 
   return (
-    <form noValidate className={styles.form} onSubmit={handleSubmit(handleFormSubmit)}>
-      {/* NAME */}
+    <Form onSubmit={handleSubmit(handleFormSubmit)}>
       <div>
-        <label className={styles.label} htmlFor="recipe-name">
+        <Label htmlFor="recipeName">
           Recipe name
-          <input
-            {...register('name', {
+          <Input
+            register={register}
+            validationRules={{
               required: { value: true, message: 'Recipe name is required' },
               maxLength: { value: 70, message: 'Maximum length is 70' },
               validate: (value) => (value.trim() === '' ? 'Recipe name is required' : null),
-            })}
-            aria-invalid={errors.name ? 'true' : 'false'}
-            className={cx(styles.input, errors.name && styles.error)}
-            id="recipe-name"
+            }}
+            name="recipeName"
+            error={errors.recipeName}
             type="text"
           />
-        </label>
-        <span role="alert" className={styles.errorMessage}>
-          {errors?.name?.message}
-        </span>
+        </Label>
+        <ErrorMessage message={errors?.recipeName?.message} />
       </div>
-
-      {/* DESCRIPTION */}
       <div>
-        <label className={styles.label} htmlFor="recipe-description">
+        <Label htmlFor="recipeDescription">
           Recipe description
-          <textarea
-            {...register('description', {
+          <Textarea
+            register={register}
+            validationRules={{
               required: { value: true, message: 'Recipe description is required' },
               validate: (value) => (value.trim() === '' ? 'Recipe description is required' : null),
-            })}
-            aria-invalid={errors.description ? 'true' : 'false'}
-            className={cx(styles.input, errors.description && styles.error)}
-            id="recipe-description"
-            type="text"
+            }}
+            name="recipeDescription"
+            error={errors.recipeDescription}
           />
-        </label>
-        <span role="alert" className={styles.errorMessage}>
-          {errors?.description?.message}
-        </span>
+        </Label>
+        <ErrorMessage message={errors?.recipeDescription?.message} />
       </div>
-
-      {/* DISH TYPE */}
       <div>
-        <label className={styles.label} htmlFor="dish-type">
+        <Label htmlFor="dishType">
           Dish type
-          <select
-            defaultValue=""
-            {...register('dishType', {
+          <Select
+            name="dishType"
+            options={['Main dish', 'Side dish', 'Appetizer', 'Soup', 'Salad', 'Dessert', 'Drink']}
+            register={register}
+            validationRules={{
               required: { value: true, message: 'Dish type is required' },
-            })}
-            aria-invalid={errors.dishType ? 'true' : 'false'}
-            className={cx(styles.input, errors.dishType && styles.error)}
-            id="dish-type"
-          >
-            <option disabled value="">
-              -- Select one --
-            </option>
-            <option value="main dish">Main dish</option>
-            <option value="side dish">Side dish</option>
-            <option value="appetizer">Appetizer</option>
-            <option value="soup">Soup</option>
-            <option value="salad">Salad</option>
-            <option value="dessert">Dessert</option>
-            <option value="drink">Drink</option>
-          </select>
-        </label>
-        <span role="alert" className={styles.errorMessage}>
-          {errors?.dishType?.message}
-        </span>
+            }}
+            error={errors.dishType}
+          />
+        </Label>
+        <ErrorMessage message={errors?.dishType?.message} />
       </div>
-
-      {/* SERVINGS */}
       <div>
-        <label className={styles.label} htmlFor="servings">
+        <Label htmlFor="servings">
           No. of servings
-          <input
-            {...register('servings', {
+          <Input
+            register={register}
+            validationRules={{
               required: { value: true, message: 'No. of servings is required' },
               min: { value: 1, message: 'Minimum value is 1' },
               step: 1,
               valueAsNumber: true,
               validate: (value) => (!Number.isInteger(value) ? 'Decimals not allowed' : null),
-            })}
-            aria-invalid={errors.servings ? 'true' : 'false'}
-            className={cx(styles.input, errors.servings && styles.error)}
-            id="servings"
+            }}
+            name="servings"
+            error={errors.servings}
             type="number"
           />
-        </label>
-        <span role="alert" className={styles.errorMessage}>
-          {errors?.servings?.message}
-        </span>
+        </Label>
+        <ErrorMessage message={errors?.servings?.message} />
       </div>
-
-      {/* DIFFICULTY */}
       <fieldset className={cx(styles.fieldset, styles.difficultyFieldset)}>
         <legend className={styles.legend}>Difficulty</legend>
         <div>
@@ -232,7 +210,6 @@ export default function RecipeForm({ recipe }) {
         </div>
       </fieldset>
 
-      {/* PREPARATION TIME */}
       <fieldset className={styles.fieldset}>
         <legend className={styles.legend}>Preparation time</legend>
         <div>
@@ -272,8 +249,6 @@ export default function RecipeForm({ recipe }) {
           </label>
         </div>
       </fieldset>
-
-      {/* COOKING TIME */}
       <fieldset className={styles.fieldset}>
         <legend className={styles.legend}>Cooking time</legend>
         <div>
@@ -315,122 +290,79 @@ export default function RecipeForm({ recipe }) {
           </label>
         </div>
       </fieldset>
-
       {/* INGREDIENTS */}
       <fieldset className={styles.fieldset}>
         <legend className={styles.legend}>Ingredients</legend>
-        {errors?.ingredients?.root && (
-          <span role="alert" className={styles.errorMessage}>
-            {errors?.ingredients?.root.message}
-          </span>
-        )}
+        {errors?.ingredients?.root && <ErrorMessage message={errors?.ingredients?.root.message} />}
         <ul>
           {ingredientFields.map((ingredient, index) => (
             <li className={styles.listItem} key={ingredient.id}>
-              <label className={styles.label} htmlFor={`ingredients${index}`}>
+              <Label htmlFor={`ingredients.${index}.name`}>
                 {`Ingredient ${index + 1}`}
                 <div className={styles.listGroup}>
-                  <input
-                    {...register(`ingredients.${index}.name`, {
+                  <Input
+                    register={register}
+                    validationRules={{
                       required: { value: true, message: 'Ingredient is required' },
                       maxLength: { value: 100, message: 'Maximum length is 100' },
                       validate: (value) => (value.trim() === '' ? 'Ingredient is required' : null),
-                    })}
-                    aria-invalid={errors?.ingredients?.[index]?.name ? 'true' : 'false'}
-                    className={cx(
-                      styles.input,
-                      styles.listGroupInput,
-                      errors?.ingredients?.[index]?.name && styles.error,
-                    )}
+                    }}
+                    name={`ingredients.${index}.name`}
+                    error={errors?.ingredients?.[index]?.name}
                     type="text"
-                    id={`ingredients${index}`}
+                    className={styles.listGroupInput}
                   />
-                  <button
-                    type="button"
-                    className={cx(styles.btn, styles.btnDelete)}
-                    onClick={() => ingredientRemove(index)}
-                  >
-                    <BsTrash2 />
-                  </button>
+                  <Button noPaddingBlock variant="delete" onClick={() => ingredientRemove(index)}>
+                    <BsTrash2 size={24} />
+                  </Button>
                 </div>
-              </label>
-              <span role="alert" className={styles.errorMessage}>
-                {errors?.ingredients?.[index]?.name.message}
-              </span>
+              </Label>
+              <ErrorMessage message={errors?.ingredients?.[index]?.name.message} />
             </li>
           ))}
         </ul>
-        <button
-          type="button"
-          className={cx(styles.btn, styles.btnAdd)}
-          onClick={() => ingredientAppend({ name: '' })}
-        >
+        <Button variant="outline" onClick={() => ingredientAppend({ name: '' })}>
           Add ingredient
-        </button>
+        </Button>
       </fieldset>
-
       {/* DIRECTIONS */}
       <fieldset className={styles.fieldset}>
         <legend className={styles.legend}>Directions</legend>
-        {errors?.directions?.root && (
-          <span role="alert" className={styles.errorMessage}>
-            {errors?.directions?.root.message}
-          </span>
-        )}
+        {errors?.directions?.root && <ErrorMessage message={errors?.directions?.root.message} />}
         <ul>
           {directionFields.map((direction, index) => (
             <li className={styles.listItem} key={direction.id}>
-              <label className={styles.label} htmlFor={`directions${index}`}>
+              <Label htmlFor={`directions.${index}.description`}>
                 {`Step ${index + 1}`}
                 <div className={styles.listGroup}>
-                  <textarea
-                    {...register(`directions.${index}.description`, {
+                  <Textarea
+                    register={register}
+                    validationRules={{
                       required: { value: true, message: 'Direction is required' },
                       validate: (value) => (value.trim() === '' ? 'Direction is required' : null),
-                    })}
-                    aria-invalid={errors?.directions?.[index]?.description ? 'true' : 'false'}
-                    className={cx(
-                      styles.input,
-                      styles.listGroupInput,
-                      errors?.directions?.[index]?.description && styles.error,
-                    )}
-                    type="text"
-                    id={`directions${index}`}
+                    }}
+                    name={`directions.${index}.description`}
+                    error={errors?.directions?.[index]?.description}
+                    className={styles.listGroupInput}
                   />
-                  <button
-                    type="button"
-                    className={cx(styles.btn, styles.btnDelete)}
-                    onClick={() => directionRemove(index)}
-                  >
-                    <BsTrash2 />
-                  </button>
+                  <Button noPaddingBlock variant="delete" onClick={() => directionRemove(index)}>
+                    <BsTrash2 size={24} />
+                  </Button>
                 </div>
-              </label>
-              <span role="alert" className={styles.errorMessage}>
-                {errors?.directions?.[index]?.description.message}
-              </span>
+              </Label>
+              <ErrorMessage message={errors?.directions?.[index]?.description.message} />
             </li>
           ))}
         </ul>
-        <button
-          type="button"
-          className={cx(styles.btn, styles.btnAdd)}
-          onClick={() => directionAppend({ description: '' })}
-        >
+        <Button variant="outline" onClick={() => directionAppend({ description: '' })}>
           Add direction
-        </button>
+        </Button>
       </fieldset>
 
-      {/* IMAGE */}
       <h2 className={styles.sectionHeading}>Images</h2>
       <ImageDropzone images={images} setImages={setImages} files={files} setFiles={setFiles} />
 
-      <button
-        className={cx(styles.btn, styles.btnSubmit)}
-        type="submit"
-      >
-        {isEditingRecipe ? 'Save' : 'Add recipe'}
-      </button>
+      <SubmitButton>{isEditingRecipe ? 'Save' : 'Add recipe'}</SubmitButton>
       {isEditingRecipe && (
         <ConfirmationButton
           text="Cancel"
@@ -439,6 +371,6 @@ export default function RecipeForm({ recipe }) {
           bypassConfirmation={isFormClean}
         />
       )}
-    </form>
+    </Form>
   );
 }

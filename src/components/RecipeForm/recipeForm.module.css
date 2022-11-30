@@ -151,19 +151,7 @@ h2 {
   border-color: var(--clr-accent-hover);
 }
 
-.btnDelete {
-  padding-inline: 1rem;
-  color: var(--clr-error);
-  border: 1px solid currentColor;
-  font-size: 1.5rem;
-  background: inherit;
-}
-
-.btnDelete:hover {
-  background: var(--clr-error-light);
-}
-
-.btnAdd {
+/* .btnAdd {
   padding: 0.5rem 1rem;
   color: var(--clr-accent);
   border: 1px solid currentColor;
@@ -172,7 +160,7 @@ h2 {
 
 .btnAdd:hover {
   background: var(--clr-btn-outline-hover);
-}
+} */
 
 .sectionHeading {
   margin-top: 2rem;

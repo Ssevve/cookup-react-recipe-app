@@ -13,9 +13,10 @@ import PageContainer from '../../components/PageContainer';
 import PageTitle from '../../components/PageTitle';
 import ErrorBox from '../../components/ErrorBox';
 import Form from '../../components/Form';
+import Label from '../../components/Label';
 import { Input } from '../../components/FormFields';
-import FormInputErrorMessage from '../../components/FormInputErrorMessage';
-import Button from '../../components/Button';
+import ErrorMessage from '../../components/ErrorMessage';
+import { SubmitButton } from '../../components/Buttons';
 
 export default function SignupPage() {
   const [responseErrors, setResponseErrors] = useState(undefined);
@@ -53,71 +54,101 @@ export default function SignupPage() {
         </p>
         {responseErrors && <ErrorBox message={responseErrors} />}
         <Form onSubmit={handleSubmit(handleFormSubmit)}>
-          <Input
-            register={register}
-            validationRules={{ required: { value: true, message: 'First name is required' } }}
-            name="firstName"
-            label="First name"
-            errors={errors}
-            type="text"
-          />
-          <Input
-            register={register}
-            validationRules={{ required: { value: true, message: 'Last name is required' } }}
-            name="lastName"
-            label="Last name"
-            errors={errors}
-            type="text"
-          />
-          <Input
-            register={register}
-            validationRules={{
-              required: { value: true, message: 'Email is required' },
-              pattern: {
-                value:
-                  /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/,
-                message: 'Incorrect email format',
-              },
-            }}
-            name="email"
-            label="Email"
-            errors={errors}
-            type="email"
-          />
-          <Input
-            register={register}
-            validationRules={{
-              required: { value: true, message: 'Password is required' },
-              minLength: {
-                value: 8,
-                message: 'Min. 8 characters required',
-              },
-            }}
-            name="password"
-            label="Password"
-            type="password"
-            errors={errors}
-          />
-          <Input
-            register={register}
-            validationRules={{
-              required: { value: true, message: 'You need to confirm the password' },
-              validate: (value) => {
-                if (watch('password') !== value) {
-                  return 'Passwords do not match';
-                }
-              },
-              minLength: {
-                value: 8,
-                message: 'Min. 8 characters required',
-              },
-            }}
-            name="confirmPassword"
-            label="Confirm password"
-            type="password"
-            errors={errors}
-          />
-          <Button submit>Sign up</Button>
+          <div>
+            <Label htmlFor="firstName">
+              First name
+              <Input
+                register={register}
+                validationRules={{ required: { value: true, message: 'First name is required' } }}
+                name="firstName"
+                label="First name"
+                error={errors?.firstName}
+                type="text"
+              />
+            </Label>
+            <ErrorMessage message={errors?.firstName?.message} />
+          </div>
+          <div>
+            <Label htmlFor="lastName">
+              Last name
+              <Input
+                register={register}
+                validationRules={{ required: { value: true, message: 'Last name is required' } }}
+                name="lastName"
+                label="Last name"
+                error={errors?.lastName}
+                type="text"
+              />
+            </Label>
+            <ErrorMessage message={errors?.lastName?.message} />
+          </div>
+          <div>
+            <Label htmlFor="email">
+              Email
+              <Input
+                register={register}
+                validationRules={{
+                  required: { value: true, message: 'Email is required' },
+                  pattern: {
+                    value:
+                      /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/,
+                    message: 'Incorrect email format',
+                  },
+                }}
+                name="email"
+                label="Email"
+                error={errors?.email}
+                type="email"
+              />
+            </Label>
+            <ErrorMessage message={errors?.email?.message} />
+          </div>
+          <div>
+            <Label htmlFor="password">
+              Password
+              <Input
+                register={register}
+                validationRules={{
+                  required: { value: true, message: 'Password is required' },
+                  minLength: {
+                    value: 8,
+                    message: 'Min. 8 characters required',
+                  },
+                }}
+                name="password"
+                label="Password"
+                type="password"
+                error={errors?.password}
+              />
+            </Label>
+            <ErrorMessage message={errors?.password?.message} />
+          </div>
+          <div>
+            <Label htmlFor="confirmPassword">
+              Confirm password
+              <Input
+                register={register}
+                validationRules={{
+                  required: { value: true, message: 'You need to confirm the password' },
+                  validate: (value) => {
+                    if (watch('password') !== value) {
+                      return 'Passwords do not match';
+                    }
+                  },
+                  minLength: {
+                    value: 8,
+                    message: 'Min. 8 characters required',
+                  },
+                }}
+                name="confirmPassword"
+                label="Confirm password"
+                type="password"
+                error={errors?.confirmPassword}
+              />
+            </Label>
+            <ErrorMessage message={errors?.confirmPassword?.message} />
+          </div>
+          <SubmitButton>Sign up</SubmitButton>
         </Form>
       </section>
       <section className={styles.signupImage} />

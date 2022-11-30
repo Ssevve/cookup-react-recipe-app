@@ -1,0 +1,48 @@
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0.75rem 1rem;
+  border-radius: var(--border-radius);
+  background: var(--clr-accent);
+  color: var(--clr-light-primary);
+  border: 1px solid var(--clr-accent);
+  font-weight: var(--font-weight-bold);
+  transition: background 0.1s ease-in-out;
+  font-size: 1rem;
+}
+
+.btn:hover {
+  background: var(--clr-accent-hover);
+  border-color: var(--clr-accent-hover);
+}
+
+.submit {
+  margin-top: 1rem;
+}
+
+.outline {
+  color: var(--clr-accent);
+  border: 1px solid currentColor;
+  background: inherit;
+  font-weight: normal;
+}
+
+.outline:hover {
+  background: var(--clr-btn-outline-hover);
+}
+
+.delete {
+  color: var(--clr-error);
+  border: 1px solid currentColor;
+  background: inherit;
+}
+
+.delete:hover {
+  background: var(--clr-error-light);
+}
+
+.noPaddingBlock {
+  padding-block: 0;
+}

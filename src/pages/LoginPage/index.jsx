@@ -11,8 +11,9 @@ import PageContainer from '../../components/PageContainer';
 import PageTitle from '../../components/PageTitle';
 import ErrorBox from '../../components/ErrorBox';
 import Form from '../../components/Form';
+import Label from '../../components/Label';
 import { Input } from '../../components/FormFields';
-import Button from '../../components/Button';
+import { SubmitButton } from '../../components/Buttons';
 
 export default function LoginPage({ setUser }) {
   const [responseError, setResponseError] = useState('');
@@ -55,28 +56,34 @@ export default function LoginPage({ setUser }) {
           <ErrorBox message={responseError || 'Invalid email or password'} />
         )}
         <Form highGap onSubmit={handleSubmit(handleFormSubmit)}>
-          <Input
-            register={register}
-            validationRules={{
-              required: true,
-              pattern:
-                /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g,
-            }}
-            name="email"
-            label="Email"
-            type="email"
-          />
-          <Input
-            register={register}
-            validationRules={{
-              required: true,
-              minLength: 8,
-            }}
-            name="password"
-            label="Password"
-            type="password"
-          />
-          <Button submit>Log in</Button>
+          <Label htmlFor="email">
+            Email
+            <Input
+              register={register}
+              validationRules={{
+                required: true,
+                pattern:
+                  /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g,
+              }}
+              name="email"
+              label="Email"
+              type="email"
+            />
+          </Label>
+          <Label htmlFor="password">
+            Password
+            <Input
+              register={register}
+              validationRules={{
+                required: true,
+                minLength: 8,
+              }}
+              name="password"
+              label="Password"
+              type="password"
+            />
+          </Label>
+          <SubmitButton>Log in</SubmitButton>
         </Form>
       </section>
       <section className={styles.loginImage} />
