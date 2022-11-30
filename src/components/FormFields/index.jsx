@@ -22,8 +22,8 @@ export function Input({
           {...register(name, validationRules)}
           className={cx(styles.input, errors?.[name] && styles.error)}
           id={name}
-          type="text"
           name={name}
+          aria-invalid={errors?.[name] ? 'true' : 'false'}
           {...rest}
         />
       </label>
@@ -32,65 +32,63 @@ export function Input({
   );
 }
 
-// export function Select({
-//   register, options, name, label, title, ...rest
-// }) {
-//   return (
-//     <div className={styles.group}>
-//       {label ? (
-//         <label className={styles.label} htmlFor={name}>
-//           {label}
-//           <select value {...register(name)} className={styles.select} {...rest}>
-//             <option disabled value>
-//               -- Select one --
-//             </option>
-//             {options.map((value) => (
-//               <option key={value} value={value}>
-//                 {value}
-//               </option>
-//             ))}
-//           </select>
-//         </label>
-//       ) : (
-//         <select value title={title} {...register(name)} className={styles.select} {...rest}>
-//           <option disabled value>
-//             -- Select one --
-//           </option>
-//           {options.map((value) => (
-//             <option key={value} value={value}>
-//               {value}
-//             </option>
-//           ))}
-//         </select>
-//       )}
-//     </div>
-//   );
-// }
+export function Select({
+  name,
+  options,
+  label,
+  defaultValue = '',
+  register,
+  validationRules,
+  errors,
+  ...rest
+}) {
+  return (
+    <div>
+      <label className={styles.label} htmlFor={name}>
+        {label}
+        <select
+          defaultValue={defaultValue}
+          {...register(name, validationRules)}
+          aria-invalid={errors?.[name] ? 'true' : 'false'}
+          className={cx(styles.input, errors?.[name] && styles.error)}
+          id={name}
+          {...rest}
+        >
+          {defaultValue === '' && (
+            <option disabled value="">
+              -- Select one --
+            </option>
+          )}
+          {options.map((option) => (
+            <option key={option} value={option.toLowerCase()}>{option}</option>
+          ))}
+        </select>
+      </label>
+      <FormInputErrorMessage message={errors?.[name]?.message} />
+    </div>
+  );
+}
 
-// export function Textarea({
-//   register, validationRules, name, label, error, ...rest
-// }) {
-//   return (
-//     <div className={styles.group}>
-//       <label className={styles.label} htmlFor={name}>
-//         {label}
-//         <textarea
-//           {...register(name, validationRules)}
-//           aria-invalid={error ? 'true' : 'false'}
-//           className={styles.textArea}
-//           id={name}
-//           name={name}
-//           {...rest}
-//         />
-//       </label>
-//       {error && (
-//         <span role="alert" className={styles.errorMessage}>
-//           {error.message}
-//         </span>
-//       )}
-//     </div>
-//   );
-// }
+export function Textarea({
+  name, label, register, validationRules, errors, ...rest
+}) {
+  return (
+    <div>
+      <label className={styles.label} htmlFor={name}>
+        {label}
+        <textarea
+          {...register(name, validationRules)}
+          className={cx(styles.input, errors?.[name] && styles.error)}
+          id={name}
+          name={name}
+          aria-invalid={errors?.[name] ? 'true' : 'false'}
+          {...rest}
+        />
+      </label>
+      <FormInputErrorMessage message={errors?.[name]?.message} />
+    </div>
+  );
+}
 
 // Input.propTypes = {
 //   register: PropTypes.func.isRequired,

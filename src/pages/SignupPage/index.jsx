@@ -59,6 +59,7 @@ export default function SignupPage() {
             name="firstName"
             label="First name"
             errors={errors}
+            type="text"
           />
           <Input
             register={register}
@@ -66,6 +67,7 @@ export default function SignupPage() {
             name="lastName"
             label="Last name"
             errors={errors}
+            type="text"
           />
           <Input
             register={register}
