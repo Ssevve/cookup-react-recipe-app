@@ -24,7 +24,7 @@ export default function LandingPage() {
           <Link className={cx(styles.btn, styles.cta)} to="/signup">
             Sign up
           </Link>
-          <Link className={cx(styles.btn, styles.outline)} to="/recipes">
+          <Link className={cx(styles.btn, styles.outline)} to="/recipes/browse">
             Browse recipes
           </Link>
         </div>
