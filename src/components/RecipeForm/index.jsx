@@ -104,7 +104,7 @@ export default function RecipeForm({ recipe }) {
   return (
     <Form onSubmit={handleSubmit(handleFormSubmit)}>
       <div>
-        <Label htmlFor="recipeName">
+        <Label htmlFor="name">
           Recipe name
           <Input
             register={register}
@@ -113,15 +113,15 @@ export default function RecipeForm({ recipe }) {
               maxLength: { value: 70, message: 'Maximum length is 70' },
               validate: (value) => (value.trim() === '' ? 'Recipe name is required' : null),
             }}
-            name="recipeName"
-            error={errors.recipeName}
+            name="name"
+            error={errors.name}
             type="text"
           />
         </Label>
-        <ErrorMessage message={errors?.recipeName?.message} />
+        <ErrorMessage message={errors?.name?.message} />
       </div>
       <div>
-        <Label htmlFor="recipeDescription">
+        <Label htmlFor="description">
           Recipe description
           <Textarea
             register={register}
@@ -129,11 +129,11 @@ export default function RecipeForm({ recipe }) {
               required: { value: true, message: 'Recipe description is required' },
               validate: (value) => (value.trim() === '' ? 'Recipe description is required' : null),
             }}
-            name="recipeDescription"
-            error={errors.recipeDescription}
+            name="description"
+            error={errors.description}
           />
         </Label>
-        <ErrorMessage message={errors?.recipeDescription?.message} />
+        <ErrorMessage message={errors?.description?.message} />
       </div>
       <div>
         <Label htmlFor="dishType">
