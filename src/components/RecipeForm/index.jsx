@@ -213,81 +213,69 @@ export default function RecipeForm({ recipe }) {
       <fieldset className={styles.fieldset}>
         <legend className={styles.legend}>Preparation time</legend>
         <div>
-          <label className={styles.label} htmlFor="preparation-time">
+          <Label htmlFor="prepTime.time">
             Time
-            <input
-              {...register('prepTime.time', {
+            <Input
+              register={register}
+              validationRules={{
                 required: { value: true, message: 'Preparation time is required' },
                 min: { value: 1, message: 'Minimum value is 1' },
                 max: { value: 59, message: 'Maximum value is 59' },
                 step: 1,
                 valueAsNumber: true,
                 validate: (value) => (!Number.isInteger(value) ? 'Decimals not allowed' : null),
-              })}
-              aria-invalid={errors?.prepTime?.time ? 'true' : 'false'}
-              className={cx(styles.input, errors?.prepTime?.time && styles.error)}
+              }}
+              name="prepTime.time"
+              error={errors?.prepTime?.time}
               type="number"
-              id="preparation-time"
             />
-          </label>
-          <span role="alert" className={styles.errorMessage}>
-            {errors?.prepTime?.time?.message}
-          </span>
+          </Label>
+          <ErrorMessage message={errors?.prepTime?.time?.message} />
         </div>
         <div>
-          <label className={styles.label} htmlFor="preparation-unit">
+          <Label htmlFor="prepTime.unit">
             Unit
-            <select
+            <Select
+              name="prepTime.unit"
+              options={['minutes', 'hours']}
+              register={register}
               defaultValue="minutes"
-              {...register('prepTime.unit')}
-              className={styles.input}
-              id="preparation-unit"
-            >
-              <option value="minutes">minutes</option>
-              <option value="hours">hours</option>
-            </select>
-          </label>
+            />
+          </Label>
         </div>
       </fieldset>
       <fieldset className={styles.fieldset}>
         <legend className={styles.legend}>Cooking time</legend>
         <div>
-          <label className={styles.label} htmlFor="cooking-time">
+          <Label htmlFor="cookTime.time">
             Time
-            <input
-              {...register('cookTime.time', {
+            <Input
+              register={register}
+              validationRules={{
                 required: { value: true, message: 'Cooking time is required' },
                 min: { value: 1, message: 'Minimum value is 1' },
                 max: { value: 59, message: 'Maximum value is 59' },
                 step: 1,
                 valueAsNumber: true,
                 validate: (value) => (!Number.isInteger(value) ? 'Decimals not allowed' : null),
-              })}
-              aria-invalid={errors?.cookTime?.time ? 'true' : 'false'}
-              className={cx(styles.input, errors?.cookTime?.time && styles.error)}
+              }}
+              name="cookTime.time"
+              error={errors?.cookTime?.time}
               type="number"
-              id="cooking-time"
-              title="Cooking time"
             />
-          </label>
-          <span role="alert" className={styles.errorMessage}>
-            {errors?.cookTime?.time?.message}
-          </span>
+          </Label>
+          <ErrorMessage message={errors?.cookTime?.time?.message} />
         </div>
         <div>
-          <label className={styles.label} htmlFor="cooking-unit">
+          <Label htmlFor="cookTime.unit">
             Unit
-            <select
+            <Select
+              name="cookTime.unit"
+              options={['minutes', 'hours']}
+              register={register}
               defaultValue="minutes"
-              {...register('cookTime.unit')}
-              className={styles.input}
-              id="cooking-unit"
-              title="Cooking time unit"
-            >
-              <option value="minutes">minutes</option>
-              <option value="hours">hours</option>
-            </select>
-          </label>
+            />
+          </Label>
         </div>
       </fieldset>
       {/* INGREDIENTS */}
