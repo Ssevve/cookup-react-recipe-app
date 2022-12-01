@@ -4,9 +4,12 @@ import React from 'react';
 
 import styles from './label.module.css';
 
-export default function Form({ children, htmlFor, ...rest }) {
+export default function Form({
+  children, htmlFor, text, ...rest
+}) {
   return (
     <label className={styles.label} htmlFor={htmlFor} {...rest}>
+      <span className={styles.text}>{text}</span>
       {children}
     </label>
   );

@@ -1,6 +1,11 @@
 .label {
   display: flex;
-  flex-direction: column;
-  gap: 0.1rem;
+  column-gap: 0.5rem;
+  row-gap: 0.1rem;
+  flex-wrap: wrap;
+}
+
+.text {
   font-size: 0.875rem;
+  flex: 1 0 100%;
 }
