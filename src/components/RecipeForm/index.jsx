@@ -15,11 +15,14 @@ import styles from './recipeForm.module.css';
 
 import Form from '../Form';
 import Label from '../Label';
-import { Input, Textarea, Select } from '../FormFields';
+import {
+  Input, Textarea, Select, Radio,
+} from '../FormFields';
 import { Button, SubmitButton } from '../Buttons';
 import ImageDropzone from '../ImageDropzone';
 import ConfirmationButton from '../ConfirmationButton';
 import ErrorMessage from '../ErrorMessage';
+import RadioGroup from '../RadioGroup';
 
 export default function RecipeForm({ recipe }) {
   const [files, setFiles] = useState([]);
@@ -104,8 +107,7 @@ export default function RecipeForm({ recipe }) {
   return (
     <Form onSubmit={handleSubmit(handleFormSubmit)}>
       <div>
-        <Label htmlFor="name">
-          Recipe name
+        <Label htmlFor="name" text="Recipe name">
           <Input
             register={register}
             validationRules={{
@@ -121,8 +123,7 @@ export default function RecipeForm({ recipe }) {
         <ErrorMessage message={errors?.name?.message} />
       </div>
       <div>
-        <Label htmlFor="description">
-          Recipe description
+        <Label htmlFor="description" text="Recipe description">
           <Textarea
             register={register}
             validationRules={{
@@ -136,8 +137,7 @@ export default function RecipeForm({ recipe }) {
         <ErrorMessage message={errors?.description?.message} />
       </div>
       <div>
-        <Label htmlFor="dishType">
-          Dish type
+        <Label htmlFor="dishType" text="Dish type">
           <Select
             name="dishType"
             options={['Main dish', 'Side dish', 'Appetizer', 'Soup', 'Salad', 'Dessert', 'Drink']}
@@ -151,8 +151,7 @@ export default function RecipeForm({ recipe }) {
         <ErrorMessage message={errors?.dishType?.message} />
       </div>
       <div>
-        <Label htmlFor="servings">
-          No. of servings
+        <Label htmlFor="servings" text="No. of servings">
           <Input
             register={register}
             validationRules={{
@@ -171,50 +170,16 @@ export default function RecipeForm({ recipe }) {
       </div>
       <fieldset className={cx(styles.fieldset, styles.difficultyFieldset)}>
         <legend className={styles.legend}>Difficulty</legend>
-        <div>
-          <label className={cx(styles.label, styles.radioLabel)} htmlFor="easy">
-            <input
-              {...register('difficulty')}
-              className={styles.radioInput}
-              type="radio"
-              id="easy"
-              value="easy"
-            />
-            <span className={styles.radioSpan}>Easy</span>
-          </label>
-        </div>
-        <div>
-          <label className={cx(styles.label, styles.radioLabel)} htmlFor="moderate">
-            <input
-              {...register('difficulty')}
-              defaultChecked
-              className={styles.radioInput}
-              type="radio"
-              id="moderate"
-              value="moderate"
-            />
-            <span className={styles.radioSpan}>Moderate</span>
-          </label>
-        </div>
-        <div>
-          <label className={cx(styles.label, styles.radioLabel)} htmlFor="hard">
-            <input
-              {...register('difficulty')}
-              className={styles.radioInput}
-              type="radio"
-              id="hard"
-              value="hard"
-            />
-            <span className={styles.radioSpan}>Hard</span>
-          </label>
-        </div>
+        <RadioGroup register={register} groupName="difficulty">
+          <Radio label="Easy" value="easy" />
+          <Radio label="Moderate" value="moderate" />
+          <Radio label="Hard" value="hard" />
+        </RadioGroup>
       </fieldset>
-
       <fieldset className={styles.fieldset}>
         <legend className={styles.legend}>Preparation time</legend>
         <div>
-          <Label htmlFor="prepTime.time">
-            Time
+          <Label htmlFor="prepTime.time" text="Time">
             <Input
               register={register}
               validationRules={{
@@ -233,8 +198,7 @@ export default function RecipeForm({ recipe }) {
           <ErrorMessage message={errors?.prepTime?.time?.message} />
         </div>
         <div>
-          <Label htmlFor="prepTime.unit">
-            Unit
+          <Label htmlFor="prepTime.unit" text="Unit">
             <Select
               name="prepTime.unit"
               options={['minutes', 'hours']}
@@ -247,8 +211,7 @@ export default function RecipeForm({ recipe }) {
       <fieldset className={styles.fieldset}>
         <legend className={styles.legend}>Cooking time</legend>
         <div>
-          <Label htmlFor="cookTime.time">
-            Time
+          <Label htmlFor="cookTime.time" text="Time">
             <Input
               register={register}
               validationRules={{
@@ -267,8 +230,7 @@ export default function RecipeForm({ recipe }) {
           <ErrorMessage message={errors?.cookTime?.time?.message} />
         </div>
         <div>
-          <Label htmlFor="cookTime.unit">
-            Unit
+          <Label htmlFor="cookTime.unit" text="Unit">
             <Select
               name="cookTime.unit"
               options={['minutes', 'hours']}
@@ -285,25 +247,21 @@ export default function RecipeForm({ recipe }) {
         <ul>
           {ingredientFields.map((ingredient, index) => (
             <li className={styles.listItem} key={ingredient.id}>
-              <Label htmlFor={`ingredients.${index}.name`}>
-                {`Ingredient ${index + 1}`}
-                <div className={styles.listGroup}>
-                  <Input
-                    register={register}
-                    validationRules={{
-                      required: { value: true, message: 'Ingredient is required' },
-                      maxLength: { value: 100, message: 'Maximum length is 100' },
-                      validate: (value) => (value.trim() === '' ? 'Ingredient is required' : null),
-                    }}
-                    name={`ingredients.${index}.name`}
-                    error={errors?.ingredients?.[index]?.name}
-                    type="text"
-                    className={styles.listGroupInput}
-                  />
-                  <Button noPaddingBlock variant="delete" onClick={() => ingredientRemove(index)}>
-                    <BsTrash2 size={24} />
-                  </Button>
-                </div>
+              <Label htmlFor={`ingredients.${index}.name`} text={`Ingredient ${index + 1}`}>
+                <Input
+                  register={register}
+                  validationRules={{
+                    required: { value: true, message: 'Ingredient is required' },
+                    maxLength: { value: 100, message: 'Maximum length is 100' },
+                    validate: (value) => (value.trim() === '' ? 'Ingredient is required' : null),
+                  }}
+                  name={`ingredients.${index}.name`}
+                  error={errors?.ingredients?.[index]?.name}
+                  type="text"
+                />
+                <Button noPaddingBlock variant="delete" onClick={() => ingredientRemove(index)}>
+                  <BsTrash2 size={24} />
+                </Button>
               </Label>
               <ErrorMessage message={errors?.ingredients?.[index]?.name.message} />
             </li>
@@ -320,23 +278,19 @@ export default function RecipeForm({ recipe }) {
         <ul>
           {directionFields.map((direction, index) => (
             <li className={styles.listItem} key={direction.id}>
-              <Label htmlFor={`directions.${index}.description`}>
-                {`Step ${index + 1}`}
-                <div className={styles.listGroup}>
-                  <Textarea
-                    register={register}
-                    validationRules={{
-                      required: { value: true, message: 'Direction is required' },
-                      validate: (value) => (value.trim() === '' ? 'Direction is required' : null),
-                    }}
-                    name={`directions.${index}.description`}
-                    error={errors?.directions?.[index]?.description}
-                    className={styles.listGroupInput}
-                  />
-                  <Button noPaddingBlock variant="delete" onClick={() => directionRemove(index)}>
-                    <BsTrash2 size={24} />
-                  </Button>
-                </div>
+              <Label htmlFor={`directions.${index}.description`} text={`Step ${index + 1}`}>
+                <Textarea
+                  register={register}
+                  validationRules={{
+                    required: { value: true, message: 'Direction is required' },
+                    validate: (value) => (value.trim() === '' ? 'Direction is required' : null),
+                  }}
+                  name={`directions.${index}.description`}
+                  error={errors?.directions?.[index]?.description}
+                />
+                <Button noPaddingBlock variant="delete" onClick={() => directionRemove(index)}>
+                  <BsTrash2 size={24} />
+                </Button>
               </Label>
               <ErrorMessage message={errors?.directions?.[index]?.description.message} />
             </li>
