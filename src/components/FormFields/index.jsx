@@ -1,10 +1,8 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable import/prefer-default-export */
-/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React from 'react';
 import cx from 'classnames';
-// import PropTypes from 'prop-types';
 
 import styles from './formFields.module.css';
 
@@ -69,46 +67,22 @@ export function Textarea({
   );
 }
 
-// Input.propTypes = {
-//   register: PropTypes.func.isRequired,
-//   name: PropTypes.string.isRequired,
-//   validationRules: PropTypes.shape({}).isRequired,
-//   error: PropTypes.shape({
-//     message: PropTypes.string,
-//   }),
-//   label: PropTypes.string,
-//   title: PropTypes.string,
-// };
-
-// Input.defaultProps = {
-//   error: {},
-//   label: undefined,
-//   title: undefined,
-// };
-
-// Select.propTypes = {
-//   register: PropTypes.func.isRequired,
-//   name: PropTypes.string.isRequired,
-//   options: PropTypes.arrayOf(PropTypes.string).isRequired,
-//   label: PropTypes.string,
-//   title: PropTypes.string,
-// };
-
-// Select.defaultProps = {
-//   label: undefined,
-//   title: undefined,
-// };
-
-// Textarea.propTypes = {
-//   register: PropTypes.func.isRequired,
-//   name: PropTypes.string.isRequired,
-//   validationRules: PropTypes.shape({}).isRequired,
-//   error: PropTypes.shape({
-//     message: PropTypes.string,
-//   }),
-//   label: PropTypes.string.isRequired,
-// };
-
-// Textarea.defaultProps = {
-//   error: {},
-// };
+export function Radio({
+  register, name, value, label,
+}) {
+  return (
+    <div className={styles.customRadio}>
+      <input
+        {...register(name)}
+        className={styles.radioInput}
+        type="radio"
+        id={value}
+        value={value}
+      />
+      <label className={styles.radioLabel} htmlFor={value}>
+        <span className={styles.inputCircle} />
+        {label}
+      </label>
+    </div>
+  );
+}
