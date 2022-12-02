@@ -1,0 +1,14 @@
+.recipes {
+  width: 100%;
+  display: grid;
+  justify-content: center;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 307px));
+}
+
+@media screen and (min-width: 45em) {
+  .desktopAlignStart {
+    justify-content: start;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 286px));
+  }
+}
