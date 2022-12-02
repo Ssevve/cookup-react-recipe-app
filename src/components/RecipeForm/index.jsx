@@ -240,7 +240,6 @@ export default function RecipeForm({ recipe }) {
           </Label>
         </div>
       </fieldset>
-      {/* INGREDIENTS */}
       <fieldset className={styles.fieldset}>
         <legend className={styles.legend}>Ingredients</legend>
         {errors?.ingredients?.root && <ErrorMessage message={errors?.ingredients?.root.message} />}
@@ -259,7 +258,7 @@ export default function RecipeForm({ recipe }) {
                   error={errors?.ingredients?.[index]?.name}
                   type="text"
                 />
-                <Button noPaddingBlock variant="delete" onClick={() => ingredientRemove(index)}>
+                <Button noFlex noPaddingBlock variant="delete" onClick={() => ingredientRemove(index)}>
                   <BsTrash2 size={24} />
                 </Button>
               </Label>
@@ -271,7 +270,6 @@ export default function RecipeForm({ recipe }) {
           Add ingredient
         </Button>
       </fieldset>
-      {/* DIRECTIONS */}
       <fieldset className={styles.fieldset}>
         <legend className={styles.legend}>Directions</legend>
         {errors?.directions?.root && <ErrorMessage message={errors?.directions?.root.message} />}
@@ -288,7 +286,7 @@ export default function RecipeForm({ recipe }) {
                   name={`directions.${index}.description`}
                   error={errors?.directions?.[index]?.description}
                 />
-                <Button noPaddingBlock variant="delete" onClick={() => directionRemove(index)}>
+                <Button noFlex noPaddingBlock variant="delete" onClick={() => directionRemove(index)}>
                   <BsTrash2 size={24} />
                 </Button>
               </Label>

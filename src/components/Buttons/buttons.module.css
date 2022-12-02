@@ -11,6 +11,7 @@
   font-weight: var(--font-weight-bold);
   transition: background 0.1s ease-in-out;
   font-size: 1rem;
+  flex: 1;
 }
 
 .btn:hover {
@@ -45,4 +46,8 @@
 
 .noPaddingBlock {
   padding-block: 0;
+}
+
+.noFlex {
+  flex: 0;
 }
