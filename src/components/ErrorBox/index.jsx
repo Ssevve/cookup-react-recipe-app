@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import styles from './errorBox.module.css';
 
@@ -15,3 +16,10 @@ export default function ErrorBox({ message }) {
     </div>
   );
 }
+
+ErrorBox.propTypes = {
+  message: PropTypes.oneOfType([
+    PropTypes.shape({}),
+    PropTypes.string,
+  ]).isRequired,
+};
