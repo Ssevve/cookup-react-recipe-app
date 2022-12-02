@@ -1,5 +1,5 @@
-/* eslint-disable react/prop-types */
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import cx from 'classnames';
 
 import styles from './confirmationButton.module.css';
@@ -9,7 +9,7 @@ export default function ConfirmationButton({
   confirmText,
   callback,
   className,
-  bypassConfirmation = false,
+  bypassConfirmation,
 }) {
   const [isConfirming, setIsConfirming] = useState(false);
 
@@ -35,3 +35,16 @@ export default function ConfirmationButton({
     </button>
   );
 }
+
+ConfirmationButton.propTypes = {
+  text: PropTypes.string.isRequired,
+  confirmText: PropTypes.string.isRequired,
+  callback: PropTypes.func.isRequired,
+  className: PropTypes.string,
+  bypassConfirmation: PropTypes.bool,
+};
+
+ConfirmationButton.defaultProps = {
+  className: '',
+  bypassConfirmation: false,
+};
