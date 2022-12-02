@@ -61,16 +61,8 @@
   background: var(--clr-accent-hover);
 }
 
-.editBtn {
-  color: var(--clr-accent);
-  border: 1px solid currentColor;
-}
-
-.editBtn:hover {
-  background: var(--clr-btn-outline-hover);
-}
-
-.deleteBtn {
+.editLink {
+  display: flex;
   flex: 1;
 }
 

@@ -4,11 +4,9 @@
 /* eslint-disable no-underscore-dangle */
 import React, { useState, useEffect } from 'react';
 
-import styles from './browseRecipesPage.module.css';
-
 import PageContainer from '../../components/PageContainer';
 import PageTitle from '../../components/PageTitle';
-import RecipeCard from '../../components/RecipeCard';
+import RecipeList from '../../components/RecipeList';
 
 export default function BrowseRecipesPage({ user }) {
   const [recipes, setRecipes] = useState([]);
@@ -31,13 +29,7 @@ export default function BrowseRecipesPage({ user }) {
     <PageContainer column alignStretch>
       <PageTitle>Browse recipes</PageTitle>
       {recipes.length ? (
-        <ul className={styles.recipes}>
-          {recipes.map((recipe) => (
-            <li key={recipe._id}>
-              <RecipeCard setRecipes={setRecipes} recipes={recipes} recipe={recipe} user={user} />
-            </li>
-          ))}
-        </ul>
+        <RecipeList desktopAlignStart recipes={recipes} setRecipes={setRecipes} user={user} />
       ) : (
         <p>No recipes to show!</p>
       )}
