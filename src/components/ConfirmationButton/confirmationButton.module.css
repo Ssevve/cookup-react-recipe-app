@@ -7,10 +7,11 @@
   border: 1px solid currentColor;
   border-radius: var(--border-radius);
   cursor: pointer;
-  font-size: 0.875rem;
+  font-size: 1rem;
   text-align: center;
   transition: background 0.1s ease-in-out;
   color: var(--clr-error);
+  flex: 1;
 }
 
 .btn:hover {
