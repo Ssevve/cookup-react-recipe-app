@@ -1,7 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable import/prefer-default-export */
-/* eslint-disable react/prop-types */
 import React from 'react';
+import PropTypes from 'prop-types';
 import cx from 'classnames';
 
 import styles from './formFields.module.css';
@@ -24,7 +23,6 @@ export function Input({
 export function Select({
   name,
   options,
-  label,
   defaultValue = '',
   register,
   validationRules,
@@ -53,7 +51,7 @@ export function Select({
 }
 
 export function Textarea({
-  name, label, register, validationRules, error, className, ...rest
+  name, register, validationRules, error, className, ...rest
 }) {
   return (
     <textarea
@@ -68,7 +66,7 @@ export function Textarea({
 }
 
 export function Radio({
-  register, name, value, label,
+  register, label, name, value,
 }) {
   return (
     <div className={styles.customRadio}>
@@ -86,3 +84,62 @@ export function Radio({
     </div>
   );
 }
+
+Input.propTypes = {
+  name: PropTypes.string.isRequired,
+  register: PropTypes.func.isRequired,
+  validationRules: PropTypes.shape({}),
+  error: PropTypes.oneOfType([
+    PropTypes.shape({}).isRequired,
+    PropTypes.oneOf([undefined]).isRequired,
+  ]),
+  className: PropTypes.string,
+};
+
+Input.defaultProps = {
+  validationRules: {},
+  error: undefined,
+  className: '',
+};
+
+Select.propTypes = {
+  name: PropTypes.string.isRequired,
+  options: PropTypes.arrayOf(PropTypes.string).isRequired,
+  defaultValue: PropTypes.string,
+  register: PropTypes.func.isRequired,
+  validationRules: PropTypes.shape({}),
+  error: PropTypes.oneOfType([
+    PropTypes.shape({}).isRequired,
+    PropTypes.oneOf([undefined]).isRequired,
+  ]),
+};
+
+Select.defaultProps = {
+  validationRules: {},
+  defaultValue: '',
+  error: undefined,
+};
+
+Textarea.propTypes = {
+  name: PropTypes.string.isRequired,
+  register: PropTypes.func.isRequired,
+  validationRules: PropTypes.shape({}),
+  error: PropTypes.oneOfType([
+    PropTypes.shape({}).isRequired,
+    PropTypes.oneOf([undefined]).isRequired,
+  ]),
+  className: PropTypes.string,
+};
+
+Textarea.defaultProps = {
+  validationRules: {},
+  error: undefined,
+  className: '',
+};
+
+Radio.propTypes = {
+  register: PropTypes.func.isRequired,
+  label: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+};
