@@ -5,14 +5,14 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import cx from 'classnames';
 
 import useLoggedInUser from '../../hooks/useLoggedInUser';
 
 import styles from './profilePage.module.css';
 
 import PageContainer from '../../components/PageContainer';
-import RecipeCard from '../../components/RecipeCard';
+import Tabs from '../../components/Tabs';
+import RecipeList from '../../components/RecipeList';
 
 export default function ProfilePage() {
   const { userId: profileUserId } = useParams();
@@ -51,6 +51,8 @@ export default function ProfilePage() {
       });
   }, []);
 
+  const tabOptions = ['userRecipes', 'likedRecipes'];
+
   return (
     <PageContainer column>
       {!isLoading && !isLoadingLoggedInUser && (
@@ -67,26 +69,9 @@ export default function ProfilePage() {
             <h1>{`${profileUser.firstName} ${profileUser.lastName}`}</h1>
           </section>
           <section className={styles.recipeSection}>
-            <div className={styles.tabButtons}>
-              <button onClick={() => setActiveTab('userRecipes')} className={cx(styles.tab, activeTab === 'userRecipes' && styles.activeTab)} type="button">
-                {loggedInUser?.id?.toString() === profileUser._id.toString() ? <span>Your recipes</span> : <span>{`${profileUser.firstName}'s recipes`}</span>}
-              </button>
-              <button onClick={() => setActiveTab('likedRecipes')} className={cx(styles.tab, activeTab === 'likedRecipes' && styles.activeTab)} type="button">
-                {loggedInUser?.id?.toString() === profileUser._id.toString() ? <span>You like</span> : <span>{`${profileUser.firstName} likes`}</span>}
-              </button>
-            </div>
-            <ul className={styles.recipes}>
-              {activeTab === 'userRecipes' && userRecipes.map((recipe) => (
-                <li key={recipe._id}>
-                  <RecipeCard setRecipes={setUserRecipes} recipes={userRecipes} recipe={recipe} user={loggedInUser} />
-                </li>
-              ))}
-              {activeTab === 'likedRecipes' && likedRecipes.map((recipe) => (
-                <li key={recipe._id}>
-                  <RecipeCard setRecipes={setLikedRecipes} recipes={likedRecipes} recipe={recipe} user={loggedInUser} />
-                </li>
-              ))}
-            </ul>
+            <Tabs activeTab={activeTab} profileUser={profileUser} loggedInUser={loggedInUser} options={tabOptions} setActiveTab={setActiveTab} />
+            {activeTab === 'userRecipes' && <RecipeList user={loggedInUser} setRecipes={setUserRecipes} recipes={userRecipes} />}
+            {activeTab === 'likedRecipes' && <RecipeList user={loggedInUser} setRecipes={setLikedRecipes} recipes={likedRecipes} />}
           </section>
         </>
       )}
