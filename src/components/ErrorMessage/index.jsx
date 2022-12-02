@@ -1,5 +1,5 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import styles from './errorMessage.module.css';
 
@@ -10,3 +10,11 @@ export default function ErrorMessage({ message }) {
     </span>
   );
 }
+
+ErrorMessage.propTypes = {
+  message: PropTypes.string,
+};
+
+ErrorMessage.defaultProps = {
+  message: '',
+};
