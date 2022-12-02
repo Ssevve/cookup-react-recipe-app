@@ -8,6 +8,7 @@ import cx from 'classnames';
 import styles from './recipePage.module.css';
 
 import ImageCarousel from '../../components/ImageCarousel';
+import { Button } from '../../components/Buttons';
 import LikeButton from '../../components/LikeButton';
 import ConfirmationButton from '../../components/ConfirmationButton';
 
@@ -73,11 +74,8 @@ export default function RecipePage() {
               )}
               {recipe.createdBy._id === loggedInUser.id && (
                 <>
-                  <Link
-                    to={`/recipes/edit/${recipe._id}`}
-                    className={cx(styles.actionBtn, styles.editBtn)}
-                  >
-                    Edit Recipe
+                  <Link className={styles.editLink} to={`/recipes/edit/${recipe._id}`}>
+                    <Button variant="outline">Edit Recipe</Button>
                   </Link>
                   <ConfirmationButton
                     text="Delete Recipe"
