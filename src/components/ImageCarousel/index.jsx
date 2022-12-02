@@ -1,5 +1,5 @@
-/* eslint-disable react/prop-types */
 import React, { useRef, useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { BiChevronLeft, BiChevronRight } from 'react-icons/bi';
 import cx from 'classnames';
 
@@ -99,3 +99,17 @@ export default function ImageCarousel({ images, recipeName, className }) {
     </div>
   );
 }
+
+ImageCarousel.propTypes = {
+  images: PropTypes.arrayOf(PropTypes.shape({
+    url: PropTypes.string.isRequired,
+  })),
+  recipeName: PropTypes.string,
+  className: PropTypes.string,
+};
+
+ImageCarousel.defaultProps = {
+  images: [],
+  recipeName: '',
+  className: '',
+};
