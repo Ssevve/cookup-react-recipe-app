@@ -7,6 +7,7 @@
 
 .title {
   text-align: left;
+  word-break: break-all;
 }
 
 .dishType {
@@ -151,10 +152,6 @@
 }
 
 @media screen and (min-width: 45em) {
-  .title {
-    text-align: left;
-  }
-
   .header,
   .section {
     align-items: flex-start;
