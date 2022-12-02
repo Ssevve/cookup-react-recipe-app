@@ -43,8 +43,8 @@ export default function ImageDropzone({
   };
 
   const allImages = [...images, ...files];
-  const thumbs = allImages.map((image) => (
-    <div className={styles.thumb} key={image.name}>
+  const thumbs = allImages.map((image, index) => (
+    <div className={styles.thumb} key={`${image.name + index}`}>
       <img
         className={styles.image}
         src={image.url || image.preview}
