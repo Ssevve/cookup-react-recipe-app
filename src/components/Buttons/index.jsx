@@ -1,6 +1,5 @@
-/* eslint-disable import/prefer-default-export */
-/* eslint-disable react/prop-types */
 import React from 'react';
+import PropTypes from 'prop-types';
 import cx from 'classnames';
 
 import styles from './buttons.module.css';
@@ -32,3 +31,22 @@ export function SubmitButton({ children }) {
     </button>
   );
 }
+
+Button.propTypes = {
+  children: PropTypes.arrayOf(PropTypes.element).isRequired,
+  variant: PropTypes.string,
+  noPaddingBlock: PropTypes.string,
+  noFlex: PropTypes.string,
+  onClick: PropTypes.func,
+};
+
+Button.defaultProps = {
+  variant: '',
+  noPaddingBlock: '',
+  noFlex: '',
+  onClick: undefined,
+};
+
+SubmitButton.propTypes = {
+  children: PropTypes.arrayOf(PropTypes.element).isRequired,
+};
