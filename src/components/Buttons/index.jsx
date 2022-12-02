@@ -33,20 +33,26 @@ export function SubmitButton({ children }) {
 }
 
 Button.propTypes = {
-  children: PropTypes.arrayOf(PropTypes.element).isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]).isRequired,
   variant: PropTypes.string,
-  noPaddingBlock: PropTypes.string,
-  noFlex: PropTypes.string,
+  noPaddingBlock: PropTypes.bool,
+  noFlex: PropTypes.bool,
   onClick: PropTypes.func,
 };
 
 Button.defaultProps = {
   variant: '',
-  noPaddingBlock: '',
-  noFlex: '',
+  noPaddingBlock: false,
+  noFlex: false,
   onClick: undefined,
 };
 
 SubmitButton.propTypes = {
-  children: PropTypes.arrayOf(PropTypes.element).isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]).isRequired,
 };
