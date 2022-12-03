@@ -138,8 +138,13 @@ Textarea.defaultProps = {
 };
 
 Radio.propTypes = {
-  register: PropTypes.func.isRequired,
+  register: PropTypes.func,
   label: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
+  name: PropTypes.string,
   value: PropTypes.string.isRequired,
+};
+
+Radio.defaultProps = {
+  register: undefined,
+  name: '',
 };
