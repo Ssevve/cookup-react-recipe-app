@@ -1,6 +1,5 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable max-len */
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import cx from 'classnames';
 import { GoThreeBars } from 'react-icons/go';
 import { BiChevronDown } from 'react-icons/bi';
@@ -69,7 +68,9 @@ export default function Navbar({ user, setUser }) {
               <li className={styles.navItem}>
                 <NavLink
                   onClick={() => setShowMenu(false)}
-                  className={({ isActive }) => (isActive ? cx(styles.navLink, styles.active) : styles.navLink)}
+                  className={({ isActive }) => (
+                    isActive ? cx(styles.navLink, styles.active) : styles.navLink
+                  )}
                   to="/"
                   end
                 >
@@ -79,7 +80,9 @@ export default function Navbar({ user, setUser }) {
               <li className={styles.navItem}>
                 <NavLink
                   onClick={() => setShowMenu(false)}
-                  className={({ isActive }) => (isActive ? cx(styles.navLink, styles.active) : styles.navLink)}
+                  className={({ isActive }) => (
+                    isActive ? cx(styles.navLink, styles.active) : styles.navLink
+                  )}
                   to="/recipes/browse"
                 >
                   Browse Recipes
@@ -88,7 +91,9 @@ export default function Navbar({ user, setUser }) {
               <li className={styles.navItem}>
                 <NavLink
                   onClick={() => setShowMenu(false)}
-                  className={({ isActive }) => (isActive ? cx(styles.navLink, styles.active) : styles.navLink)}
+                  className={({ isActive }) => (
+                    isActive ? cx(styles.navLink, styles.active) : styles.navLink
+                  )}
                   to="/login"
                 >
                   Log in
@@ -112,7 +117,9 @@ export default function Navbar({ user, setUser }) {
               <li className={styles.navItem}>
                 <NavLink
                   onClick={() => setShowMenu(false)}
-                  className={({ isActive }) => (isActive ? cx(styles.navLink, styles.active) : styles.navLink)}
+                  className={({ isActive }) => (
+                    isActive ? cx(styles.navLink, styles.active) : styles.navLink
+                  )}
                   to="/recipes/browse"
                 >
                   Browse recipes
@@ -121,7 +128,9 @@ export default function Navbar({ user, setUser }) {
               <li className={styles.navItem}>
                 <NavLink
                   onClick={() => setShowMenu(false)}
-                  className={({ isActive }) => (isActive ? cx(styles.navLink, styles.active) : styles.navLink)}
+                  className={({ isActive }) => (
+                    isActive ? cx(styles.navLink, styles.active) : styles.navLink
+                  )}
                   to="/recipes/add"
                 >
                   Add recipe
@@ -142,7 +151,9 @@ export default function Navbar({ user, setUser }) {
               <li className={styles.navItem}>
                 <NavLink
                   onClick={() => setShowMenu(false)}
-                  className={({ isActive }) => (isActive ? cx(styles.navLink, styles.active) : styles.navLink)}
+                  className={({ isActive }) => (
+                    isActive ? cx(styles.navLink, styles.active) : styles.navLink
+                  )}
                   to="/"
                   end
                 >
@@ -152,7 +163,9 @@ export default function Navbar({ user, setUser }) {
               <li className={styles.navItem}>
                 <NavLink
                   onClick={() => setShowMenu(false)}
-                  className={({ isActive }) => (isActive ? cx(styles.navLink, styles.active) : styles.navLink)}
+                  className={({ isActive }) => (
+                    isActive ? cx(styles.navLink, styles.active) : styles.navLink
+                  )}
                   to="/recipes/browse"
                 >
                   Browse Recipes
@@ -161,7 +174,9 @@ export default function Navbar({ user, setUser }) {
               <li className={styles.navItem}>
                 <NavLink
                   onClick={() => setShowMenu(false)}
-                  className={({ isActive }) => (isActive ? cx(styles.navLink, styles.active) : styles.navLink)}
+                  className={({ isActive }) => (
+                    isActive ? cx(styles.navLink, styles.active) : styles.navLink
+                  )}
                   to="/login"
                 >
                   Log in
@@ -179,7 +194,9 @@ export default function Navbar({ user, setUser }) {
               <li className={styles.navItem}>
                 <NavLink
                   onClick={() => setShowMenu(false)}
-                  className={({ isActive }) => (isActive ? cx(styles.navLink, styles.active) : styles.navLink)}
+                  className={({ isActive }) => (
+                    isActive ? cx(styles.navLink, styles.active) : styles.navLink
+                  )}
                   to="/recipes/browse"
                 >
                   Browse recipes
@@ -188,13 +205,18 @@ export default function Navbar({ user, setUser }) {
               <li className={styles.navItem}>
                 <NavLink
                   onClick={() => setShowMenu(false)}
-                  className={({ isActive }) => (isActive ? cx(styles.navLink, styles.active) : styles.navLink)}
+                  className={({ isActive }) => (
+                    isActive ? cx(styles.navLink, styles.active) : styles.navLink
+                  )}
                   to="/recipes/add"
                 >
                   Add recipe
                 </NavLink>
               </li>
-              <li onMouseLeave={() => setShowProfileDropdown(false)} className={cx(styles.navItem, styles.profileDropdown)}>
+              <li
+                onMouseLeave={() => setShowProfileDropdown(false)}
+                className={cx(styles.navItem, styles.profileDropdown)}
+              >
                 <button className={styles.profileDropdownButton} onClick={() => setShowProfileDropdown((prev) => !prev)} type="button">
                   <img className={styles.avatar} src={user.avatar.url} alt={`${user.firstName} ${user.lastName}`} />
                   <span className={styles.userName}>{`${user.firstName} ${user.lastName}`}</span>
@@ -226,3 +248,20 @@ export default function Navbar({ user, setUser }) {
     </header>
   );
 }
+
+Navbar.propTypes = {
+  user: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    avatar: PropTypes.shape({
+      url: PropTypes.string.isRequired,
+    }).isRequired,
+    firstName: PropTypes.string.isRequired,
+    lastName: PropTypes.string.isRequired,
+  }),
+  setUser: PropTypes.func,
+};
+
+Navbar.defaultProps = {
+  user: null,
+  setUser: undefined,
+};
