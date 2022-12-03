@@ -19,10 +19,7 @@ Layout.propTypes = {
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
   ]).isRequired,
-  user: PropTypes.oneOfType([
-    PropTypes.oneOf([null]),
-    PropTypes.shape({}),
-  ]),
+  user: PropTypes.shape({}),
   setUser: PropTypes.func.isRequired,
 };
 

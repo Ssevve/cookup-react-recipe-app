@@ -68,12 +68,9 @@ LikeButton.propTypes = {
     _id: PropTypes.string.isRequired,
   }).isRequired,
   setRecipe: PropTypes.func,
-  user: PropTypes.oneOfType([
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-    }),
-    PropTypes.oneOf([null]),
-  ]),
+  user: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+  }),
   round: PropTypes.bool,
   className: PropTypes.string,
 };
