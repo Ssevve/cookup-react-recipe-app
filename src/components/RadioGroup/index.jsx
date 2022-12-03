@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable react/prop-types */
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default function RadioGroup({ children, groupName, register }) {
   return (
@@ -11,3 +11,12 @@ export default function RadioGroup({ children, groupName, register }) {
     </>
   );
 }
+
+RadioGroup.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]).isRequired,
+  groupName: PropTypes.string.isRequired,
+  register: PropTypes.func.isRequired,
+};
