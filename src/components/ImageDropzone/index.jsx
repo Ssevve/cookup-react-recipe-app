@@ -1,6 +1,6 @@
-/* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
+import PropTypes from 'prop-types';
 import { AiOutlineCloudUpload } from 'react-icons/ai';
 import { BsTrash2 } from 'react-icons/bs';
 import { useDropzone } from 'react-dropzone';
@@ -74,3 +74,15 @@ export default function ImageDropzone({
     </section>
   );
 }
+
+ImageDropzone.propTypes = {
+  images: PropTypes.arrayOf(PropTypes.shape({})),
+  setImages: PropTypes.func.isRequired,
+  files: PropTypes.arrayOf(PropTypes.shape({})),
+  setFiles: PropTypes.func.isRequired,
+};
+
+ImageDropzone.defaultProps = {
+  images: [],
+  files: [],
+};
