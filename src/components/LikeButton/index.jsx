@@ -61,9 +61,12 @@ export default function LikeButton({
 
 LikeButton.propTypes = {
   setRecipes: PropTypes.func,
-  recipes: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  recipes: PropTypes.arrayOf(PropTypes.shape({})),
   recipe: PropTypes.shape({
-    createdBy: PropTypes.string.isRequired,
+    createdBy: PropTypes.oneOfType([
+      PropTypes.shape({}),
+      PropTypes.string,
+    ]).isRequired,
     likes: PropTypes.arrayOf(PropTypes.string).isRequired,
     _id: PropTypes.string.isRequired,
   }).isRequired,
@@ -76,6 +79,7 @@ LikeButton.propTypes = {
 };
 
 LikeButton.defaultProps = {
+  recipes: undefined,
   setRecipes: undefined,
   setRecipe: undefined,
   user: null,
