@@ -19,9 +19,21 @@ export default function ProfilePage() {
   const [userRecipes, setUserRecipes] = useState(undefined);
   const [likedRecipes, setLikedRecipes] = useState(undefined);
   const [profileUser, setProfileUser] = useState(undefined);
-  const [activeTab, setActiveTab] = useState('userRecipes');
   const [isLoading, setIsLoading] = useState(true);
   const [loggedInUser, isLoadingLoggedInUser] = useLoggedInUser();
+  const tabOptions = [
+    {
+      option: 'userRecipes',
+      sameUserText: 'Your recipes',
+      differentUserText: `${profileUser?.firstName}'s recipes`,
+    },
+    {
+      option: 'likedRecipes',
+      sameUserText: 'You like',
+      differentUserText: `${profileUser?.firstName}'s likes`,
+    },
+  ];
+  const [activeTab, setActiveTab] = useState(tabOptions[0].option);
 
   const fetchRecipes = async () => {
     try {
@@ -51,8 +63,6 @@ export default function ProfilePage() {
       });
   }, []);
 
-  const tabOptions = ['userRecipes', 'likedRecipes'];
-
   return (
     <PageContainer column>
       {!isLoading && !isLoadingLoggedInUser && (
@@ -69,7 +79,13 @@ export default function ProfilePage() {
             <h1>{`${profileUser.firstName} ${profileUser.lastName}`}</h1>
           </section>
           <section className={styles.recipeSection}>
-            <Tabs activeTab={activeTab} profileUser={profileUser} loggedInUser={loggedInUser} options={tabOptions} setActiveTab={setActiveTab} />
+            <Tabs
+              activeTab={activeTab}
+              profileUser={profileUser}
+              loggedInUser={loggedInUser}
+              options={tabOptions}
+              setActiveTab={setActiveTab}
+            />
             {activeTab === 'userRecipes' && <RecipeList user={loggedInUser} setRecipes={setUserRecipes} recipes={userRecipes} />}
             {activeTab === 'likedRecipes' && <RecipeList user={loggedInUser} setRecipes={setLikedRecipes} recipes={likedRecipes} />}
           </section>
