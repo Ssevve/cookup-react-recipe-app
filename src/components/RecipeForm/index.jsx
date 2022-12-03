@@ -1,11 +1,6 @@
-/* eslint-disable implicit-arrow-linebreak */
-/* eslint-disable no-confusing-arrow */
 /* eslint-disable no-underscore-dangle */
-/* eslint-disable react/prop-types */
-/* eslint-disable max-len */
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/jsx-props-no-spreading */
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import cx from 'classnames';
 import { BsTrash2 } from 'react-icons/bs';
@@ -314,3 +309,23 @@ export default function RecipeForm({ recipe }) {
     </Form>
   );
 }
+
+RecipeForm.propTypes = {
+  recipe: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    images: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+    name: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    dishType: PropTypes.string.isRequired,
+    servings: PropTypes.number.isRequired,
+    difficulty: PropTypes.string.isRequired,
+    prepTime: PropTypes.shape({}),
+    cookTime: PropTypes.shape({}),
+    ingredients: PropTypes.arrayOf(PropTypes.string).isRequired,
+    directions: PropTypes.arrayOf(PropTypes.string).isRequired,
+  }),
+};
+
+RecipeForm.defaultProps = {
+  recipe: undefined,
+};
