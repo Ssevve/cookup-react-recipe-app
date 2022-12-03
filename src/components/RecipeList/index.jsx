@@ -1,6 +1,5 @@
-/* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable react/prop-types */
 import React from 'react';
+import PropTypes from 'prop-types';
 import cx from 'classnames';
 
 import styles from './recipeList.module.css';
@@ -21,3 +20,15 @@ export default function RecipeList({
     </ul>
   );
 }
+
+RecipeList.propTypes = {
+  recipes: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  user: PropTypes.shape({}),
+  desktopAlignStart: PropTypes.bool,
+  setRecipes: PropTypes.func.isRequired,
+};
+
+RecipeList.defaultProps = {
+  user: null,
+  desktopAlignStart: false,
+};
