@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
-/* eslint-disable react/prop-types */
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import cx from 'classnames';
 
@@ -58,3 +58,30 @@ export default function LikeButton({
       )
   );
 }
+
+LikeButton.propTypes = {
+  setRecipes: PropTypes.func,
+  recipes: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  recipe: PropTypes.shape({
+    createdBy: PropTypes.string.isRequired,
+    likes: PropTypes.arrayOf(PropTypes.string).isRequired,
+    _id: PropTypes.string.isRequired,
+  }).isRequired,
+  setRecipe: PropTypes.func,
+  user: PropTypes.oneOfType([
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+    }),
+    PropTypes.oneOf([null]),
+  ]),
+  round: PropTypes.bool,
+  className: PropTypes.string,
+};
+
+LikeButton.defaultProps = {
+  setRecipes: undefined,
+  setRecipe: undefined,
+  user: null,
+  round: false,
+  className: '',
+};
