@@ -1,5 +1,5 @@
-/* eslint-disable react/prop-types */
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
@@ -74,3 +74,7 @@ export default function LoginForm({ setUser }) {
     </>
   );
 }
+
+LoginForm.propTypes = {
+  setUser: PropTypes.func.isRequired,
+};
