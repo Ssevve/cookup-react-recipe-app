@@ -1,0 +1,134 @@
+.navMenu {
+  display: flex;
+  gap: 3rem;
+  justify-content: center;
+  align-items: center;
+  background: var(--clr-light-primary);
+  font-size: 14px;
+}
+
+.desktopMenu {
+  display: none;
+}
+
+.navItem {
+  padding-block: 0.4rem;
+}
+
+.navLink {
+  width: 100%;
+  cursor: pointer;
+  position: relative;
+  background: inherit;
+  border: none;
+  padding: 0;
+  font-size: 1rem;
+}
+.navLink::after {
+  content: '';
+  height: 0.15rem;
+  width: 100%;
+  max-width: 0;
+  background: var(--clr-accent);
+  position: absolute;
+  /* bottom: -0.5rem; */
+  bottom: -0.4rem;
+  left: 50%;
+  transform: translate(-50%);
+  transition: max-width 0.1s ease-in-out;
+}
+.navLink:hover::after {
+  max-width: 100%;
+}
+
+.navLink.active {
+  font-weight: var(--font-weight-bold);
+}
+
+.navLink.active::after {
+  max-width: 100%;
+}
+
+.avatar {
+  --size: 2.5rem;
+  height: var(--size);
+  width: var(--size);
+  border-radius: 50%;
+}
+
+.userName {
+  font-size: 1rem;
+  margin: 0;
+  font-weight: normal;
+}
+
+
+.profileDropdownButton {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  border: none;
+  background: inherit;
+  cursor: pointer;
+  border-radius: 100px;
+  padding: 0 1rem 0 0;
+}
+
+.profileDropdownButton:hover {
+  background: var(--clr-btn-outline-hover);
+}
+
+.profileDropdownMenu {
+  position: absolute;
+  width: 100%;
+  right: 0;
+  top: 100%; 
+  gap: 0.5rem;
+  background: var(--clr-light-primary);
+  box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.2);
+  border-radius: var(--border-radius);
+  padding: 0.25rem;
+}
+
+.dropdownLink {
+  display: block;
+  width:100%;
+  background: inherit;
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  border: none;
+  text-align: left;
+  font-size: 0.875rem;
+}
+
+.dropdownLink:hover {
+  background: var(--clr-accent);
+  color: var(--clr-light-primary);
+}
+
+.signupLink {
+  display: inline-block;
+  background: var(--clr-accent);
+  color: var(--clr-light-primary);
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  font-weight: var(--font-weight-bold);
+  transition: background 0.1s ease-in-out;
+}
+
+.signupLink:hover {
+  background: var(--clr-accent-hover);
+}
+
+@media screen and (min-width: 45em) {
+.desktopMenu {
+    display: flex;
+  }
+
+.profileDropdown {
+    position: relative;
+  }
+}

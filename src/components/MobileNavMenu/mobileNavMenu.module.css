@@ -1,0 +1,108 @@
+.navMenu {
+  display: flex;
+  gap: 3rem;
+  justify-content: center;
+  align-items: center;
+  background: var(--clr-light-primary);
+}
+
+.mobileMenu {
+  flex-direction: column;
+  overflow: hidden;
+  position: absolute;
+  height: calc(100vh - 3.5rem);
+  max-height: 0;
+  top: 3.5rem;
+  left: 0;
+  right: 0;
+  transition: max-height 0.2s ease-in-out;
+}
+
+.navItem {
+  padding-block: 0.4rem;
+}
+
+.avatar {
+  --size: 7rem;
+  height: var(--size);
+  width: var(--size);
+  border-radius: 50%;
+  margin: 0 auto;
+}
+
+.userName {
+  font-size: 1.25rem;
+  display: block;
+  text-align: center;
+  margin-top: 1rem;
+  font-weight: var(--font-weight-bold);
+}
+
+.navLink {
+  width: 100%;
+  cursor: pointer;
+  position: relative;
+  background: inherit;
+  border: none;
+  padding: 0;
+  font-size: 1rem;
+}
+
+.navLink::after {
+  content: '';
+  height: 0.15rem;
+  width: 100%;
+  max-width: 0;
+  background: var(--clr-accent);
+  position: absolute;
+  /* bottom: -0.5rem; */
+  bottom: -0.4rem;
+  left: 50%;
+  transform: translate(-50%);
+  transition: max-width 0.1s ease-in-out;
+}
+
+.navLink:hover::after {
+  max-width: 100%;
+}
+
+.navLink.active {
+  font-weight: var(--font-weight-bold);
+}
+
+.navLink.active::after {
+  max-width: 100%;
+}
+
+.expanded {
+  max-height: calc(100vh - 3.5rem);
+}
+
+.signupLink {
+  display: inline-block;
+  background: var(--clr-accent);
+  color: var(--clr-light-primary);
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  font-weight: var(--font-weight-bold);
+  transition: background 0.1s ease-in-out;
+}
+
+.signupLink:hover {
+  background: var(--clr-accent-hover);
+}
+
+@media screen and (min-width: 45em) {
+  .navMenu {
+    max-height: fit-content;
+    height: auto;
+    flex-direction: row;
+    position: static;
+    font-size: 14px;
+  }
+
+  .mobileMenu {
+    display: none;
+  }
+}
