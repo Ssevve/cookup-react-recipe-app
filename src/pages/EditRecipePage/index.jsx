@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
+import Loader from '../../components/Loader';
 import PageContainer from '../../components/PageContainer';
 import PageTitle from '../../components/PageTitle';
 import RecipeForm from '../../components/RecipeForm';
@@ -24,10 +25,15 @@ export default function EditRecipePage() {
   useEffect(() => {
     getRecipe();
   }, []);
+
   return (
-    <PageContainer column>
-      <PageTitle>Edit recipe</PageTitle>
-      {!loading && <RecipeForm recipe={recipe} />}
-    </PageContainer>
+    loading ? (
+      <Loader />
+    ) : (
+      <PageContainer column>
+        <PageTitle>Edit recipe</PageTitle>
+        {!loading && <RecipeForm recipe={recipe} />}
+      </PageContainer>
+    )
   );
 }

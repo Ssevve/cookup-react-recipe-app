@@ -5,14 +5,18 @@ import PageContainer from '../../components/PageContainer';
 import PageTitle from '../../components/PageTitle';
 import RecipeList from '../../components/RecipeList';
 
+import Loader from '../../components/Loader';
+
 export default function BrowseRecipesPage({ user }) {
   const [recipes, setRecipes] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const fetchRecipes = async () => {
     try {
       const res = await fetch('http://localhost:8000/recipes');
       const recipesData = await res.json();
       setRecipes([...recipesData]);
+      setLoading(false);
     } catch (error) {
       console.error(error);
     }
@@ -23,14 +27,18 @@ export default function BrowseRecipesPage({ user }) {
   }, []);
 
   return (
-    <PageContainer column alignStretch>
-      <PageTitle>Browse recipes</PageTitle>
-      {recipes.length ? (
-        <RecipeList desktopAlignStart recipes={recipes} setRecipes={setRecipes} user={user} />
-      ) : (
-        <p>No recipes to show!</p>
-      )}
-    </PageContainer>
+    loading ? (
+      <Loader />
+    ) : (
+      <PageContainer column alignStretch>
+        <PageTitle>Browse recipes</PageTitle>
+        {recipes.length ? (
+          <RecipeList desktopAlignStart recipes={recipes} setRecipes={setRecipes} user={user} />
+        ) : (
+          <p>No recipes to show!</p>
+        )}
+      </PageContainer>
+    )
   );
 }
 
