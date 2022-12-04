@@ -1,8 +1,4 @@
-/* eslint-disable consistent-return */
-/* eslint-disable max-len */
 /* eslint-disable no-underscore-dangle */
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
