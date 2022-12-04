@@ -1,8 +1,5 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable max-len */
-/* eslint-disable react/prop-types */
-/* eslint-disable no-underscore-dangle */
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 
 import PageContainer from '../../components/PageContainer';
 import PageTitle from '../../components/PageTitle';
@@ -36,3 +33,11 @@ export default function BrowseRecipesPage({ user }) {
     </PageContainer>
   );
 }
+
+BrowseRecipesPage.propTypes = {
+  user: PropTypes.shape({}),
+};
+
+BrowseRecipesPage.defaultProps = {
+  user: null,
+};
