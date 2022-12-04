@@ -1,0 +1,9 @@
+.hamburger {
+  background: none;
+  border: none;
+  color: var(--clr-accent);
+  font-size: 1.3rem;
+  cursor: pointer;
+  display: flex;
+  padding: 0;
+}

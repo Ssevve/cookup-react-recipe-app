@@ -2,12 +2,11 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
-import { GoThreeBars } from 'react-icons/go';
-
 import { Link } from 'react-router-dom';
 
 import styles from './navbar.module.css';
 
+import HamburgerMenuButton from '../HamburgerMenuButton';
 import MobileNavMenu from '../MobileNavMenu';
 import DesktopNavMenu from '../DesktopNavMenu';
 
@@ -36,13 +35,7 @@ export default function Navbar({ user, setUser }) {
               Cookup
             </Link>
           )}
-          <button
-            className={styles.hamburger}
-            type="button"
-            onClick={() => setShowMenu((prev) => !prev)}
-          >
-            <GoThreeBars />
-          </button>
+          <HamburgerMenuButton onClick={() => setShowMenu((prev) => !prev)} />
         </div>
         <MobileNavMenu user={user} setUser={setUser} showMenu={showMenu} setShowMenu={setShowMenu} />
         <DesktopNavMenu user={user} setUser={setUser} showProfileDropdown={showProfileDropdown} setShowProfileDropdown={setShowProfileDropdown} />
