@@ -1,5 +1,5 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import styles from './loginPage.module.css';
@@ -23,3 +23,7 @@ export default function LoginPage({ setUser }) {
     </PageContainer>
   );
 }
+
+LoginPage.propTypes = {
+  setUser: PropTypes.func.isRequired,
+};
