@@ -5,17 +5,20 @@ import cx from 'classnames';
 import styles from './buttons.module.css';
 
 export function Button({
-  children, variant, noPaddingBlock, noFlex, onClick,
+  children, variant, noPaddingBlock, noFlex, onClick, className,
 }) {
   return (
     <button
-      className={cx(
-        styles.btn,
-        noPaddingBlock && styles.noPaddingBlock,
-        noFlex && styles.noFlex,
-        variant === 'delete' && styles.delete,
-        variant === 'outline' && styles.outline,
-      )}
+      className={
+        className
+        || cx(
+          styles.btn,
+          noPaddingBlock && styles.noPaddingBlock,
+          noFlex && styles.noFlex,
+          variant === 'delete' && styles.delete,
+          variant === 'outline' && styles.outline,
+        )
+      }
       onClick={onClick}
       type="button"
     >
@@ -41,6 +44,7 @@ Button.propTypes = {
   noPaddingBlock: PropTypes.bool,
   noFlex: PropTypes.bool,
   onClick: PropTypes.func,
+  className: PropTypes.string,
 };
 
 Button.defaultProps = {
@@ -48,6 +52,7 @@ Button.defaultProps = {
   noPaddingBlock: false,
   noFlex: false,
   onClick: undefined,
+  className: '',
 };
 
 SubmitButton.propTypes = {

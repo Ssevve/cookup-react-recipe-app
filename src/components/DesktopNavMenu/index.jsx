@@ -8,6 +8,9 @@ import logout from '../../lib/logout';
 
 import styles from './desktopNavMenu.module.css';
 
+import DropdownMenu from '../DropdownMenu';
+import { Button } from '../Buttons';
+
 export default function DesktopNavMenu({
   user, setUser, showProfileDropdown, setShowProfileDropdown,
 }) {
@@ -107,22 +110,17 @@ export default function DesktopNavMenu({
               <BiChevronDown size={20} />
             </button>
             {showProfileDropdown && (
-              <ul className={styles.profileDropdownMenu}>
-                <li>
-                  <Link
-                    onClick={() => setShowProfileDropdown(false)}
-                    className={styles.dropdownLink}
-                    to={`/profile/${user.id}`}
-                  >
-                    Profile
-                  </Link>
-                </li>
-                <li>
-                  <button type="button" onClick={handleLogout} className={styles.dropdownLink}>
-                    Log out
-                  </button>
-                </li>
-              </ul>
+              <DropdownMenu>
+                <Link
+                  onClick={() => setShowProfileDropdown(false)}
+                  to={`/profile/${user.id}`}
+                >
+                  Profile
+                </Link>
+                <Button onClick={handleLogout}>
+                  Log out
+                </Button>
+              </DropdownMenu>
             )}
           </li>
         </>

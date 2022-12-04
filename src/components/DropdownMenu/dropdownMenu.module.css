@@ -1,0 +1,28 @@
+.profileDropdownMenu {
+  position: absolute;
+  width: 100%;
+  right: 0;
+  top: 100%; 
+  gap: 0.5rem;
+  background: var(--clr-light-primary);
+  box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.2);
+  border-radius: var(--border-radius);
+  padding: 0.25rem;
+}
+
+.dropdownLink {
+  display: block;
+  width: 100%;
+  background: inherit;
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  border: none;
+  text-align: left;
+  font-size: 0.875rem;
+}
+
+.dropdownLink:hover {
+  background: var(--clr-accent);
+  color: var(--clr-light-primary);
+}
