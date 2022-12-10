@@ -1,5 +1,5 @@
 .input {
-  border: 1px solid #000;
+  border: 1px solid currentColor;
   padding: 0.5rem;
   border-radius: var(--border-radius);
   font-family: inherit;

@@ -55,7 +55,6 @@
   max-width: 0;
   background: var(--clr-accent);
   position: absolute;
-  /* bottom: -0.5rem; */
   bottom: -0.4rem;
   left: 50%;
   transform: translate(-50%);

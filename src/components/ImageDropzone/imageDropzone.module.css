@@ -2,7 +2,6 @@
   color: gray;
   border: 2px dashed currentColor;
   padding: 3rem 2rem;
-  /* display: flex; */
   text-align: center;
   user-select: none;
   cursor: pointer;
@@ -24,7 +23,6 @@
 }
 
 .thumb {
-  /* background: rgb(240, 240, 240); */
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2);
   padding: 0.75rem;
   border-radius: var(--border-radius);
