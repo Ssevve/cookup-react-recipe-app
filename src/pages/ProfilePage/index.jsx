@@ -55,7 +55,7 @@ export default function ProfilePage() {
 
   useEffect(() => {
     Promise.all([fetchProfileUser(), fetchRecipes()]).then(() => {
-      setIsLoading(false);
+      setTimeout(() => setIsLoading(false), 500);
     });
   }, []);
 

@@ -16,7 +16,7 @@ export default function EditRecipePage() {
       const res = await fetch(`http://localhost:8000/recipes/${recipeId}`);
       const data = await res.json();
       setRecipe(data);
-      setLoading(false);
+      setTimeout(() => setLoading(false), 500);
     } catch (error) {
       console.log(error);
     }

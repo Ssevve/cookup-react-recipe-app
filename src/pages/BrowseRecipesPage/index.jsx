@@ -16,7 +16,7 @@ export default function BrowseRecipesPage({ user }) {
       const res = await fetch('http://localhost:8000/recipes');
       const recipesData = await res.json();
       setRecipes([...recipesData]);
-      setLoading(false);
+      setTimeout(() => setLoading(false), 500);
     } catch (error) {
       console.error(error);
     }
