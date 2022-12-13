@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
@@ -18,20 +17,27 @@ export default function Navbar({ user, setUser }) {
     <header className={styles.navbar}>
       <nav className={styles.nav}>
         <div className={cx(styles.nav, styles.left)}>
-          {user && (
-            <Link className={styles.logo} onClick={() => setShowMenu(false)} to={`/profile/${user.id}`}>
-              Cookup
-            </Link>
-          )}
-          {!user && (
-            <Link className={styles.logo} onClick={() => setShowMenu(false)} to="/">
-              Cookup
-            </Link>
-          )}
+          <Link
+            className={styles.logo}
+            onClick={() => setShowMenu(false)}
+            to={user ? `/profile/${user.id}` : '/'}
+          >
+            Cookup
+          </Link>
           <HamburgerMenuButton onClick={() => setShowMenu((prev) => !prev)} />
         </div>
-        <MobileNavMenu user={user} setUser={setUser} showMenu={showMenu} setShowMenu={setShowMenu} />
-        <DesktopNavMenu user={user} setUser={setUser} showProfileDropdown={showProfileDropdown} setShowProfileDropdown={setShowProfileDropdown} />
+        <MobileNavMenu
+          user={user}
+          setUser={setUser}
+          showMenu={showMenu}
+          setShowMenu={setShowMenu}
+        />
+        <DesktopNavMenu
+          user={user}
+          setUser={setUser}
+          showProfileDropdown={showProfileDropdown}
+          setShowProfileDropdown={setShowProfileDropdown}
+        />
       </nav>
     </header>
   );
