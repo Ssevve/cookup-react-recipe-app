@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import { Link } from 'react-router-dom';
@@ -13,13 +13,6 @@ import DesktopNavMenu from '../DesktopNavMenu';
 export default function Navbar({ user, setUser }) {
   const [showMenu, setShowMenu] = useState(false);
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
-
-  useEffect(() => {
-    const body = document.querySelector('body');
-    if (body) {
-      body.style.position = showMenu ? 'fixed' : 'static';
-    }
-  }, [showMenu]);
 
   return (
     <header className={styles.navbar}>
