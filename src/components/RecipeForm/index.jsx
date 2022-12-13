@@ -67,6 +67,7 @@ export default function RecipeForm({ recipe }) {
   });
 
   const handleFormSubmit = async (data) => {
+    if (isEditingRecipe && isFormClean) navigate(`/recipes/${recipe._id}`);
     const formData = new FormData();
     formData.append('recipe', JSON.stringify(data));
     formData.append('images', JSON.stringify(images));
