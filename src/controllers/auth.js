@@ -81,8 +81,8 @@ const signup = (req, res, next) => {
       password,
     });
 
-    user.save((err) => {
-      if (err) return next(err);
+    user.save((error) => {
+      if (error) return next(error);
       return res.json({
         user: {
           firstName: user.firstName,
