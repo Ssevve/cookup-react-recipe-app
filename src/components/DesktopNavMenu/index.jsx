@@ -39,6 +39,7 @@ export default function DesktopNavMenu({
                 isActive ? cx(styles.navLink, styles.active) : styles.navLink
               )}
               to="/"
+              end
             >
               Home
             </NavLink>
