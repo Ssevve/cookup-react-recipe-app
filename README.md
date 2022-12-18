@@ -7,23 +7,23 @@ Full stack CRUD app that let's users create an account, log in, add new recipes,
 ![HTML5 Badge](https://img.shields.io/badge/-HTML5-E34F26?logo=HTML5&logoColor=white&style=for-the-badge) ![CSS3 Badge](https://img.shields.io/badge/-CSS3-1572B6?logo=CSS3&logoColor=white&style=for-the-badge) ![JavaScript Badge](https://img.shields.io/badge/-JavaScript-F7DF1E?logo=JavaScript&logoColor=white&style=for-the-badge) ![ReactJS Badge](https://img.shields.io/badge/-ReactJS-61DAFB?logo=React&logoColor=white&style=for-the-badge) ![NodeJS Badge](https://img.shields.io/badge/-NodeJS-339933?logo=Node.js&logoColor=white&style=for-the-badge) ![ExpressJS Badge](https://img.shields.io/badge/-Express-ffffff?logo=Express&logoColor=000000&style=for-the-badge) ![MongoDB Badge](https://img.shields.io/badge/-MongoDB-47A248?logo=MongoDB&logoColor=white&style=for-the-badge) ![CSSModules Badge](https://img.shields.io/badge/-CSSModules-000000?logo=CSSModules&logoColor=white&style=for-the-badge)
 
 ## Project details
-##### Mobile nav/view
+### Mobile nav/view
 ![Mobile nav/view gif](https://i.imgur.com/5ptXtG3.gif)
-##### Landing page
+### Landing page
 ![Desktop landing page screenshot](https://i.imgur.com/Bg5vgWo.jpeg)
-##### Sign up page
+### Sign up page
 ![Desktop sign up page screenshot](https://i.imgur.com/x0OER6r.jpeg)
-##### Log in page
+### Log in page
 ![Desktop log in page screenshot](https://i.imgur.com/F3Yp17V.jpeg)
-##### Browse page
+### Browse page
 ![Desktop browse page screenshot](https://i.imgur.com/0qVvijN.png)
-##### Profile page
+### Profile page
 ![Desktop profile page gif](https://i.imgur.com/dfDYKQj.gif)
-##### Add recipe page
+### Add recipe page
 ![Desktop add recipe page gif](https://i.imgur.com/Yn7xWoi.gif)
-##### Edit recipe page
+### Edit recipe page
 ![Desktop Edit recipe page gif](https://i.imgur.com/RxMGPL7.gif)
-##### Recipe page
+### Recipe page
 ![Desktop recipe page gif](https://i.imgur.com/t4PgJYj.gif)
 
 
