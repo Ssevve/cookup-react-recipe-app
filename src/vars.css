@@ -14,6 +14,9 @@
   
   --clr-btn-outline-hover: #FDE0D8;
 
+  --clr-font-dropzone: rgb(128, 128, 128);
+  --clr-dropzone-hover: rgb(240, 240, 240);
+
   --border-radius: 0.2em;
   --border-size: 1px;
 

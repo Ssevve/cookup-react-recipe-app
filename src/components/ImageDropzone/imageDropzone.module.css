@@ -1,5 +1,5 @@
 .dropzone {
-  color: gray;
+  color: var(--clr-font-dropzone);
   border: 2px dashed currentColor;
   padding: 3rem 2rem;
   text-align: center;
@@ -12,7 +12,7 @@
 }
 
 .dropzone:hover {
-  background: rgb(240, 240, 240);
+  background: var(--clr-dropzone-hover);
 }
 
 .preview {
