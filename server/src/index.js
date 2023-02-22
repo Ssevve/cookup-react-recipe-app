@@ -7,6 +7,7 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const passport = require('passport');
 const connectDB = require('./config/database');
+const credentials = require('./middleware/credentials');
 
 require('dotenv').config({ path: './src/config/.env' });
 
@@ -25,6 +26,7 @@ connectDB();
 
 app.use(morgan('common'));
 app.use(helmet());
+app.use(credentials);
 app.use(
   cors({
     origin: process.env.CORS_ORIGIN,
