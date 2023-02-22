@@ -1,5 +1,5 @@
 export default function login(data) {
-  return fetch('http://localhost:8000/auth/login', {
+  return fetch(`${process.env.REACT_APP_API_URL}/auth/login`, {
     method: 'POST',
     credentials: 'include',
     headers: {

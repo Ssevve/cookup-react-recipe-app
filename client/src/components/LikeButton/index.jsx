@@ -7,7 +7,13 @@ import cx from 'classnames';
 import styles from './likeButton.module.css';
 
 export default function LikeButton({
-  setRecipes, recipes, recipe, setRecipe, user, round, className,
+  setRecipes,
+  recipes,
+  recipe,
+  setRecipe,
+  user,
+  round,
+  className,
 }) {
   const [authorId] = useState(recipe.createdBy._id || recipe.createdBy);
 
@@ -34,7 +40,7 @@ export default function LikeButton({
     }
 
     try {
-      await fetch(`http://localhost:8000/recipes/like/${recipe._id}`, {
+      await fetch(`${process.env.REACT_APP_API_URL}/recipes/like/${recipe._id}`, {
         method: 'PUT',
         credentials: 'include',
       });
@@ -44,8 +50,8 @@ export default function LikeButton({
   };
 
   return (
-    user && (user.id !== authorId)
-      && (
+    user
+    && user.id !== authorId && (
       <button
         onClick={handleClick}
         className={cx(styles.likeButton, round && styles.round, className)}
@@ -53,9 +59,13 @@ export default function LikeButton({
       >
         {user && recipe.likes.includes(user.id) && !round && 'Liked'}
         {user && !recipe.likes.includes(user.id) && !round && 'Like'}
-        {user && recipe.likes.includes(user.id) ? <AiFillHeart size={!round ? 20 : ''} /> : <AiOutlineHeart size={!round ? 20 : ''} />}
+        {user && recipe.likes.includes(user.id) ? (
+          <AiFillHeart size={!round ? 20 : ''} />
+        ) : (
+          <AiOutlineHeart size={!round ? 20 : ''} />
+        )}
       </button>
-      )
+    )
   );
 }
 
@@ -63,10 +73,7 @@ LikeButton.propTypes = {
   setRecipes: PropTypes.func,
   recipes: PropTypes.arrayOf(PropTypes.shape({})),
   recipe: PropTypes.shape({
-    createdBy: PropTypes.oneOfType([
-      PropTypes.shape({}),
-      PropTypes.string,
-    ]).isRequired,
+    createdBy: PropTypes.oneOfType([PropTypes.shape({}), PropTypes.string]).isRequired,
     likes: PropTypes.arrayOf(PropTypes.string).isRequired,
     _id: PropTypes.string.isRequired,
   }).isRequired,

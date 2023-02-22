@@ -34,7 +34,7 @@ export default function ProfilePage() {
 
   const fetchRecipes = async () => {
     try {
-      const res = await fetch(`http://localhost:8000/recipes/user/${profileUserId}`);
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/recipes/user/${profileUserId}`);
       const recipesData = await res.json();
       setUserRecipes([...recipesData.userRecipes]);
       setLikedRecipes([...recipesData.likedRecipes]);
@@ -45,7 +45,7 @@ export default function ProfilePage() {
 
   const fetchProfileUser = async () => {
     try {
-      const res = await fetch(`http://localhost:8000/users/${profileUserId}`);
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/users/${profileUserId}`);
       const userData = await res.json();
       setProfileUser(userData);
     } catch (error) {

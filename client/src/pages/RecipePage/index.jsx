@@ -25,7 +25,7 @@ export default function RecipePage() {
 
   const fetchRecipe = async () => {
     try {
-      const res = await fetch(`http://localhost:8000/recipes/${recipeId}`);
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/recipes/${recipeId}`);
       const recipeData = await res.json();
       setRecipe(recipeData);
       setTimeout(() => setIsLoading(false), 500);
@@ -36,7 +36,7 @@ export default function RecipePage() {
 
   const handleDelete = async () => {
     try {
-      const res = await fetch(`http://localhost:8000/recipes/${recipeId}`, {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/recipes/${recipeId}`, {
         method: 'DELETE',
         credentials: 'include',
       });
@@ -65,9 +65,7 @@ export default function RecipePage() {
         <p className={styles.author}>
           <span>Recipe by </span>
           <Link to={`/profile/${recipe.createdBy._id}`} className={styles.authorName}>
-            <span
-              className={styles.authorName}
-            >
+            <span className={styles.authorName}>
               {`${recipe.createdBy.firstName} ${recipe.createdBy.lastName}`}
             </span>
           </Link>
@@ -102,17 +100,13 @@ export default function RecipePage() {
         <div className={styles.details}>
           <div>
             <span className={styles.detailsLabel}>Prep time:</span>
-            <span
-              className={styles.detail}
-            >
+            <span className={styles.detail}>
               {`${recipe.prepTime.time} ${recipe.prepTime.unit}`}
             </span>
           </div>
           <div>
             <span className={styles.detailsLabel}>Cook time:</span>
-            <span
-              className={styles.detail}
-            >
+            <span className={styles.detail}>
               {`${recipe.cookTime.time} ${recipe.cookTime.unit}`}
             </span>
           </div>

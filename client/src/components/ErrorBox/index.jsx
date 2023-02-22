@@ -8,7 +8,7 @@ export default function ErrorBox({ message }) {
   return (
     <div className={styles.errorBox}>
       {typeof message === 'object' ? (
-        Object.values(message).map((msg) => <span>{msg}</span>)
+        Object.values(message).map((msg) => <span key={msg}>{msg}</span>)
       ) : (
         <span>{message}</span>
       )}
@@ -18,8 +18,5 @@ export default function ErrorBox({ message }) {
 }
 
 ErrorBox.propTypes = {
-  message: PropTypes.oneOfType([
-    PropTypes.shape({}),
-    PropTypes.string,
-  ]).isRequired,
+  message: PropTypes.oneOfType([PropTypes.shape({}), PropTypes.string]).isRequired,
 };

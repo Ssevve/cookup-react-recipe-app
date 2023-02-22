@@ -31,22 +31,24 @@ export default function RecipeForm({ recipe }) {
     control,
     formState: { errors, isDirty },
     watch,
-  } = useForm(
-    {
-      mode: 'onChange',
-      defaultValues: {
-        name: recipe?.name || '',
-        description: recipe?.description || '',
-        dishType: recipe?.dishType || '',
-        servings: recipe?.servings || 0,
-        difficulty: recipe?.difficulty || 'moderate',
-        prepTime: recipe?.prepTime || { time: 0, unit: 'minutes' },
-        cookTime: recipe?.cookTime || { time: 0, unit: 'minutes' },
-        ingredients: recipe?.ingredients.map((ingredient) => ({ name: ingredient })) || [{ name: '' }],
-        directions: recipe?.directions.map((direction) => ({ description: direction })) || [{ description: '' }],
-      },
+  } = useForm({
+    mode: 'onChange',
+    defaultValues: {
+      name: recipe?.name || '',
+      description: recipe?.description || '',
+      dishType: recipe?.dishType || '',
+      servings: recipe?.servings || 0,
+      difficulty: recipe?.difficulty || 'moderate',
+      prepTime: recipe?.prepTime || { time: 0, unit: 'minutes' },
+      cookTime: recipe?.cookTime || { time: 0, unit: 'minutes' },
+      ingredients: recipe?.ingredients.map((ingredient) => ({ name: ingredient })) || [
+        { name: '' },
+      ],
+      directions: recipe?.directions.map((direction) => ({ description: direction })) || [
+        { description: '' },
+      ],
     },
-  );
+  });
   const {
     fields: ingredientFields,
     append: ingredientAppend,
@@ -75,7 +77,7 @@ export default function RecipeForm({ recipe }) {
     files.forEach((file) => {
       formData.append('files', file);
     });
-    const url = `http://localhost:8000/recipes/${isEditingRecipe ? recipe._id : ''}`;
+    const url = `${process.env.REACT_APP_API_URL}/recipes/${isEditingRecipe ? recipe._id : ''}`;
     const requestOptions = {
       method: isEditingRecipe ? 'PUT' : 'POST',
       body: formData,
@@ -254,7 +256,12 @@ export default function RecipeForm({ recipe }) {
                   error={errors?.ingredients?.[index]?.name}
                   type="text"
                 />
-                <Button noFlex noPaddingBlock variant="delete" onClick={() => ingredientRemove(index)}>
+                <Button
+                  noFlex
+                  noPaddingBlock
+                  variant="delete"
+                  onClick={() => ingredientRemove(index)}
+                >
                   <BsTrash2 size={24} />
                 </Button>
               </Label>
@@ -282,7 +289,12 @@ export default function RecipeForm({ recipe }) {
                   name={`directions.${index}.description`}
                   error={errors?.directions?.[index]?.description}
                 />
-                <Button noFlex noPaddingBlock variant="delete" onClick={() => directionRemove(index)}>
+                <Button
+                  noFlex
+                  noPaddingBlock
+                  variant="delete"
+                  onClick={() => directionRemove(index)}
+                >
                   <BsTrash2 size={24} />
                 </Button>
               </Label>

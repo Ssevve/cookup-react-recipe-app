@@ -19,7 +19,7 @@ function App() {
 
   const fetchUser = async () => {
     try {
-      const res = await fetch('http://localhost:8000/auth', {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/auth`, {
         credentials: 'include',
       });
       const data = await res.json();

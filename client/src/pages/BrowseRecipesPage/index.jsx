@@ -13,7 +13,7 @@ export default function BrowseRecipesPage({ user }) {
 
   const fetchRecipes = async () => {
     try {
-      const res = await fetch('http://localhost:8000/recipes');
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/recipes`);
       const recipesData = await res.json();
       setRecipes([...recipesData]);
       setTimeout(() => setLoading(false), 500);
@@ -26,19 +26,17 @@ export default function BrowseRecipesPage({ user }) {
     fetchRecipes();
   }, []);
 
-  return (
-    loading ? (
-      <Loader />
-    ) : (
-      <PageContainer column alignStretch>
-        <PageTitle>Browse recipes</PageTitle>
-        {recipes.length ? (
-          <RecipeList desktopAlignStart recipes={recipes} setRecipes={setRecipes} user={user} />
-        ) : (
-          <p>No recipes to show!</p>
-        )}
-      </PageContainer>
-    )
+  return loading ? (
+    <Loader />
+  ) : (
+    <PageContainer column alignStretch>
+      <PageTitle>Browse recipes</PageTitle>
+      {recipes.length ? (
+        <RecipeList desktopAlignStart recipes={recipes} setRecipes={setRecipes} user={user} />
+      ) : (
+        <p>No recipes to show!</p>
+      )}
+    </PageContainer>
   );
 }
 

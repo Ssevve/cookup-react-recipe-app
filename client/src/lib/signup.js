@@ -1,5 +1,5 @@
 export default function signup(data) {
-  return fetch('http://localhost:8000/auth/signup', {
+  return fetch(`${process.env.REACT_APP_API_URL}/auth/signup`, {
     method: 'POST',
     credentials: 'include',
     headers: {

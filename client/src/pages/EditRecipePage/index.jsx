@@ -13,7 +13,7 @@ export default function EditRecipePage() {
 
   const getRecipe = async () => {
     try {
-      const res = await fetch(`http://localhost:8000/recipes/${recipeId}`);
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/recipes/${recipeId}`);
       const data = await res.json();
       setRecipe(data);
       setTimeout(() => setLoading(false), 500);
@@ -26,14 +26,12 @@ export default function EditRecipePage() {
     getRecipe();
   }, []);
 
-  return (
-    loading ? (
-      <Loader />
-    ) : (
-      <PageContainer column>
-        <PageTitle>Edit recipe</PageTitle>
-        {!loading && <RecipeForm recipe={recipe} />}
-      </PageContainer>
-    )
+  return loading ? (
+    <Loader />
+  ) : (
+    <PageContainer column>
+      <PageTitle>Edit recipe</PageTitle>
+      {!loading && <RecipeForm recipe={recipe} />}
+    </PageContainer>
   );
 }

@@ -1,5 +1,5 @@
 export default function logout() {
-  return fetch('http://localhost:8000/auth/logout', {
+  return fetch(`${process.env.REACT_APP_API_URL}/auth/logout`, {
     method: 'POST',
     credentials: 'include',
   });
