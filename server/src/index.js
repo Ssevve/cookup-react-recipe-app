@@ -32,6 +32,16 @@ app.use(
     origin: process.env.CORS_ORIGIN,
     credentials: true,
     methods: ['OPTIONS', 'GET', 'PUT', 'POST', 'DELETE'],
+    allowedHeaders: [
+      'Content-Type',
+      'Depth',
+      'User-Agent',
+      'X-File-Size',
+      'X-Requested-With',
+      'If-Modified-Since',
+      'X-File-Name',
+      'Cache-Control',
+    ],
   }),
 );
 app.use(express.json());
