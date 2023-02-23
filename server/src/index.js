@@ -25,7 +25,7 @@ connectDB();
 
 app.use(
   cors({
-    origin: process.env.REACT_APP_API_URL,
+    origin: process.env.REACT_APP_CORS_ORIGIN,
     credentials: true,
     allowedHeaders: ['Content-Type', 'Authorization'],
   }),
