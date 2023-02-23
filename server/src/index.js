@@ -25,7 +25,7 @@ connectDB();
 
 app.use(
   cors({
-    origin: process.env.CORS_ORIGIN,
+    origin: 'https://cookup-react-recipe-app.vercel.app',
     credentials: true,
   }),
 );
