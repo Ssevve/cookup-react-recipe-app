@@ -27,7 +27,6 @@ app.use(
   cors({
     origin: process.env.REACT_APP_CORS_ORIGIN,
     credentials: true,
-    allowedHeaders: ['Content-Type', 'Authorization'],
   }),
 );
 app.use(morgan('common'));
