@@ -7,7 +7,6 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const passport = require('passport');
 const connectDB = require('./config/database');
-const credentials = require('./middleware/credentials');
 
 require('dotenv').config({ path: './src/config/.env' });
 
