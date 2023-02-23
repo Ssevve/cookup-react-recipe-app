@@ -25,7 +25,7 @@ connectDB();
 
 app.use(
   cors({
-    origin: process.env.REACT_APP_CORS_ORIGIN,
+    origin: process.env.CORS_ORIGIN,
     credentials: true,
   }),
 );
