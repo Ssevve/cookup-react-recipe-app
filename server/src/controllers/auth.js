@@ -52,9 +52,7 @@ const login = (req, res, next) => {
 const signup = (req, res, next) => {
   const validationErrors = {};
 
-  const {
-    firstName, lastName, email, password,
-  } = req.body;
+  const { firstName, lastName, email, password } = req.body;
 
   if (!firstName) validationErrors.firstName = 'First name cannot be empty';
   if (!lastName) validationErrors.lastName = 'Last name cannot be empty';
@@ -72,7 +70,8 @@ const signup = (req, res, next) => {
 
   User.findOne({ email }, (err, existingUser) => {
     if (err) return next(err);
-    if (existingUser) return res.status(409).json({ message: { email: 'Email is already in use' } });
+    if (existingUser)
+      return res.status(409).json({ message: { email: 'Email is already in use' } });
 
     const user = new User({
       firstName,
